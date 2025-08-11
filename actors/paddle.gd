@@ -12,11 +12,13 @@ func _ready() -> void:
 	_calculate_boundaries()
 
 func _calculate_boundaries() -> void:
-	var walls = get_tree().get_nodes_in_group("walls")
+	var walls: Array[Node] = get_tree().get_nodes_in_group("walls") as Array[Node]
 	
 	if walls.size() >= 2:
 		var wall_positions = []
-		for wall in walls:
+		for w in walls:
+			var wall = w as StaticBody2D
+			if (wall.rotation != 0): continue
 			var wall_collision = wall.get_node("CollisionShape2D")
 			var wall_shape = wall_collision.shape as RectangleShape2D
 			var wall_half_width = wall_shape.size.x / 2
