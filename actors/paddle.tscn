@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://sox0hoiq8hy"]
+
+[ext_resource type="Script" uid="uid://c72qgiftje3kr" path="res://actors/paddle.gd" id="1_0sbc1"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ut3sq"]
+specular_color = Color(0.0588235, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ut3sq"]
+size = Vector2(46, 6)
+
+[node name="Paddle" type="CharacterBody2D"]
+script = ExtResource("1_0sbc1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -23.0
+offset_top = -3.0
+offset_right = 23.0
+offset_bottom = 3.0
+texture = SubResource("CanvasTexture_ut3sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ut3sq")
