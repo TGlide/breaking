@@ -9,7 +9,7 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		var collider = collision.get_collider()
 		if collider is Paddle:
-			velocity = (Vector2.UP * 300).rotated(clampf(
+			velocity = (Vector2.UP * 200).rotated(clampf(
 				deg_to_rad((position.x - collider.position.x) / 0.5),
 				deg_to_rad(-45),
 				deg_to_rad(45)

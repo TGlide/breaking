@@ -4,8 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="2_grhaf"]
 
 [sub_resource type="Curve" id="Curve_grhaf"]
-_limits = [-360.0, 360.0, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.97227), 0.0, 0.0, 0, 0, Vector2(0.878623, 0.226323), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_grhaf"]
@@ -18,23 +17,16 @@ radius = 5.0
 script = ExtResource("1_grhaf")
 
 [node name="ParticleTrail" type="CPUParticles2D" parent="."]
-rotation = 1.57079
-amount = 6
+rotation = -3.14159
+amount = 12
 texture = ExtResource("2_grhaf")
-lifetime = 0.5
-emission_shape = 1
-emission_sphere_radius = 2.0
 direction = Vector2(0, 0)
 spread = 0.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 20.0
-initial_velocity_max = 40.0
-angle_min = -297.0
-angle_max = 555.4
-angle_curve = SubResource("Curve_grhaf")
-scale_amount_min = 0.2
-scale_amount_max = 0.5
-color = Color(1, 1, 1, 0.8)
+scale_amount_min = 0.8
+scale_amount_max = 0.8
+scale_amount_curve = SubResource("Curve_grhaf")
+color = Color(1, 1, 1, 0.6)
 color_ramp = SubResource("Gradient_grhaf")
 
 [node name="TextureRect" type="TextureRect" parent="."]
