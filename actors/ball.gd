@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Ball
 
+@onready var particle_trail: CPUParticles2D = $ParticleTrail
+
 
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
@@ -18,3 +20,12 @@ func _physics_process(delta: float) -> void:
 			velocity = velocity.bounce(collision.get_normal())
 			Global._on_hit_wall()
 	pass 
+
+
+var pos_array: Array[Vector2] = []
+func _process(_delta: float) -> void:
+	pos_array.append(position)
+	if pos_array.size() > 10:
+		pos_array.pop_front()
+	
+	particle_trail.emitting = velocity.length() > 0
