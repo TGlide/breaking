@@ -10,7 +10,7 @@ func _input(event: InputEvent) -> void:
 	var mouse_click = event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT
 	if mouse_click:
 		started = true
-		ball.velocity.y = -400
+		ball.velocity.y = -300
 		# change velocity angle randomly
 		ball.velocity = ball.velocity.rotated(deg_to_rad(randf_range(-20, 20)))
 

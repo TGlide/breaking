@@ -10,7 +10,7 @@
 shader = ExtResource("5_f2txt")
 shader_parameter/background_color = Color(0.0745098, 0.223529, 0.211765, 1)
 shader_parameter/shadow_color = Color(0.0653394, 0.150845, 0.143543, 1)
-shader_parameter/offset_in_pixels = Vector2(4, 4)
+shader_parameter/offset_in_pixels = Vector2(3.5, 3.5)
 
 [node name="Level" type="Node"]
 script = ExtResource("1_0b4ue")
@@ -23,19 +23,19 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0752982, 0.223436, 0.212805, 1)
 
-[node name="Paddle" parent="." instance=ExtResource("1_u52ul")]
-position = Vector2(575, 586)
-
-[node name="Wall" parent="." instance=ExtResource("2_vonw3")]
+[node name="LeftWall" parent="." instance=ExtResource("2_vonw3")]
 position = Vector2(262, 328)
 
-[node name="Wall2" parent="." instance=ExtResource("2_vonw3")]
+[node name="RightWall" parent="." instance=ExtResource("2_vonw3")]
 position = Vector2(898, 312)
 
-[node name="Wall3" parent="." instance=ExtResource("2_vonw3")]
+[node name="Ceiling" parent="." instance=ExtResource("2_vonw3")]
 position = Vector2(575, 5)
 rotation = 1.57079
 scale = Vector2(-1.46921, 0.515748)
+
+[node name="Paddle" parent="." instance=ExtResource("1_u52ul")]
+position = Vector2(575, 586)
 
 [node name="Ball" parent="." instance=ExtResource("3_oi3di")]
 position = Vector2(592, 536)
@@ -44,3 +44,4 @@ position = Vector2(592, 536)
 material = SubResource("ShaderMaterial_1ainy")
 offset_right = 1152.0
 offset_bottom = 648.0
+color = Color(0, 0, 0, 0)
