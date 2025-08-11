@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbts3cao1euxs"]
+[gd_scene load_steps=7 format=3 uid="uid://dbts3cao1euxs"]
 
 [ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://sox0hoiq8hy" path="res://actors/paddle.tscn" id="1_u52ul"]
 [ext_resource type="PackedScene" uid="uid://b37njjhl571y5" path="res://objects/wall.tscn" id="2_vonw3"]
 [ext_resource type="PackedScene" uid="uid://df4fg1swbwr84" path="res://actors/ball.tscn" id="3_oi3di"]
+[ext_resource type="Shader" uid="uid://cigva42xypfcd" path="res://shaders/drop-shadow.gdshader" id="5_f2txt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ainy"]
+shader = ExtResource("5_f2txt")
+shader_parameter/background_color = Color(0.0745098, 0.223529, 0.211765, 1)
+shader_parameter/shadow_color = Color(0.0653394, 0.150845, 0.143543, 1)
+shader_parameter/offset_in_pixels = Vector2(4, 4)
 
 [node name="Level" type="Node"]
 script = ExtResource("1_0b4ue")
@@ -32,3 +39,8 @@ scale = Vector2(-1.46921, 0.515748)
 
 [node name="Ball" parent="." instance=ExtResource("3_oi3di")]
 position = Vector2(592, 536)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1ainy")
+offset_right = 1152.0
+offset_bottom = 648.0
