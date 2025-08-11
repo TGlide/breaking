@@ -3,6 +3,7 @@ class_name Ball
 
 @onready var particle_trail: CPUParticles2D = $ParticleTrail
 
+
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:

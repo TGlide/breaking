@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b37njjhl571y5"]
+[gd_scene load_steps=3 format=3 uid="uid://b37njjhl571y5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hklci"]
 size = Vector2(20, 1222)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hklci"]
+polygon = PackedVector2Array(-10, -611, 10, -611, 10, 611, -10, 611)
 
 [node name="Wall" type="StaticBody2D" groups=["walls"]]
 
@@ -20,3 +23,6 @@ grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hklci")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_hklci")
