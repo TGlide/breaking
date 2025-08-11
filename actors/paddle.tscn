@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://sox0hoiq8hy"]
+[gd_scene load_steps=6 format=3 uid="uid://sox0hoiq8hy"]
 
 [ext_resource type="Script" uid="uid://c72qgiftje3kr" path="res://actors/paddle.gd" id="1_0sbc1"]
 [ext_resource type="Texture2D" uid="uid://cu41i4n7pnjts" path="res://assets/paddle.aseprite" id="2_pbo5y"]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ut3sq"]
 size = Vector2(48, 6)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pbo5y"]
+polygon = PackedVector2Array(-24, -3, -24, 3, 24, 3, 24, -3, 24, -3)
 
 [node name="Paddle" type="CharacterBody2D"]
 script = ExtResource("1_0sbc1")
@@ -29,3 +32,7 @@ stretch_mode = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ut3sq")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(0, 2)
+occluder = SubResource("OccluderPolygon2D_pbo5y")

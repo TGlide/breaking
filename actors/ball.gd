@@ -3,7 +3,6 @@ class_name Ball
 
 @onready var particle_trail: CPUParticles2D = $ParticleTrail
 
-
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
@@ -15,11 +14,13 @@ func _physics_process(delta: float) -> void:
 				deg_to_rad(45)
 			))
 			Global._on_hit_paddle()
-
 		else:
 			velocity = velocity.bounce(collision.get_normal())
 			Global._on_hit_wall()
-	pass 
+
+		if collider is Brick:
+			collider.hit()
+			Global._on_hit_brick()
 
 
 var pos_array: Array[Vector2] = []

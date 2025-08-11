@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://rkid5f6py4k5"]
+
+[ext_resource type="Script" uid="uid://ds1an3t104igg" path="res://objects/brick.gd" id="1_hbwgr"]
+[ext_resource type="Texture2D" uid="uid://chi3jqqckbbvw" path="res://assets/brick-y.aseprite" id="2_7nfhm"]
+[ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="3_7nfhm"]
+[ext_resource type="Texture2D" uid="uid://2bdu5j2r32gi" path="res://assets/brick-y-broken.aseprite" id="4_2u2la"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbwgr"]
+size = Vector2(51, 19)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pm7ss"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_pm7ss"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y3bws"]
+curve = SubResource("Curve_pm7ss")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7nfhm"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(24, 1, 1)
+angle_min = -175.2
+angle_max = 246.4
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 181.44
+gravity = Vector3(0, 300, 0)
+scale_min = 2.0
+scale_max = 3.0
+alpha_curve = SubResource("CurveTexture_y3bws")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.25
+
+[sub_resource type="Curve" id="Curve_2u2la"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.546201, 0.67999), 0.0, 0.0, 0, 0, Vector2(1, 0.223739), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_pm7ss"]
+offsets = PackedFloat32Array(0, 0.629814, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.892034, 0.892034, 0.892034, 0)
+
+[node name="Brick" type="StaticBody2D"]
+script = ExtResource("1_hbwgr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.5
+offset_top = -9.5
+offset_right = 25.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7nfhm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_hbwgr")
+
+[node name="ChunkParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_pm7ss")
+emitting = false
+amount = 10
+texture = ExtResource("4_2u2la")
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+trail_lifetime = 0.2
+trail_sections = 40
+trail_section_subdivisions = 80
+process_material = SubResource("ParticleProcessMaterial_7nfhm")
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+texture = ExtResource("3_7nfhm")
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.23
+initial_velocity_max = 40.23
+linear_accel_min = -20.1
+linear_accel_max = -15.07
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_2u2la")
+color_ramp = SubResource("Gradient_pm7ss")
