@@ -77,7 +77,6 @@ modulate = Color(0.988235, 0.937255, 0.552941, 1)
 z_index = 10
 material = SubResource("CanvasItemMaterial_pm7ss")
 emitting = false
-amount = 10
 texture = ExtResource("3_pm7ss")
 lifetime = 5.0
 one_shot = true

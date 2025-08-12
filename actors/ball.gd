@@ -15,14 +15,14 @@ func _physics_process(delta: float) -> void:
 				deg_to_rad(45)
 			))
 			Global._on_hit_paddle()
-		else:
+		elif collider is Brick:
 			velocity = velocity.bounce(collision.get_normal())
-			Global._on_hit_wall()
-
-		if collider is Brick:
 			velocity = velocity.normalized() * (velocity.length() + 5)
 			collider.hit()
 			Global._on_hit_brick()
+		else:
+			velocity = velocity.bounce(collision.get_normal())
+			Global._on_hit_wall()
 
 
 var pos_array: Array[Vector2] = []
