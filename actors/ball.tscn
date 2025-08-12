@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://df4fg1swbwr84"]
+[gd_scene load_steps=8 format=3 uid="uid://df4fg1swbwr84"]
 
 [ext_resource type="Script" uid="uid://cpp8yvlhswhfk" path="res://actors/ball.gd" id="1_grhaf"]
 [ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="2_grhaf"]
+[ext_resource type="Shader" uid="uid://bcvgdxm01bhs5" path="res://shaders/super-shadow.gdshader" id="3_clqew"]
 
 [sub_resource type="Curve" id="Curve_grhaf"]
 _data = [Vector2(0, 0.97227), 0.0, 0.0, 0, 0, Vector2(0.878623, 0.226323), 0.0, 0.0, 0, 0]
@@ -9,6 +10,16 @@ point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_grhaf"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.0509804)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w6ge7"]
+shader = ExtResource("3_clqew")
+shader_parameter/debug = false
+shader_parameter/border_scale = 2.0
+shader_parameter/shadow_offset = Vector2(-1, -1)
+shader_parameter/color = Color(0, 0, 0, 0.313726)
+shader_parameter/blur_amount = 0.0
+shader_parameter/shadow_scale = 1.5
+shader_parameter/disable_rotating = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xkoe8"]
 radius = 5.0
@@ -29,20 +40,10 @@ scale_amount_curve = SubResource("Curve_grhaf")
 color = Color(1, 1, 1, 0.6)
 color_ramp = SubResource("Gradient_grhaf")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_w6ge7")
+scale = Vector2(1.35789, 1.35789)
 texture = ExtResource("2_grhaf")
-expand_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xkoe8")

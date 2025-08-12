@@ -25,16 +25,16 @@ grow_vertical = 2
 color = Color(0.0752982, 0.223436, 0.212805, 1)
 metadata/_edit_lock_ = true
 
+[node name="Ceiling" parent="." instance=ExtResource("2_vonw3")]
+position = Vector2(575, 5)
+rotation = 1.5708
+scale = Vector2(1.46921, -0.515748)
+
 [node name="LeftWall" parent="." instance=ExtResource("2_vonw3")]
 position = Vector2(262, 328)
 
 [node name="RightWall" parent="." instance=ExtResource("2_vonw3")]
 position = Vector2(898, 312)
-
-[node name="Ceiling" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(575, 5)
-rotation = 1.57079
-scale = Vector2(-1.46921, 0.515748)
 
 [node name="Paddle" parent="." instance=ExtResource("1_u52ul")]
 position = Vector2(575, 586)
@@ -309,6 +309,7 @@ position = Vector2(383, 173)
 position = Vector2(383, 149)
 
 [node name="DropShadow" type="ColorRect" parent="."]
+visible = false
 z_index = 10
 material = SubResource("ShaderMaterial_1ainy")
 offset_right = 1152.0
