@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://rkid5f6py4k5"]
+[gd_scene load_steps=13 format=3 uid="uid://rkid5f6py4k5"]
 
 [ext_resource type="Script" uid="uid://ds1an3t104igg" path="res://objects/brick.gd" id="1_hbwgr"]
 [ext_resource type="Texture2D" uid="uid://chi3jqqckbbvw" path="res://assets/brick-y.aseprite" id="2_7nfhm"]
@@ -39,6 +39,8 @@ collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 0.25
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm7ss"]
+
 [sub_resource type="Curve" id="Curve_2u2la"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.546201, 0.67999), 0.0, 0.0, 0, 0, Vector2(1, 0.223739), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -70,6 +72,7 @@ position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_hbwgr")
 
 [node name="ChunkParticles" type="GPUParticles2D" parent="."]
+z_index = 10
 material = SubResource("CanvasItemMaterial_pm7ss")
 emitting = false
 amount = 10
@@ -84,18 +87,21 @@ trail_section_subdivisions = 80
 process_material = SubResource("ParticleProcessMaterial_7nfhm")
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="."]
+z_index = 10
+material = SubResource("ShaderMaterial_pm7ss")
 emitting = false
-amount = 12
+amount = 6
 texture = ExtResource("3_7nfhm")
 lifetime = 0.75
 one_shot = true
 explosiveness = 1.0
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 40.23
-initial_velocity_max = 40.23
+initial_velocity_min = 60.53
+initial_velocity_max = 90.21
 linear_accel_min = -20.1
 linear_accel_max = -15.07
-scale_amount_max = 2.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
 scale_amount_curve = SubResource("Curve_2u2la")
 color_ramp = SubResource("Gradient_pm7ss")

@@ -309,6 +309,7 @@ position = Vector2(383, 173)
 position = Vector2(383, 149)
 
 [node name="DropShadow" type="ColorRect" parent="."]
+z_index = 10
 material = SubResource("ShaderMaterial_1ainy")
 offset_right = 1152.0
 offset_bottom = 648.0
