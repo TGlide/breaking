@@ -4,6 +4,8 @@ class_name Paddle
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var paddle_half_width: float = collision_shape.shape.size.x / 2
 
+@export var texture: Texture
+
 var left_boundary: float
 var right_boundary: float
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://drr6pg56if581"]
 
 [ext_resource type="Script" uid="uid://xjxv82h43ak2" path="res://global.gd" id="1_qxp0b"]
-[ext_resource type="AudioStream" uid="uid://dj0f0u0oub46s" path="res://assets/hit.wav" id="2_2wtbm"]
-[ext_resource type="AudioStream" uid="uid://23ytp3sox7kw" path="res://assets/break.wav" id="3_2wtbm"]
+[ext_resource type="AudioStream" uid="uid://c6wf3vrq2kk58" path="res://assets/hit-alt.wav" id="2_2wtbm"]
+[ext_resource type="AudioStream" uid="uid://kh7l0n0hv2qt" path="res://assets/break-alt.wav" id="3_2wtbm"]
 
 [node name="Global" type="Node"]
 script = ExtResource("1_qxp0b")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://p82an8o8xmih"]
+
+[ext_resource type="PackedScene" uid="uid://rkid5f6py4k5" path="res://objects/brick.tscn" id="1_es0qa"]
+
+[node name="BrickBlue" type="Node2D"]
+
+[node name="Brick" parent="." instance=ExtResource("1_es0qa")]
+
+[node name="TextureRect" parent="Brick" index="1"]
+modulate = Color(0.917647, 0.384314, 0.384314, 1)
+
+[node name="ChunkParticles" parent="Brick" index="2"]
+modulate = Color(0.917647, 0.384314, 0.384314, 1)
+
+[editable path="Brick"]
