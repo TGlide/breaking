@@ -3,6 +3,7 @@ class_name Ball
 
 @onready var particle_trail: CPUParticles2D = $ParticleTrail
 
+const BASE_VEL = -250
 
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
@@ -32,3 +33,8 @@ func _process(_delta: float) -> void:
 		pos_array.pop_front()
 	
 	particle_trail.emitting = velocity.length() > 0
+
+func start() -> void:
+		velocity.y = BASE_VEL
+		# change velocity angle randomly
+		velocity = velocity.rotated(deg_to_rad(randf_range(-20, 20)))

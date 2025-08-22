@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://rkid5f6py4k5"]
+[gd_scene load_steps=15 format=3 uid="uid://rkid5f6py4k5"]
 
 [ext_resource type="Script" uid="uid://ds1an3t104igg" path="res://objects/brick.gd" id="1_hbwgr"]
 [ext_resource type="Texture2D" uid="uid://b1i3siifc6nun" path="res://assets/brick.aseprite" id="2_2u2la"]
@@ -21,6 +21,13 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_y3bws"]
 curve = SubResource("Curve_pm7ss")
 
+[sub_resource type="Curve" id="Curve_y3bws"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992327, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mi6g1"]
+curve = SubResource("Curve_y3bws")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7nfhm"]
 particle_flag_disable_z = true
 emission_shape = 3
@@ -33,6 +40,7 @@ initial_velocity_max = 181.44
 gravity = Vector3(0, 500, 0)
 scale_min = 2.0
 scale_max = 3.0
+scale_curve = SubResource("CurveTexture_mi6g1")
 alpha_curve = SubResource("CurveTexture_y3bws")
 anim_offset_max = 1.0
 collision_mode = 1
@@ -77,8 +85,9 @@ modulate = Color(0.988235, 0.937255, 0.552941, 1)
 z_index = 10
 material = SubResource("CanvasItemMaterial_pm7ss")
 emitting = false
+amount = 4
 texture = ExtResource("3_pm7ss")
-lifetime = 5.0
+lifetime = 2.5
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
@@ -88,6 +97,7 @@ trail_section_subdivisions = 80
 process_material = SubResource("ParticleProcessMaterial_7nfhm")
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="."]
+visible = false
 z_index = 10
 material = SubResource("ShaderMaterial_pm7ss")
 emitting = false

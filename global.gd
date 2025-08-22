@@ -16,7 +16,7 @@ func _on_hit_paddle() -> void:
 	hit_sound.pitch_scale = 1.1
 	hit_sound.play()
 
-const MAX_BRICK_HIT_SOUND = 7
+const MAX_BRICK_HIT_SOUND = 8
 func _on_hit_brick() -> void:
 	hit_brick_sound_counter = clampi(hit_brick_sound_counter + 1, 0, MAX_BRICK_HIT_SOUND)
 	hit_brick_sound.pitch_scale = 0.9 + (hit_brick_sound_counter * 0.1)
