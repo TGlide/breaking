@@ -5,18 +5,19 @@ class_name Main
 @onready var sub_viewport: SubViewport = $SubViewportContainer/SubViewport
 @onready var BG: TextureRect = $Background
 
-@onready var base_win_size = Vector2(
-	ProjectSettings.get_setting("display/window/size/viewport_width"),
-	ProjectSettings.get_setting("display/window/size/viewport_height")
-)
+const RES_MULT = 2
+
 @onready var base_view_size = Vector2( 
-	sub_viewport.get_visible_rect().size.x,
-	sub_viewport.get_visible_rect().size.y 
+	sub_viewport.get_visible_rect().size.x * RES_MULT,
+	sub_viewport.get_visible_rect().size.y * RES_MULT
 )
+
+func _ready() -> void:
+	sub_viewport.size_2d_override = sub_viewport.size
+	sub_viewport.size = sub_viewport.size * RES_MULT
 
 func _process(_delta: float) -> void:
 	var view_aspect_ratio = base_view_size.x / base_view_size.y
-	var base_win_aspect_ratio = base_win_size.x / base_win_size.y
 	var win_size = get_viewport_rect().size
 	var win_aspect_ratio = win_size.x / win_size.y
 
