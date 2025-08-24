@@ -4,8 +4,11 @@ class_name Main
 @onready var sub_viewport_container: SubViewportContainer = $SVC
 @onready var sub_viewport: SubViewport = $SVC/SubView
 @onready var BG: TextureRect = $Background
+@onready var border: TextureRect = $Border
 
 const RES_MULT = 2
+@export var margin: Vector2 = Vector2(128, 128)  # Configurable margin
+@export var padding: Vector2 = Vector2(64, 64)  # Configurable padding
 
 @onready var base_view_size = Vector2( 
 	sub_viewport.get_visible_rect().size.x * RES_MULT,
@@ -19,20 +22,25 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var view_aspect_ratio = base_view_size.x / base_view_size.y
 	var win_size = get_viewport_rect().size
-	var win_aspect_ratio = win_size.x / win_size.y
+	var available_size = win_size - margin * 2  # Account for margin on both sides
+	var win_aspect_ratio = available_size.x / available_size.y
 
 	# if wider, maximize height
 	if win_aspect_ratio > view_aspect_ratio:
-		sub_viewport_container.scale.y = win_size.y / base_view_size.y
-		sub_viewport_container.scale.x = win_size.y * view_aspect_ratio / base_view_size.y
+		sub_viewport_container.scale.y = available_size.y / base_view_size.y
+		sub_viewport_container.scale.x = available_size.y * view_aspect_ratio / base_view_size.y
 	else:
-		sub_viewport_container.scale.x = win_size.x / base_view_size.x
-		sub_viewport_container.scale.y = win_size.x * view_aspect_ratio / base_view_size.x
+		sub_viewport_container.scale.x = available_size.x / base_view_size.x
+		sub_viewport_container.scale.y = available_size.x / view_aspect_ratio / base_view_size.x
 
 	# center the viewport
 	var view_rect = sub_viewport_container.get_rect()
 	sub_viewport_container.position.x = (win_size.x / 2) - (view_rect.size.x / 2)
 	sub_viewport_container.position.y = (win_size.y / 2) - (view_rect.size.y / 2)
 
+	border.size.x = view_rect.size.x + padding.x 
+	border.size.y = view_rect.size.y + padding.y 
+	border.position.x = (win_size.x / 2) - (border.size.x / 2)
+	border.position.y = (win_size.y / 2) - (border.size.y / 2)
+
 	BG.size = win_size
-	pass
