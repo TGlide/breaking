@@ -1,8 +1,8 @@
 extends Node2D
 class_name Main
 
-@onready var sub_viewport_container: SubViewportContainer = $SubViewportContainer
-@onready var sub_viewport: SubViewport = $SubViewportContainer/SubViewport
+@onready var sub_viewport_container: SubViewportContainer = $SVC
+@onready var sub_viewport: SubViewport = $SVC/SubView
 @onready var BG: TextureRect = $Background
 
 const RES_MULT = 2
@@ -35,6 +35,4 @@ func _process(_delta: float) -> void:
 	sub_viewport_container.position.y = (win_size.y / 2) - (view_rect.size.y / 2)
 
 	BG.size = win_size
-
-
 	pass
