@@ -27,11 +27,11 @@ func _process(_delta: float) -> void:
 
 	# if wider, maximize height
 	if win_aspect_ratio > view_aspect_ratio:
-		sub_viewport_container.scale.y = available_size.y / base_view_size.y
-		sub_viewport_container.scale.x = available_size.y * view_aspect_ratio / base_view_size.y
+		var ns = available_size.y / base_view_size.y
+		sub_viewport_container.scale = Vector2(ns, ns)
 	else:
-		sub_viewport_container.scale.x = available_size.x / base_view_size.x
-		sub_viewport_container.scale.y = available_size.x / view_aspect_ratio / base_view_size.x
+		var ns = available_size.x / base_view_size.x
+		sub_viewport_container.scale = Vector2(ns, ns)
 
 	# center the viewport
 	var view_rect = sub_viewport_container.get_rect()

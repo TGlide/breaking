@@ -20,10 +20,11 @@ func _calculate_boundaries() -> void:
 		var wall_positions = []
 		for w in walls:
 			var wall = w as StaticBody2D
+			# ignore ceilings
 			if (wall.rotation != 0): continue
 			var wall_collision = wall.get_node("CollisionShape2D")
 			var wall_shape = wall_collision.shape as RectangleShape2D
-			var wall_half_width = wall_shape.size.x / 2
+			var wall_half_width = wall_shape.size.x * wall.scale.x / 2
 			wall_positions.append({
 				"left": wall.global_position.x - wall_half_width,
 				"right": wall.global_position.x + wall_half_width

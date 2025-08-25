@@ -20,7 +20,7 @@ modulate = Color(0.202663, 0.143535, 0.242109, 1)
 offset_left = 1000.0
 offset_top = 264.0
 offset_right = 1704.0
-offset_bottom = 976.0
+offset_bottom = 880.0
 texture = SubResource("CanvasTexture_h2yge")
 
 [node name="SVC" type="SubViewportContainer" parent="."]
@@ -32,7 +32,7 @@ offset_bottom = 936.0
 [node name="SubView" type="SubViewport" parent="SVC"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
-size = Vector2i(660, 648)
+size = Vector2i(655, 550)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 

@@ -41,29 +41,33 @@ shader_parameter/offset_in_pixels = Vector2(10, 10)
 script = ExtResource("1_0b4ue")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 660.0
-offset_bottom = 648.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 648.0
+offset_bottom = 552.0
 texture = SubResource("GradientTexture1D_aicyk")
 
 [node name="LeftWall" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(10, 336)
+position = Vector2(16, 611)
+scale = Vector2(1.6, 1.356)
 
 [node name="RightWall" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(650, 320)
+position = Vector2(640, 611)
+scale = Vector2(1.6, 1.6)
 
 [node name="Ceiling" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(329, 13)
+position = Vector2(339, 15)
 rotation = 1.57079
-scale = Vector2(-1.46921, 0.515748)
+scale = Vector2(1.5, -0.541)
 
 [node name="Paddle" parent="." instance=ExtResource("1_u52ul")]
-position = Vector2(329, 594)
+position = Vector2(337, 498)
 
 [node name="Ball" parent="." instance=ExtResource("3_oi3di")]
-position = Vector2(346, 544)
+position = Vector2(354, 448)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-position = Vector2(21.5, 8)
+position = Vector2(20, -88)
 tile_map_data = PackedByteArray("AAACAAgAAAAAAAAACAACAAkAAAAAAAAABQACAAoAAAAAAAAAAQACAAsAAAAAAAAABwACAAwAAAAAAAAABgACAA0AAAAAAAAABAADAAgAAAAAAAAACAADAAkAAAAAAAAABQADAAoAAAAAAAAAAQADAAsAAAAAAAAABwADAAwAAAAAAAAABgADAA0AAAAAAAAABAAEAAgAAAAAAAAACAAEAAkAAAAAAAAABQAEAAoAAAAAAAAAAQAEAAsAAAAAAAAABwAEAAwAAAAAAAAABgAEAA0AAAAAAAAABAAFAAgAAAAAAAAACAAFAAkAAAAAAAAABQAFAAoAAAAAAAAAAQAFAAsAAAAAAAAABwAFAAwAAAAAAAAABgAFAA0AAAAAAAAABAAGAAgAAAAAAAAACAAGAAkAAAAAAAAABQAGAAoAAAAAAAAAAQAGAAsAAAAAAAAABwAGAAwAAAAAAAAABgAGAA0AAAAAAAAABAAHAAgAAAAAAAAACAAHAAkAAAAAAAAABQAHAAoAAAAAAAAAAQAHAAsAAAAAAAAABwAHAAwAAAAAAAAABgAHAA0AAAAAAAAABAAIAAgAAAAAAAAACAAIAAkAAAAAAAAABQAIAAoAAAAAAAAAAQAIAAsAAAAAAAAABwAIAAwAAAAAAAAABgAIAA0AAAAAAAAABAAJAAgAAAAAAAAACAAJAAkAAAAAAAAABQAJAAoAAAAAAAAAAQAJAAsAAAAAAAAABwAJAAwAAAAAAAAABgAJAA0AAAAAAAAABAABAAgAAAAAAAAACAABAAkAAAAAAAAABQABAAoAAAAAAAAAAQABAAsAAAAAAAAABwABAAwAAAAAAAAABgABAA0AAAAAAAAABAA=")
 tile_set = SubResource("TileSet_i2t4f")
 
