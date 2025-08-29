@@ -5,6 +5,7 @@ const brick_scene: PackedScene = preload("res://objects/brick.tscn")
 
 @onready var paddle: Paddle = $Paddle
 @onready var ball: Ball = $Ball
+@onready var score_label: Label = $Score
 
 var COLORS = {
 	"salmon": Color(0.917647, 0.384314, 0.384314, 1),
@@ -96,6 +97,8 @@ var BRICKS = [
 var started = false
 
 func _ready() -> void:
+	Global.update_score.connect(_on_update_score)
+
 	var boundaries = Global.calculate_boundaries()
 	var available_width = boundaries.right - boundaries.left
 
@@ -121,7 +124,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	var mouse_click = event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT
-	if mouse_click:
+	if mouse_click and !started:
 		started = true
 		ball.start()
 
@@ -145,3 +148,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		started = false
 		paddle.rotation = 0
 		ball.stop()
+
+func _on_update_score(score: int) -> void:
+	score_label.text = str(score)

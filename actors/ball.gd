@@ -33,7 +33,6 @@ func _process(_delta: float) -> void:
 		pos_array.pop_front()
 	
 	particle_trail.emitting = velocity.length() > 0
-	print(velocity.length())
 
 func start() -> void:
 		velocity.y = BASE_VEL

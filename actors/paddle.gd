@@ -3,7 +3,7 @@ class_name Paddle
 
 var life_texture = preload("res://assets/heart.aseprite")
 const LIFE_GAP = 4
-const LIFE_SCALE = 0.5
+const LIFE_SCALE = 0.25
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var paddle_half_width: float = collision_shape.shape.size.x / 2
