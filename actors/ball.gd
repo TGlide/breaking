@@ -33,8 +33,13 @@ func _process(_delta: float) -> void:
 		pos_array.pop_front()
 	
 	particle_trail.emitting = velocity.length() > 0
+	print(velocity.length())
 
 func start() -> void:
 		velocity.y = BASE_VEL
 		# change velocity angle randomly
 		velocity = velocity.rotated(deg_to_rad(randf_range(-20, 20)))
+
+func stop() -> void:
+	velocity.x = 0
+	velocity.y = 0

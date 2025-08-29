@@ -4,6 +4,7 @@ extends Node2D
 @onready var break_sound: AudioStreamPlayer = $BreakSoundPlayer
 @onready var hit_brick_sound: AudioStreamPlayer = $HitBrickSoundPlayer
 
+var lives = 3
 
 var hit_brick_sound_counter = 0
 
@@ -63,13 +64,11 @@ func _input(event: InputEvent) -> void:
 	var viewport_size = get_viewport_rect().size
 	var margin = maxi(viewport_size.x - MAX_WIDTH, 0) / 2
 	var mouse_area = viewport_size.x - margin * 2
-	print("Mouse Area: ", mouse_area)
-	print("Margin: ", margin)
-	print("Viewport Size: ", viewport_size)
-	print("Event Position: ", event.position)
 	var x = clamp(event.position.x - margin, 0, mouse_area)
-	print("X: ", x)
 	var x_percent = x / mouse_area
-	print("X Percent: ", x_percent)
 	move_mouse.emit(x_percent)
-	# move_mouse.emit(event.position.x / viewport_size.x)
+
+signal die
+func _on_die() -> void:
+	lives = max(lives - 1, 0)
+	die.emit()

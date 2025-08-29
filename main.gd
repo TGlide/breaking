@@ -6,7 +6,7 @@ class_name Main
 @onready var BG: TextureRect = $Background
 @onready var border: TextureRect = $Border
 
-const RES_MULT = 2
+const RES_MULT = 6
 @export var margin: Vector2 = Vector2(128, 128)  # Configurable margin
 @export var padding: Vector2 = Vector2(64, 64)  # Configurable padding
 

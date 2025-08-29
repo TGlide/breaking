@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbts3cao1euxs"]
+[gd_scene load_steps=10 format=3 uid="uid://dbts3cao1euxs"]
 
 [ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://sox0hoiq8hy" path="res://actors/paddle.tscn" id="1_u52ul"]
@@ -18,6 +18,9 @@ shader = ExtResource("5_f2txt")
 shader_parameter/background_color = Color(0.121569, 0.0627451, 0.164706, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 0.313726)
 shader_parameter/offset_in_pixels = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2txt"]
+size = Vector2(658, 61.5)
 
 [node name="Level" type="Node"]
 script = ExtResource("1_0b4ue")
@@ -46,7 +49,7 @@ scale = Vector2(1.5, -0.541)
 position = Vector2(337, 498)
 
 [node name="Ball" parent="." instance=ExtResource("3_oi3di")]
-position = Vector2(354, 448)
+position = Vector2(337, 468)
 
 [node name="DropShadow" type="ColorRect" parent="."]
 visible = false
@@ -56,3 +59,12 @@ offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0)
 metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="DeathZone" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(328, 583)
+shape = SubResource("RectangleShape2D_f2txt")
+debug_color = Color(0.953194, 0.122818, 0.452857, 0.42)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

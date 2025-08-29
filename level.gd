@@ -137,3 +137,11 @@ func _process(_delta: float) -> void:
 		deg_to_rad(-2.5),
 		deg_to_rad(2.5)
 	)
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is Ball:
+		Global._on_die()
+		started = false
+		paddle.rotation = 0
+		ball.stop()
