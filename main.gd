@@ -18,6 +18,7 @@ const RES_MULT = 2
 func _ready() -> void:
 	sub_viewport.size_2d_override = sub_viewport.size
 	sub_viewport.size = sub_viewport.size * RES_MULT
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _process(_delta: float) -> void:
 	var view_aspect_ratio = base_view_size.x / base_view_size.y
