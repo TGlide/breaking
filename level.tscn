@@ -1,16 +1,10 @@
-[gd_scene load_steps=17 format=4 uid="uid://dbts3cao1euxs"]
+[gd_scene load_steps=9 format=3 uid="uid://dbts3cao1euxs"]
 
 [ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://sox0hoiq8hy" path="res://actors/paddle.tscn" id="1_u52ul"]
 [ext_resource type="PackedScene" uid="uid://b37njjhl571y5" path="res://objects/wall.tscn" id="2_vonw3"]
 [ext_resource type="PackedScene" uid="uid://df4fg1swbwr84" path="res://actors/ball.tscn" id="3_oi3di"]
 [ext_resource type="Shader" uid="uid://cigva42xypfcd" path="res://shaders/drop-shadow.gdshader" id="5_f2txt"]
-[ext_resource type="PackedScene" uid="uid://rkid5f6py4k5" path="res://objects/brick.tscn" id="6_1ainy"]
-[ext_resource type="PackedScene" uid="uid://cbi0x5rvrnmwl" path="res://objects/brick-blue.tscn" id="6_n6hdu"]
-[ext_resource type="PackedScene" uid="uid://6n5k5inaukrc" path="res://objects/brick-orange.tscn" id="7_km5ld"]
-[ext_resource type="PackedScene" uid="uid://csxm4qsrelwnu" path="res://objects/brick-purple.tscn" id="8_i2t4f"]
-[ext_resource type="PackedScene" uid="uid://dsxpolubhowuo" path="res://objects/brick-green.tscn" id="9_8cye3"]
-[ext_resource type="PackedScene" uid="uid://p82an8o8xmih" path="res://objects/brick-salmon.tscn" id="10_2orkt"]
 
 [sub_resource type="Gradient" id="Gradient_2orkt"]
 offsets = PackedFloat32Array(1)
@@ -18,18 +12,6 @@ colors = PackedColorArray(0.121569, 0.0627451, 0.164706, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_aicyk"]
 gradient = SubResource("Gradient_2orkt")
-
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_km5ld"]
-scenes/1/scene = ExtResource("6_1ainy")
-scenes/4/scene = ExtResource("6_n6hdu")
-scenes/5/scene = ExtResource("7_km5ld")
-scenes/6/scene = ExtResource("8_i2t4f")
-scenes/7/scene = ExtResource("9_8cye3")
-scenes/8/scene = ExtResource("10_2orkt")
-
-[sub_resource type="TileSet" id="TileSet_i2t4f"]
-tile_size = Vector2i(56, 24)
-sources/0 = SubResource("TileSetScenesCollectionSource_km5ld")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ainy"]
 shader = ExtResource("5_f2txt")
@@ -65,11 +47,6 @@ position = Vector2(337, 498)
 
 [node name="Ball" parent="." instance=ExtResource("3_oi3di")]
 position = Vector2(354, 448)
-
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-position = Vector2(20, -88)
-tile_map_data = PackedByteArray("AAACAAgAAAAAAAAACAACAAkAAAAAAAAABQACAAoAAAAAAAAAAQACAAsAAAAAAAAABwACAAwAAAAAAAAABgACAA0AAAAAAAAABAADAAgAAAAAAAAACAADAAkAAAAAAAAABQADAAoAAAAAAAAAAQADAAsAAAAAAAAABwADAAwAAAAAAAAABgADAA0AAAAAAAAABAAEAAgAAAAAAAAACAAEAAkAAAAAAAAABQAEAAoAAAAAAAAAAQAEAAsAAAAAAAAABwAEAAwAAAAAAAAABgAEAA0AAAAAAAAABAAFAAgAAAAAAAAACAAFAAkAAAAAAAAABQAFAAoAAAAAAAAAAQAFAAsAAAAAAAAABwAFAAwAAAAAAAAABgAFAA0AAAAAAAAABAAGAAgAAAAAAAAACAAGAAkAAAAAAAAABQAGAAoAAAAAAAAAAQAGAAsAAAAAAAAABwAGAAwAAAAAAAAABgAGAA0AAAAAAAAABAAHAAgAAAAAAAAACAAHAAkAAAAAAAAABQAHAAoAAAAAAAAAAQAHAAsAAAAAAAAABwAHAAwAAAAAAAAABgAHAA0AAAAAAAAABAAIAAgAAAAAAAAACAAIAAkAAAAAAAAABQAIAAoAAAAAAAAAAQAIAAsAAAAAAAAABwAIAAwAAAAAAAAABgAIAA0AAAAAAAAABAAJAAgAAAAAAAAACAAJAAkAAAAAAAAABQAJAAoAAAAAAAAAAQAJAAsAAAAAAAAABwAJAAwAAAAAAAAABgAJAA0AAAAAAAAABAABAAgAAAAAAAAACAABAAkAAAAAAAAABQABAAoAAAAAAAAAAQABAAsAAAAAAAAABwABAAwAAAAAAAAABgABAA0AAAAAAAAABAA=")
-tile_set = SubResource("TileSet_i2t4f")
 
 [node name="DropShadow" type="ColorRect" parent="."]
 visible = false

@@ -1,10 +1,123 @@
 extends Node
 class_name Level
 
+const brick_scene: PackedScene = preload("res://objects/brick.tscn")
+
 @onready var paddle: Paddle = $Paddle
 @onready var ball: Ball = $Ball
 
+const COLORS = {
+	"salmon": Color(0.917647, 0.384314, 0.384314, 1),
+	"green": Color(0.670588, 0.866667, 0.392157, 1),
+	"blue": Color(0.682353, 0.886275, 1, 1),
+	"orange": Color(1, 0.721569, 0.47451, 1),
+	"purple": Color(0.427451, 0.501961, 0.980392, 1),
+	"yellow": Color(1, 0.929412, 0.380392, 1),
+}
+
+const MARGIN_HOR = 50 
+const MARGIN_TOP = 96
+const GAP_Y = 8
+const BRICKS = [
+	# Row 1
+	[
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+		{ "color": COLORS.salmon },
+	],
+	# Row 2
+	[
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+		{ "color": COLORS.orange },
+	],
+	# Row 3
+	[
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+		{ "color": COLORS.yellow },
+	],
+	# Row 4
+	[
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+		{ "color": COLORS.green },
+	],
+	# Row 5
+	[
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+		{ "color": COLORS.purple },
+	],
+	# Row 6
+	[
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+		{ "color": COLORS.blue },
+	],
+]
+
 var started = false
+
+func _ready() -> void:
+	var boundaries = Global.calculate_boundaries()
+	var available_width = boundaries.right - boundaries.left
+
+	for row in range(BRICKS.size()):
+		var configs: Array = BRICKS[row] 
+		for col in range(configs.size()):
+			var brick = brick_scene.instantiate()
+			var texture_rect = brick.get_node("TextureRect") as TextureRect
+			var size = texture_rect.size
+			
+			# Calculate total space available for gaps
+			var total_gap_space = available_width - (MARGIN_HOR * 2) - (configs.size() * size.x)
+			var gap_x = total_gap_space / (configs.size() - 1)
+			
+			# Position: left margin + half brick width + column * (brick width + gap)
+			brick.position.x = boundaries.left + MARGIN_HOR + size.x/2 + col * (size.x + gap_x)
+			brick.position.y = MARGIN_TOP + row * (GAP_Y + size.y)
+
+			# Apply color
+			texture_rect.modulate = configs[col]["color"]
+			brick.get_node("ChunkParticles").modulate = configs[col]["color"]
+			add_child(brick)
 
 func _input(event: InputEvent) -> void:
 	var mouse_click = event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT

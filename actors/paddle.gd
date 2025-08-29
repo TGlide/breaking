@@ -11,29 +11,10 @@ var right_boundary: float
 
 
 func _ready() -> void:
-	_calculate_boundaries()
+	var boundaries = Global.calculate_boundaries()
+	left_boundary = boundaries.left + paddle_half_width
+	right_boundary = boundaries.right - paddle_half_width
 
-func _calculate_boundaries() -> void:
-	var walls: Array[Node] = get_tree().get_nodes_in_group("walls") as Array[Node]
-	
-	if walls.size() >= 2:
-		var wall_positions = []
-		for w in walls:
-			var wall = w as StaticBody2D
-			# ignore ceilings
-			if (wall.rotation != 0): continue
-			var wall_collision = wall.get_node("CollisionShape2D")
-			var wall_shape = wall_collision.shape as RectangleShape2D
-			var wall_half_width = wall_shape.size.x * wall.scale.x / 2
-			wall_positions.append({
-				"left": wall.global_position.x - wall_half_width,
-				"right": wall.global_position.x + wall_half_width
-			})
-		
-		# Sort by position and get boundaries
-		wall_positions.sort_custom(func(a, b): return a.left < b.left)
-		left_boundary = wall_positions[0].right + paddle_half_width
-		right_boundary = wall_positions[-1].left - paddle_half_width
 
 func _input(event: InputEvent) -> void:	
 	if event is InputEventMouseMotion:
