@@ -6,6 +6,7 @@ const brick_scene: PackedScene = preload("res://objects/brick.tscn")
 @onready var paddle: Paddle = $Paddle
 @onready var ball: Ball = $Ball
 @onready var score_label: Label = $Score
+@onready var mult_label: Label = $Multiplier
 
 var COLORS = {
 	"salmon": Color(0.917647, 0.384314, 0.384314, 1),
@@ -98,6 +99,7 @@ var started = false
 
 func _ready() -> void:
 	Global.update_score.connect(_on_update_score)
+	Global.update_mult.connect(_on_update_mult)
 
 	var boundaries = Global.calculate_boundaries()
 	var available_width = boundaries.right - boundaries.left
@@ -151,3 +153,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_update_score(score: int) -> void:
 	score_label.text = str(score)
+
+func _on_update_mult(mult: int) -> void:
+	mult_label.text = 'x' + str(mult)

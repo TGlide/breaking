@@ -4,11 +4,18 @@ extends Node2D
 @onready var break_sound: AudioStreamPlayer = $BreakSoundPlayer
 @onready var hit_brick_sound: AudioStreamPlayer = $HitBrickSoundPlayer
 
+const MAX_MULT = 9
+const MAX_BRICK_HIT_SOUND = 8
+const MAX_WIDTH = 1800.0
+
+signal move_mouse(x: float)
+signal update_score(score: int)
+signal update_mult(mult: int)
+signal die
+
 var lives = 3
 var score = 0
-
 var mult = 1
-const MAX_MULT = 9
 
 func _on_hit_wall() -> void:
 	hit_sound.pitch_scale = 1.0 
@@ -16,15 +23,15 @@ func _on_hit_wall() -> void:
 
 func _on_hit_paddle() -> void:
 	mult = 1
+	update_mult.emit(mult)
 	hit_sound.pitch_scale = 1.1
 	hit_sound.play()
 
-signal update_score(score: int)
-const MAX_BRICK_HIT_SOUND = 8
 func _on_hit_brick() -> void:
-	score += 100 * mult
-	update_score.emit(score)
+	score += 10 * mult
 	mult = mini(mult + 1, MAX_MULT)
+	update_score.emit(score)
+	update_mult.emit(mult)
 	hit_brick_sound.pitch_scale = 0.9 + ((mult - 1) * 0.1)
 	hit_brick_sound.play()
 	break_sound.play()
@@ -61,8 +68,6 @@ func calculate_boundaries() -> Dictionary[String, float]:
 	}
 
 
-const MAX_WIDTH = 1800.0
-signal move_mouse(x: float)
 func _input(event: InputEvent) -> void:	
 	if event is not InputEventMouseMotion: return
 
@@ -73,7 +78,6 @@ func _input(event: InputEvent) -> void:
 	var x_percent = x / mouse_area
 	move_mouse.emit(x_percent)
 
-signal die
 func _on_die() -> void:
 	lives = max(lives - 1, 0)
 	die.emit()

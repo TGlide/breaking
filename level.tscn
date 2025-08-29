@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dbts3cao1euxs"]
+[gd_scene load_steps=13 format=3 uid="uid://dbts3cao1euxs"]
 
 [ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://sox0hoiq8hy" path="res://actors/paddle.tscn" id="1_u52ul"]
@@ -23,6 +23,11 @@ shader_parameter/offset_in_pixels = Vector2(10, 10)
 [sub_resource type="LabelSettings" id="LabelSettings_n6hdu"]
 font = ExtResource("6_1ainy")
 font_size = 96
+font_color = Color(1, 1, 1, 0.145098)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ainy"]
+font = ExtResource("6_1ainy")
+font_size = 32
 font_color = Color(1, 1, 1, 0.145098)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f2txt"]
@@ -74,6 +79,18 @@ offset_right = 624.0
 offset_bottom = 552.0
 text = "0"
 label_settings = SubResource("LabelSettings_n6hdu")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Multiplier" type="Label" parent="."]
+anchors_preset = -1
+offset_left = 32.0
+offset_top = 73.0
+offset_right = 624.0
+offset_bottom = 594.0
+text = "x1"
+label_settings = SubResource("LabelSettings_1ainy")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
