@@ -17,13 +17,12 @@ var COLORS = {
 	"yellow": Color.html("#fcef8d"),
 }
 
-const MARGIN_HOR = 50 
-const MARGIN_TOP = 96
+const MARGIN_HOR = 72
+const MARGIN_TOP = 116
 const GAP_Y = 4
 var BRICKS = [
 	# Row 1
 	[
-		{ "color": COLORS.salmon },
 		{ "color": COLORS.salmon },
 		{ "color": COLORS.salmon },
 		{ "color": COLORS.salmon },
@@ -43,11 +42,9 @@ var BRICKS = [
 		{ "color": COLORS.orange },
 		{ "color": COLORS.orange },
 		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
 	],
 	# Row 3
 	[
-		{ "color": COLORS.yellow },
 		{ "color": COLORS.yellow },
 		{ "color": COLORS.yellow },
 		{ "color": COLORS.yellow },
@@ -67,7 +64,6 @@ var BRICKS = [
 		{ "color": COLORS.green },
 		{ "color": COLORS.green },
 		{ "color": COLORS.green },
-		{ "color": COLORS.green },
 	],
 	# Row 5
 	[
@@ -79,11 +75,9 @@ var BRICKS = [
 		{ "color": COLORS.purple },
 		{ "color": COLORS.purple },
 		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
 	],
 	# Row 6
 	[
-		{ "color": COLORS.blue },
 		{ "color": COLORS.blue },
 		{ "color": COLORS.blue },
 		{ "color": COLORS.blue },

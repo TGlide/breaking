@@ -3,9 +3,27 @@ extends Node2D
 @onready var hit_sound: AudioStreamPlayer = $HitSoundPlayer
 @onready var break_sound: AudioStreamPlayer = $BreakSoundPlayer
 @onready var hit_brick_sound: AudioStreamPlayer = $HitBrickSoundPlayer
+@onready var voice_player: AudioStreamPlayer = $VoicePlayer
+
+var combo_vls = [ 
+	preload("res://assets/voice/amazing.wav"),
+	preload("res://assets/voice/incredible.wav"),
+	preload("res://assets/voice/combo.wav"),
+	preload("res://assets/voice/good-job.wav"),
+	preload("res://assets/voice/nice.wav"),
+	preload("res://assets/voice/you-rock.wav"),
+	preload("res://assets/voice/unstoppable.wav"),
+]
+
+var death_vls = [
+	preload("res://assets/voice/aww.wav"),
+	preload("res://assets/voice/not-this-time.wav"),
+	preload("res://assets/voice/no-noo.wav"),
+	preload("res://assets/voice/you-lose.wav"),
+	preload("res://assets/voice/what-a-loser.wav"),
+]
 
 const MAX_MULT = 9
-const MAX_BRICK_HIT_SOUND = 8
 const MAX_WIDTH = 1800.0
 
 signal move_mouse(x: float)
@@ -17,21 +35,38 @@ var lives = 3
 var score = 0
 var mult = 1
 
+var consecutive_hits = 0
+var next_voice_trigger = randi_range(4, 6)
+
 func _on_hit_wall() -> void:
 	hit_sound.pitch_scale = 1.0 
 	hit_sound.play()
 
 func _on_hit_paddle() -> void:
 	mult = 1
+	consecutive_hits = 0
+	next_voice_trigger = randi_range(4, 6)
 	update_mult.emit(mult)
 	hit_sound.pitch_scale = 1.1
 	hit_sound.play()
 
 func _on_hit_brick() -> void:
 	score += 10 * mult
+	consecutive_hits += 1
 	mult = mini(mult + 1, MAX_MULT)
+
 	update_score.emit(score)
 	update_mult.emit(mult)
+
+	if consecutive_hits == next_voice_trigger and !voice_player.playing:
+		var random_index = randi() % combo_vls.size()
+		var combo_vl = combo_vls[random_index]
+		voice_player.stream = combo_vl
+		var timer = get_tree().create_timer(0.1)
+		timer.connect("timeout", func(): voice_player.play())
+		next_voice_trigger += randi_range(5, 9)
+		 
+
 	hit_brick_sound.pitch_scale = 0.9 + ((mult - 1) * 0.1)
 	hit_brick_sound.play()
 	break_sound.play()
@@ -81,3 +116,7 @@ func _input(event: InputEvent) -> void:
 func _on_die() -> void:
 	lives = max(lives - 1, 0)
 	die.emit()
+	var random_index = randi() % death_vls.size()
+	var death_vl = death_vls[random_index]
+	voice_player.stream = death_vl
+	voice_player.play()
