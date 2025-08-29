@@ -6,19 +6,19 @@ const brick_scene: PackedScene = preload("res://objects/brick.tscn")
 @onready var paddle: Paddle = $Paddle
 @onready var ball: Ball = $Ball
 
-const COLORS = {
+var COLORS = {
 	"salmon": Color(0.917647, 0.384314, 0.384314, 1),
 	"green": Color(0.670588, 0.866667, 0.392157, 1),
 	"blue": Color(0.682353, 0.886275, 1, 1),
 	"orange": Color(1, 0.721569, 0.47451, 1),
 	"purple": Color(0.427451, 0.501961, 0.980392, 1),
-	"yellow": Color(1, 0.929412, 0.380392, 1),
+	"yellow": Color.html("#fcef8d"),
 }
 
 const MARGIN_HOR = 50 
 const MARGIN_TOP = 96
-const GAP_Y = 8
-const BRICKS = [
+const GAP_Y = 4
+var BRICKS = [
 	# Row 1
 	[
 		{ "color": COLORS.salmon },

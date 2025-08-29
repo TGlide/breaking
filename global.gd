@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var hit_sound: AudioStreamPlayer = $HitSoundPlayer
 @onready var break_sound: AudioStreamPlayer = $BreakSoundPlayer
@@ -53,3 +53,23 @@ func calculate_boundaries() -> Dictionary[String, float]:
 		'left': 0.0,
 		'right': 0.0
 	}
+
+
+const MAX_WIDTH = 1800.0
+signal move_mouse(x: float)
+func _input(event: InputEvent) -> void:	
+	if event is not InputEventMouseMotion: return
+
+	var viewport_size = get_viewport_rect().size
+	var margin = maxi(viewport_size.x - MAX_WIDTH, 0) / 2
+	var mouse_area = viewport_size.x - margin * 2
+	print("Mouse Area: ", mouse_area)
+	print("Margin: ", margin)
+	print("Viewport Size: ", viewport_size)
+	print("Event Position: ", event.position)
+	var x = clamp(event.position.x - margin, 0, mouse_area)
+	print("X: ", x)
+	var x_percent = x / mouse_area
+	print("X Percent: ", x_percent)
+	move_mouse.emit(x_percent)
+	# move_mouse.emit(event.position.x / viewport_size.x)

@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://kh7l0n0hv2qt" path="res://assets/break-alt.wav" id="3_2wtbm"]
 [ext_resource type="AudioStream" uid="uid://c70rjc7rp5bng" path="res://assets/hit-brick.wav" id="4_8tbuy"]
 
-[node name="Global" type="Node"]
+[node name="Global" type="Node2D"]
 script = ExtResource("1_qxp0b")
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer" parent="."]

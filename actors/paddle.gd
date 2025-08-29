@@ -9,13 +9,14 @@ class_name Paddle
 var left_boundary: float
 var right_boundary: float
 
-
 func _ready() -> void:
 	var boundaries = Global.calculate_boundaries()
 	left_boundary = boundaries.left + paddle_half_width
 	right_boundary = boundaries.right - paddle_half_width
+	Global.move_mouse.connect(_set_position)
 
 
-func _input(event: InputEvent) -> void:	
-	if event is InputEventMouseMotion:
-		position.x = clamp(event.position.x, left_boundary, right_boundary)
+# x is determined in percent of the viewport.
+func _set_position(x: float) -> void:	
+	var total_width = right_boundary - left_boundary
+	position.x = x * total_width + left_boundary
