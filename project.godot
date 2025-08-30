@@ -26,7 +26,7 @@ settings/vsync/vsync_mode=0
 
 [display]
 
-window/size/mode=3
+window/size/mode=1
 window/stretch/aspect="ignore"
 
 [editor_plugins]

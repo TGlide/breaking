@@ -92,8 +92,10 @@ var BRICKS = [
 var started = false
 
 func _ready() -> void:
+	Engine.time_scale = 0.5
 	Global.update_score.connect(_on_update_score)
 	Global.update_mult.connect(_on_update_mult)
+	Global.mouse_click.connect(_on_mouse_click)
 
 	var boundaries = Global.calculate_boundaries()
 	var available_width = boundaries.right - boundaries.left
@@ -118,24 +120,23 @@ func _ready() -> void:
 			brick.get_node("ChunkParticles").modulate = configs[col]["color"]
 			add_child(brick)
 
-func _input(event: InputEvent) -> void:
-	var mouse_click = event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT
-	if mouse_click and !started:
-		started = true
-		ball.start()
+func _on_mouse_click() -> void:
+	if started: return
+	started = true
+	ball.start()
 
 func _process(_delta: float) -> void:
 	if not started:
 		ball.position.x = paddle.position.x
-		ball.position.y = paddle.position.y - 16
+		ball.position.y = paddle.position.y - 160
 		return
 
 	# rotate paddle according to ball x distance to paddle's center
-	paddle.rotation = clampf(
-		deg_to_rad((ball.position.x - paddle.position.x) / 10),
-		deg_to_rad(-2.5),
-		deg_to_rad(2.5)
-	)
+	# paddle.rotation = clampf(
+	# 	deg_to_rad((ball.position.x - paddle.position.x) / 10),
+	# 	deg_to_rad(-2.5),
+	# 	deg_to_rad(2.5)
+	# )
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

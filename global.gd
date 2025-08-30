@@ -27,6 +27,7 @@ const MAX_MULT = 9
 const MAX_WIDTH = 1800.0
 
 signal move_mouse(x: float)
+signal mouse_click
 signal update_score(score: int)
 signal update_mult(mult: int)
 signal die
@@ -104,6 +105,10 @@ func calculate_boundaries() -> Dictionary[String, float]:
 
 
 func _input(event: InputEvent) -> void:	
+	var mouse_clicked = event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT
+	if mouse_clicked:
+		mouse_click.emit()
+
 	if event is not InputEventMouseMotion: return
 
 	var viewport_size = get_viewport_rect().size
@@ -113,10 +118,13 @@ func _input(event: InputEvent) -> void:
 	var x_percent = x / mouse_area
 	move_mouse.emit(x_percent)
 
+
+
+
 func _on_die() -> void:
 	lives = max(lives - 1, 0)
 	die.emit()
 	var random_index = randi() % death_vls.size()
 	var death_vl = death_vls[random_index]
 	voice_player.stream = death_vl
-	voice_player.play()
+	# voice_player.play()
