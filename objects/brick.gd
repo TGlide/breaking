@@ -15,11 +15,10 @@ func _process(delta: float) -> void:
 
 func hit(dir: Vector2) -> void:
 	collision_dir = dir
-	# change texture to white briefly
-	texture.modulate = Color.WHITE
-	# offset the texture slightly
 
+	texture.modulate = Color.WHITE
 	collision_shape.disabled = true
 	smoke_particles.emitting = true
+	chunk_particles.process_material.direction = Vector3(dir.x, dir.y, 0)
 	chunk_particles.emitting = true
 	chunk_particles.connect("finished", func(): queue_free())
