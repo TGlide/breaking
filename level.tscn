@@ -7,12 +7,12 @@
 [ext_resource type="Shader" uid="uid://cigva42xypfcd" path="res://shaders/drop-shadow.gdshader" id="5_f2txt"]
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="6_1ainy"]
 
-[sub_resource type="Gradient" id="Gradient_2orkt"]
+[sub_resource type="Gradient" id="Gradient_1ainy"]
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(0.121569, 0.0627451, 0.164706, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_aicyk"]
-gradient = SubResource("Gradient_2orkt")
+gradient = SubResource("Gradient_1ainy")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ainy"]
 shader = ExtResource("5_f2txt")
