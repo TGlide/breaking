@@ -127,15 +127,15 @@ func _on_mouse_click() -> void:
 func _process(_delta: float) -> void:
 	if not started:
 		ball.position.x = paddle.position.x
-		ball.position.y = paddle.position.y - 160
+		ball.position.y = paddle.position.y - 24 
 		return
 
 	# rotate paddle according to ball x distance to paddle's center
-	# paddle.rotation = clampf(
-	# 	deg_to_rad((ball.position.x - paddle.position.x) / 10),
-	# 	deg_to_rad(-2.5),
-	# 	deg_to_rad(2.5)
-	# )
+	paddle.rotation = clampf(
+		deg_to_rad((ball.position.x - paddle.position.x) / 11),
+		deg_to_rad(-5),
+		deg_to_rad(5)
+	)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

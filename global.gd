@@ -21,6 +21,7 @@ var death_vls = [
 	preload("res://assets/voice/no-noo.wav"),
 	preload("res://assets/voice/you-lose.wav"),
 	preload("res://assets/voice/what-a-loser.wav"),
+	preload("res://assets/voice/oops.wav"),
 ]
 
 const MAX_MULT = 9
@@ -132,4 +133,4 @@ func _on_die() -> void:
 	var random_index = randi() % death_vls.size()
 	var death_vl = death_vls[random_index]
 	voice_player.stream = death_vl
-	# voice_player.play()
+	voice_player.play()

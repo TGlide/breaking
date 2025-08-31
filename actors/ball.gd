@@ -13,10 +13,13 @@ func _physics_process(delta: float) -> void:
 		var collider = collision.get_collider()
 		if collider is Paddle:
 			var normal = collision.get_normal()
+			print(normal)
 
 			# Hit the bottom
-			if normal.y > 0:
+			if normal.y > 0.75:
 				velocity = (Vector2.DOWN * velocity.length())
+			elif normal.y > 0:
+				velocity = velocity.bounce(normal)
 			else:
 				velocity = (Vector2.UP * velocity.length()).rotated(clampf(
 					deg_to_rad((position.x - collider.position.x) / 0.5),
