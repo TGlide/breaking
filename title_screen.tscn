@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8kcr6tepp4od"]
+[gd_scene load_steps=10 format=3 uid="uid://b8kcr6tepp4od"]
 
 [ext_resource type="Script" uid="uid://cj5w8k2l3nan7" path="res://title_screen.gd" id="1_title"]
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="2_font"]
+[ext_resource type="StyleBox" uid="uid://c368qxx3ix67n" path="res://styles/button_hover.tres" id="3_05l2w"]
+[ext_resource type="StyleBox" uid="uid://dh6iqnwgljtal" path="res://styles/button_normal.tres" id="3_ig5kc"]
+[ext_resource type="StyleBox" uid="uid://38lwjsrkoskf" path="res://styles/button_pressed.tres" id="4_hafda"]
 
 [sub_resource type="Gradient" id="Gradient_1ainy"]
 offsets = PackedFloat32Array(1)
@@ -9,6 +12,10 @@ colors = PackedColorArray(0.121569, 0.0627451, 0.164706, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ak2if"]
 gradient = SubResource("Gradient_1ainy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_05l2w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hafda"]
 
 [node name="TitleScreen" type="Control"]
 custom_minimum_size = Vector2(656, 550)
@@ -56,8 +63,15 @@ layout_mode = 2
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_05l2w")
+theme_override_styles/hover = ExtResource("3_05l2w")
+theme_override_styles/pressed = ExtResource("4_hafda")
+theme_override_styles/normal = ExtResource("3_ig5kc")
 text = "start game"
 
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
@@ -66,9 +80,19 @@ layout_mode = 2
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hafda")
+theme_override_styles/hover = ExtResource("3_05l2w")
+theme_override_styles/pressed = ExtResource("4_hafda")
+theme_override_styles/normal = ExtResource("3_ig5kc")
 text = "quit..."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
