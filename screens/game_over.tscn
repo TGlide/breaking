@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://y72nd8ef4vcc"]
+
+[ext_resource type="Script" uid="uid://oseiulxqt0aq" path="res://screens/game_over.gd" id="1_40pha"]
+[ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="2_ixgme"]
+[ext_resource type="StyleBox" uid="uid://c368qxx3ix67n" path="res://styles/button_hover.tres" id="3_7tl34"]
+[ext_resource type="StyleBox" uid="uid://38lwjsrkoskf" path="res://styles/button_pressed.tres" id="4_flvnf"]
+[ext_resource type="StyleBox" uid="uid://dh6iqnwgljtal" path="res://styles/button_normal.tres" id="5_la5pr"]
+
+[sub_resource type="Gradient" id="Gradient_1ainy"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.121569, 0.0627451, 0.164706, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ak2if"]
+gradient = SubResource("Gradient_1ainy")
+
+[sub_resource type="LabelSettings" id="LabelSettings_40pha"]
+font = ExtResource("2_ixgme")
+font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hafda"]
+
+[node name="GameOver" type="Control"]
+custom_minimum_size = Vector2(656, 550)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_40pha")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_ak2if")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -120.0
+offset_right = 100.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ixgme")
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "score: 10452"
+label_settings = SubResource("LabelSettings_40pha")
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="HiScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "hi-score: 10452"
+label_settings = SubResource("LabelSettings_40pha")
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="OkButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("2_ixgme")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hafda")
+theme_override_styles/hover = ExtResource("3_7tl34")
+theme_override_styles/pressed = ExtResource("4_flvnf")
+theme_override_styles/normal = ExtResource("5_la5pr")
+text = "ok"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/OkButton" to="." method="_on_ok_button_pressed"]

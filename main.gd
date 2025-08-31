@@ -6,7 +6,6 @@ class_name Main
 @onready var BG: TextureRect = $Background
 @onready var border: TextureRect = $Border
 
-const LEVEL_SCENE = preload("res://level.tscn")
 var current_scene: Node
 
 const RES_MULT = 6
@@ -19,18 +18,16 @@ const RES_MULT = 6
 )
 
 func _ready() -> void:
+	Global.change_screen.connect(_on_change_screen)
 	sub_viewport.size_2d_override = sub_viewport.size
 	sub_viewport.size = sub_viewport.size * RES_MULT
 	current_scene = sub_viewport.get_child(0)
 
-func _on_title_screen_start_game() -> void:
-	# Remove current scene
+func _on_change_screen(scene: PackedScene) -> void:
 	current_scene.queue_free()
-	
-	# Load level scene
-	var level_instance = LEVEL_SCENE.instantiate()
-	sub_viewport.add_child(level_instance)
-	current_scene = level_instance
+	current_scene = scene.instantiate()
+	sub_viewport.add_child(current_scene)
+
 
 func _process(_delta: float) -> void:
 	var view_aspect_ratio = base_view_size.x / base_view_size.y

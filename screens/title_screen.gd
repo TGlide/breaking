@@ -1,12 +1,10 @@
 extends Control
 
-signal start_game
-
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _on_start_button_pressed() -> void:
-	start_game.emit()
+	Global.change_screen.emit(Global.LEVEL_SCENE)
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dbts3cao1euxs"]
 
-[ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://level.gd" id="1_0b4ue"]
+[ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://screens/level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://sox0hoiq8hy" path="res://actors/paddle.tscn" id="1_u52ul"]
 [ext_resource type="PackedScene" uid="uid://b37njjhl571y5" path="res://objects/wall.tscn" id="2_vonw3"]
 [ext_resource type="PackedScene" uid="uid://df4fg1swbwr84" path="res://actors/ball.tscn" id="3_oi3di"]

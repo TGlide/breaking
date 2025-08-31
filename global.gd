@@ -27,11 +27,16 @@ var death_vls = [
 const MAX_MULT = 9
 const MAX_WIDTH = 1800.0
 
+const LEVEL_SCENE = preload("res://screens/level.tscn")
+const TITLE_SCREEN = preload("res://screens/title_screen.tscn")
+const GAME_OVER_SCREEN = preload("res://screens/game_over.tscn")
+
 signal move_mouse(x: float)
 signal mouse_click
 signal update_score(score: int)
 signal update_mult(mult: int)
 signal die
+signal change_screen(scene: PackedScene)
 
 var lives = 3
 var score = 0
@@ -41,16 +46,19 @@ var consecutive_hits = 0
 var next_voice_trigger = randi_range(4, 6)
 var paddle_was_last_hit = false
 
+func reset_mult() -> void:
+	mult = 1
+	consecutive_hits = 0
+	next_voice_trigger = randi_range(4, 6)
+	update_mult.emit(mult)
+
 func _on_hit_wall() -> void:
 	paddle_was_last_hit = false
 	hit_sound.pitch_scale = 1.0 
 	hit_sound.play()
 
 func _on_hit_paddle() -> void:
-	mult = 1
-	consecutive_hits = 0
-	next_voice_trigger = randi_range(4, 6)
-	update_mult.emit(mult)
+	reset_mult()
 	if !paddle_was_last_hit:
 		hit_sound.pitch_scale = 1.1
 		hit_sound.play()
@@ -118,19 +126,22 @@ func _input(event: InputEvent) -> void:
 	if event is not InputEventMouseMotion: return
 
 	var viewport_size = get_viewport_rect().size
-	var margin = maxi(viewport_size.x - MAX_WIDTH, 0) / 2
+	var margin = maxi(viewport_size.x - MAX_WIDTH, 0) / 2.0
 	var mouse_area = viewport_size.x - margin * 2
 	var x = clamp(event.position.x - margin, 0, mouse_area)
 	var x_percent = x / mouse_area
 	move_mouse.emit(x_percent)
 
-
-
-
 func _on_die() -> void:
 	lives = max(lives - 1, 0)
 	die.emit()
+	reset_mult()
+
 	var random_index = randi() % death_vls.size()
 	var death_vl = death_vls[random_index]
 	voice_player.stream = death_vl
 	voice_player.play()
+
+	if lives == 0:
+		change_screen.emit(GAME_OVER_SCREEN)
+		Global.lives = 3
