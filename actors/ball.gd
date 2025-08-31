@@ -34,9 +34,10 @@ func _physics_process(delta: float) -> void:
 			
 			Global._on_hit_paddle()
 		elif collider is Brick:
+			collider.hit(velocity.normalized())
 			velocity = velocity.bounce(collision.get_normal())
 			velocity = velocity.normalized() * (velocity.length() + 5)
-			collider.hit()
+			print(collision.get_collider_velocity())
 			Global._on_hit_brick()
 		else:
 			velocity = velocity.bounce(collision.get_normal())

@@ -6,15 +6,18 @@ class_name Brick
 @onready var chunk_particles: GPUParticles2D = $ChunkParticles
 @onready var smoke_particles: CPUParticles2D = $SmokeParticles
 
-func hit() -> void:
+var collision_dir = null
+
+func _process(delta: float) -> void:
+	if collision_dir == null: return
+	texture.position += collision_dir * delta *30
+	texture.modulate.a -= 5 * delta
+
+func hit(dir: Vector2) -> void:
+	collision_dir = dir
 	# change texture to white briefly
 	texture.modulate = Color.WHITE
 	# offset the texture slightly
-	texture.position.x += randf_range(-0.1, 0.1)
-	texture.position.y += randf_range(-0.1, 0.1)
-	# hide the texture for a bit
-	var timer = get_tree().create_timer(0.2)
-	timer.connect("timeout", func(): texture.hide())
 
 	collision_shape.disabled = true
 	smoke_particles.emitting = true
