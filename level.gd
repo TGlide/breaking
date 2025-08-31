@@ -92,7 +92,6 @@ var BRICKS = [
 var started = false
 
 func _ready() -> void:
-	Engine.time_scale = 0.5
 	Global.update_score.connect(_on_update_score)
 	Global.update_mult.connect(_on_update_mult)
 	Global.mouse_click.connect(_on_mouse_click)

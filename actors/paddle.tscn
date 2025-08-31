@@ -1,16 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://sox0hoiq8hy"]
+[gd_scene load_steps=5 format=3 uid="uid://sox0hoiq8hy"]
 
 [ext_resource type="Script" uid="uid://c72qgiftje3kr" path="res://actors/paddle.gd" id="1_0sbc1"]
 [ext_resource type="Texture2D" uid="uid://cu41i4n7pnjts" path="res://assets/paddle.aseprite" id="2_pbo5y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ut3sq"]
-size = Vector2(74, 25)
+size = Vector2(74, 9)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pbo5y"]
 polygon = PackedVector2Array(-37, -2, -37, 3, 37, 3, 37, -2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbo5y"]
-size = Vector2(74, 25)
 
 [node name="Paddle" type="CharacterBody2D"]
 script = ExtResource("1_0sbc1")
@@ -22,25 +19,18 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -37.0
-offset_top = -8.0
+offset_top = -4.0
 offset_right = 37.0
-offset_bottom = 17.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_pbo5y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_ut3sq")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false
 position = Vector2(0, 2)
 occluder = SubResource("OccluderPolygon2D_pbo5y")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 4.5)
-shape = SubResource("RectangleShape2D_pbo5y")
-disabled = true

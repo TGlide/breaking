@@ -38,8 +38,10 @@ var mult = 1
 
 var consecutive_hits = 0
 var next_voice_trigger = randi_range(4, 6)
+var paddle_was_last_hit = false
 
 func _on_hit_wall() -> void:
+	paddle_was_last_hit = false
 	hit_sound.pitch_scale = 1.0 
 	hit_sound.play()
 
@@ -48,10 +50,13 @@ func _on_hit_paddle() -> void:
 	consecutive_hits = 0
 	next_voice_trigger = randi_range(4, 6)
 	update_mult.emit(mult)
-	hit_sound.pitch_scale = 1.1
-	hit_sound.play()
+	if !paddle_was_last_hit:
+		hit_sound.pitch_scale = 1.1
+		hit_sound.play()
+	paddle_was_last_hit = true
 
 func _on_hit_brick() -> void:
+	paddle_was_last_hit = false
 	score += 10 * mult
 	consecutive_hits += 1
 	mult = mini(mult + 1, MAX_MULT)

@@ -5,7 +5,7 @@ class_name Ball
 @onready var particle_trail: CPUParticles2D = $ParticleTrail
 @onready var radius: float = collision_shape.shape.radius 
 
-const BASE_VEL = 200
+const BASE_VEL = -300
 
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
@@ -13,35 +13,21 @@ func _physics_process(delta: float) -> void:
 		var collider = collision.get_collider()
 		if collider is Paddle:
 			var normal = collision.get_normal()
-			
-			if normal.y < -0.5:  # Hit the top surface
+
+			# Hit the bottom
+			if normal.y > 0:
+				velocity = (Vector2.DOWN * velocity.length())
+			else:
 				velocity = (Vector2.UP * velocity.length()).rotated(clampf(
 					deg_to_rad((position.x - collider.position.x) / 0.5),
 					deg_to_rad(-45),
 					deg_to_rad(45)
 				))
-			else:  # Hit the sides
-				var cur_vel = velocity.length()
-				var col_v = collision.get_collider_velocity()
-				print(col_v.length())
-				if col_v.length() < 200:
-					col_v = col_v.normalized() * 200
-				if col_v.length() > 500:
-					print("too much velocity")
-					col_v = col_v.normalized() * 500
-				
-				print(collision.get_collider_velocity())
-				velocity = velocity.bounce(normal)
-				velocity += col_v
-				var counter = 0
-				while collision and counter < 100:
-					collision = move_and_collide(col_v * delta)
-					counter += 1
 
-				print("collided ", counter, " times")
-				print()
-
-				print(collider)
+			var counter = 0
+			while collision and counter < 30:
+				collision = move_and_collide(velocity * delta)
+				counter += 1
 			
 			Global._on_hit_paddle()
 		elif collider is Brick:
