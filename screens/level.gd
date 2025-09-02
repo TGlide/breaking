@@ -20,74 +20,8 @@ var COLORS = {
 const MARGIN_HOR = 72
 const MARGIN_TOP = 116
 const GAP_Y = 4
-var BRICKS = [
-	# Row 1
-	[
-		{ "color": COLORS.salmon },
-		{ "color": COLORS.salmon },
-		{ "color": COLORS.salmon },
-		{ "color": COLORS.salmon },
-		{ "color": COLORS.salmon },
-		{ "color": COLORS.salmon },
-		{ "color": COLORS.salmon },
-		{ "color": COLORS.salmon },
-	],
-	# Row 2
-	[
-		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
-		{ "color": COLORS.orange },
-	],
-	# Row 3
-	[
-		{ "color": COLORS.yellow },
-		{ "color": COLORS.yellow },
-		{ "color": COLORS.yellow },
-		{ "color": COLORS.yellow },
-		{ "color": COLORS.yellow },
-		{ "color": COLORS.yellow },
-		{ "color": COLORS.yellow },
-		{ "color": COLORS.yellow },
-	],
-	# Row 4
-	[
-		{ "color": COLORS.green },
-		{ "color": COLORS.green },
-		{ "color": COLORS.green },
-		{ "color": COLORS.green },
-		{ "color": COLORS.green },
-		{ "color": COLORS.green },
-		{ "color": COLORS.green },
-		{ "color": COLORS.green },
-	],
-	# Row 5
-	[
-		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
-		{ "color": COLORS.purple },
-	],
-	# Row 6
-	[
-		{ "color": COLORS.blue },
-		{ "color": COLORS.blue },
-		{ "color": COLORS.blue },
-		{ "color": COLORS.blue },
-		{ "color": COLORS.blue },
-		{ "color": COLORS.blue },
-		{ "color": COLORS.blue },
-		{ "color": COLORS.blue },
-	],
-]
+
+var BRICKS = []
 
 var started = false
 
@@ -97,6 +31,31 @@ func _ready() -> void:
 	Global.update_mult.connect(_on_update_mult)
 	Global.mouse_click.connect(_on_mouse_click)
 
+	load_level()
+	create_bricks()
+
+func load_level() -> void:
+	var file = FileAccess.open("res://levels/1.json", FileAccess.READ)
+	if file:
+		var json_text = file.get_as_text()
+		file.close()
+		
+		var json = JSON.new()
+		var parse_result = json.parse(json_text)
+		
+		if parse_result == OK:
+			var level_data = json.data
+			var brick_data = level_data["bricks"]
+			
+			for row in brick_data:
+				var row_configs = []
+				for brick in row:
+					var color_name = brick["color"]
+					var color = COLORS.get(color_name, Color.WHITE)
+					row_configs.append({"color": color})
+				BRICKS.append(row_configs)
+
+func create_bricks() -> void:
 	var boundaries = Global.calculate_boundaries()
 	var available_width = boundaries.right - boundaries.left
 
