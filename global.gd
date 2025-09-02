@@ -46,6 +46,16 @@ var consecutive_hits = 0
 var next_voice_trigger = randi_range(4, 6)
 var paddle_was_last_hit = false
 
+
+var last_combo_i = -1
+func _get_rand_combo_vl():
+	var i = randi() % combo_vls.size()
+	if i == last_combo_i:
+		return _get_rand_combo_vl()
+	last_combo_i = i
+	return combo_vls[i]
+
+
 func reset_mult() -> void:
 	mult = 1
 	consecutive_hits = 0
@@ -74,8 +84,7 @@ func _on_hit_brick() -> void:
 	update_mult.emit(mult)
 
 	if consecutive_hits == next_voice_trigger and !voice_player.playing:
-		var random_index = randi() % combo_vls.size()
-		var combo_vl = combo_vls[random_index]
+		var combo_vl = _get_rand_combo_vl()
 		voice_player.stream = combo_vl
 		var timer = get_tree().create_timer(0.1)
 		timer.connect("timeout", func(): voice_player.play())
