@@ -4,14 +4,29 @@ class_name Ball
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var particle_trail: CPUParticles2D = $ParticleTrail
 @onready var radius: float = collision_shape.shape.radius 
+@onready var debug_angle: Label = $DebugAngle
 
 const BASE_VEL = -300
+var consecutive_wall_hits = 0
 
 func _physics_process(delta: float) -> void:
 	if Global.freeze_ball: return
+
 	var collision = move_and_collide(velocity * delta)
+	var curr_angle := velocity.angle()
+
+	# if last_hit === "wall":
+	#
+	#
+	# 	velocity = velocity.from_angle(deg_to_rad(new_angle)) * velocity.length()
+	if consecutive_wall_hits >= 4:
+		velocity = velocity.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.1 * delta)) * velocity.length()
+
+
 	if collision:
 		var collider = collision.get_collider()
+		consecutive_wall_hits =  consecutive_wall_hits + 1 if collider is Wall else 0
+		print(consecutive_wall_hits)
 		if collider is Paddle:
 			var normal = collision.get_normal()
 
@@ -45,6 +60,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	particle_trail.emitting = velocity.length() > 0
+	debug_angle.text = str(round(rad_to_deg(velocity.angle())))
 
 func start() -> void:
 		velocity.y = BASE_VEL

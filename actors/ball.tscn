@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://df4fg1swbwr84"]
+[gd_scene load_steps=8 format=3 uid="uid://df4fg1swbwr84"]
 
 [ext_resource type="Script" uid="uid://cpp8yvlhswhfk" path="res://actors/ball.gd" id="1_grhaf"]
 [ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="2_grhaf"]
+[ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="3_clqew"]
 
 [sub_resource type="Curve" id="Curve_grhaf"]
 _data = [Vector2(0, 0.97227), 0.0, 0.0, 0, 0, Vector2(0.878623, 0.226323), 0.0, 0.0, 0, 0]
@@ -12,6 +13,9 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.0509804)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xkoe8"]
 radius = 7.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_w6ge7"]
+font = ExtResource("3_clqew")
 
 [node name="Ball" type="CharacterBody2D"]
 script = ExtResource("1_grhaf")
@@ -46,3 +50,11 @@ expand_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xkoe8")
+
+[node name="DebugAngle" type="Label" parent="."]
+offset_left = 7.0
+offset_top = -18.0
+offset_right = 16.0
+offset_bottom = -4.0
+text = "0"
+label_settings = SubResource("LabelSettings_w6ge7")
