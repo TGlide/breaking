@@ -8,12 +8,12 @@ class_name Ball
 const BASE_VEL = -300
 
 func _physics_process(delta: float) -> void:
+	if Global.freeze_ball: return
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		var collider = collision.get_collider()
 		if collider is Paddle:
 			var normal = collision.get_normal()
-			print(normal)
 
 			# Hit the bottom
 			if normal.y > 0.75:
@@ -34,11 +34,10 @@ func _physics_process(delta: float) -> void:
 			
 			Global._on_hit_paddle()
 		elif collider is Brick:
-			collider.hit(velocity.normalized())
+			Global._on_hit_brick()
+			collider.on_hit(velocity.normalized())
 			velocity = velocity.bounce(collision.get_normal())
 			velocity = velocity.normalized() * (velocity.length() + 5)
-			print(collision.get_collider_velocity())
-			Global._on_hit_brick()
 		else:
 			velocity = velocity.bounce(collision.get_normal())
 			Global._on_hit_wall()

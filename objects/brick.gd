@@ -13,7 +13,9 @@ func _process(delta: float) -> void:
 	texture.position += collision_dir * delta *30
 	texture.modulate.a -= 5 * delta
 
-func hit(dir: Vector2) -> void:
+signal hit
+func on_hit(dir: Vector2) -> void:
+	hit.emit()
 	collision_dir = dir
 
 	texture.modulate = Color.WHITE
@@ -21,4 +23,4 @@ func hit(dir: Vector2) -> void:
 	smoke_particles.emitting = true
 	chunk_particles.process_material.direction = Vector3(dir.x, dir.y, 0)
 	chunk_particles.emitting = true
-	chunk_particles.connect("finished", func(): queue_free())
+	chunk_particles.connect("finished",func(): queue_free())

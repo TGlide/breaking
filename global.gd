@@ -41,6 +41,8 @@ signal change_screen(scene: PackedScene)
 var lives = 3
 var score = 0
 var mult = 1
+var level = 3
+var freeze_ball = false
 
 var consecutive_hits = 0
 var next_voice_trigger = randi_range(4, 6)
@@ -61,6 +63,23 @@ func reset_mult() -> void:
 	consecutive_hits = 0
 	next_voice_trigger = randi_range(4, 6)
 	update_mult.emit(mult)
+
+var levels_path = "res://levels/"
+func next_level() -> void:
+	Global.reset_mult()
+	Global.freeze_ball = false
+	var total_levels = 0
+
+	var dir := DirAccess.open(levels_path)
+	dir.list_dir_begin()
+	for file: String in dir.get_files():
+		if !file.ends_with(".json"): continue
+		total_levels += 1
+
+	if total_levels == 0: return
+	level += 1
+	if level > total_levels: level = 1
+	change_screen.emit(LEVEL_SCENE)
 
 func _on_hit_wall() -> void:
 	paddle_was_last_hit = false
@@ -154,3 +173,4 @@ func _on_die() -> void:
 	if lives == 0:
 		change_screen.emit(GAME_OVER_SCREEN)
 		Global.lives = 3
+		Global.level = 1

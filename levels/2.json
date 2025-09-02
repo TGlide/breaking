@@ -2,43 +2,21 @@
 	"bricks": [
 		[
 			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" }
 		],
 		[
 			{ "color": "orange" },
 			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" }
 		],
 		[
 			{ "color": "yellow" },
 			{ "color": "yellow" },
 			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" }
 		],
 		[
 			{ "color": "green" },
 			{ "color": "green" },
 			{ "color": "green" },
 			{ "color": "green" },
-			{ "color": "green" },
-			{ "color": "green" },
-			{ "color": "green" },
-			{ "color": "green" }
 		],
 		[
 			{ "color": "blue" },
@@ -46,9 +24,6 @@
 			{ "color": "blue" },
 			{ "color": "blue" },
 			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" }
 		],
 		[
 			{ "color": "cornflower" },
@@ -57,8 +32,6 @@
 			{ "color": "cornflower" },
 			{ "color": "cornflower" },
 			{ "color": "cornflower" },
-			{ "color": "cornflower" },
-			{ "color": "cornflower" }
 		],
 		[
 			{ "color": "purple" },
@@ -68,7 +41,16 @@
 			{ "color": "purple" },
 			{ "color": "purple" },
 			{ "color": "purple" },
-			{ "color": "purple" }
+		],
+		[
+			{ "color": "salmon" },
+			{ "color": "orange" },
+			{ "color": "yellow" },
+			{ "color": "green" },
+			{ "color": "blue" },
+			{ "color": "cornflower" },
+			{ "color": "purple" },
+			{ "color": "white" },
 		]
 	]
 }
