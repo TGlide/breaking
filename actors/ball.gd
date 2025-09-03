@@ -19,14 +19,13 @@ func _physics_process(delta: float) -> void:
 	#
 	#
 	# 	velocity = velocity.from_angle(deg_to_rad(new_angle)) * velocity.length()
-	if consecutive_wall_hits >= 4:
+	if consecutive_wall_hits >= 3:
 		velocity = velocity.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.1 * delta)) * velocity.length()
 
 
 	if collision:
 		var collider = collision.get_collider()
 		consecutive_wall_hits =  consecutive_wall_hits + 1 if collider is Wall else 0
-		print(consecutive_wall_hits)
 		if collider is Paddle:
 			var normal = collision.get_normal()
 

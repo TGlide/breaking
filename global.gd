@@ -42,7 +42,7 @@ signal change_screen(scene: PackedScene)
 var lives = 3
 var score = 0
 var mult = 1
-var level = 3
+var level = 1
 var freeze_ball = false
 
 var consecutive_hits = 0
