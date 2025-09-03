@@ -4,6 +4,7 @@ extends Node2D
 @onready var break_sound: AudioStreamPlayer = $BreakSoundPlayer
 @onready var hit_brick_sound: AudioStreamPlayer = $HitBrickSoundPlayer
 @onready var voice_player: AudioStreamPlayer = $VoicePlayer
+@onready var bgm_player: AudioStreamPlayer = $BgmPlayer
 
 var combo_vls = [ 
 	preload("res://assets/voice/amazing.wav"),
@@ -47,6 +48,25 @@ var freeze_ball = false
 var consecutive_hits = 0
 var next_voice_trigger = randi_range(4, 6)
 var paddle_was_last_hit = false
+
+var music_path = "res://assets/music/"
+func get_random_music() -> String:
+	var music_files: Array[String] = []
+	var dir := DirAccess.open(music_path)
+	dir.list_dir_begin()
+	for file: String in dir.get_files():
+		if !file.ends_with(".wav"): continue
+		music_files.append(file)
+	
+	return music_files[randi() % music_files.size()]
+
+func play_random_music() -> void:
+	bgm_player.stream = load(music_path + get_random_music())
+	bgm_player.play()
+
+func _ready() -> void:
+	play_random_music()
+	bgm_player.finished.connect(play_random_music)
 
 
 var last_combo_i = -1
