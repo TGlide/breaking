@@ -5,7 +5,6 @@ const brick_scene: PackedScene = preload("res://objects/brick.tscn")
 const ball_scene: PackedScene = preload("res://actors/ball.tscn")
 
 @onready var paddle: Paddle = $Paddle
-@onready var ball: Ball = $Ball
 @onready var score_label: Label = $Score
 @onready var mult_label: Label = $Multiplier
 
@@ -25,7 +24,7 @@ const GAP_Y = 4
 
 var bricks = []
 var total_bricks = 0
-
+var total_balls = 1
 var started = false
 
 func _ready() -> void:
@@ -58,7 +57,7 @@ func load_level() -> void:
 					total_bricks += 1
 					var color_name = brick["color"]
 					var color = COLORS.get(color_name, Color.WHITE)
-					row_configs.append({"color": color})
+					row_configs.append({"color": color, "power": brick.has("power")})
 				bricks.append(row_configs)
 
 func create_bricks() -> void:
@@ -72,8 +71,9 @@ func create_bricks() -> void:
 	for row in range(bricks.size()):
 		var configs: Array = bricks[row] 
 		for col in range(configs.size()):
+			var config = configs[col]
 			var brick = brick_scene.instantiate()
-			brick.hit.connect(_on_brick_hit)
+			brick.hit.connect(func(): _on_brick_hit(brick))
 			var texture_rect = brick.get_node("TextureRect") as TextureRect
 			var size = texture_rect.size
 			
@@ -86,29 +86,33 @@ func create_bricks() -> void:
 			brick.position.y = MARGIN_TOP + row * (GAP_Y + size.y)
 
 			# Apply color
-			texture_rect.modulate = configs[col]["color"]
-			brick.get_node("ChunkParticles").modulate = configs[col]["color"]
+			texture_rect.modulate = config["color"]
+			brick.get_node("ChunkParticles").modulate = config["color"]
+
 			add_child(brick)
+
+			# Check if brick has powerup
+			if "power" in config and config.power:
+				brick.enable_powerup()
 
 func _on_mouse_click() -> void:
 	if started: return
 	started = true
-	ball.start()
+	get_tree().call_group("balls", "start", Vector2(paddle.position.x, paddle.position.y - 24))
 
 func _process(_delta: float) -> void:
 	if not started:
-		ball.position.x = paddle.position.x
-		ball.position.y = paddle.position.y - 24 
+		get_tree().call_group("balls", "set_deferred", "position", Vector2(paddle.position.x, paddle.position.y - 24))
 		return
 
 	# rotate paddle according to ball x distance to paddle's center
-	paddle.rotation = clampf(
-		deg_to_rad((ball.position.x - paddle.position.x) / 11),
-		deg_to_rad(-5),
-		deg_to_rad(5)
-	)
+	# paddle.rotation = clampf(
+	# 	deg_to_rad((ball.position.x - paddle.position.x) / 11),
+	# 	deg_to_rad(-5),
+	# 	deg_to_rad(5)
+	# )
 
-func _on_brick_hit() -> void:
+func _on_brick_hit(brick: Brick) -> void:
 	total_bricks -= 1
 	if total_bricks == 0:
 		Global.freeze_ball = true
@@ -116,17 +120,38 @@ func _on_brick_hit() -> void:
 			Global.next_level()
 		)
 
+	match brick.powerup:
+		"extra-ball":
+			print("extra-ball")
+			total_balls += 1
+			var new_ball = ball_scene.instantiate()
+			add_child(new_ball)
+			new_ball.start()
+			new_ball.position.x = 200
+			new_ball.position.y = paddle.position.y - 24
+		"bigger-paddle":
+			paddle.growy_boi()
+		null:
+			return
+
+					
+
+
 func _on_death_area_entered(body: Node2D) -> void:
 	if body is Ball:
+		total_balls -= 1
+		body.queue_free()
+
+	if total_balls == 0:
 		Global._on_die()
 		started = false
 		paddle.rotation = 0
-		ball.stop()
+		var new_ball = ball_scene.instantiate()
+		add_child(new_ball)
+		total_balls = 1
 
 func _on_update_score(score: int) -> void:
 	score_label.text = str(score)
 
 func _on_update_mult(mult: int) -> void:
 	mult_label.text = 'x' + str(mult)
-
-

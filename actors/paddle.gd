@@ -6,6 +6,7 @@ const LIFE_GAP = 4
 const LIFE_SCALE = 0.25
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var texture_rect: TextureRect = $TextureRect
 @onready var paddle_half_width: float = collision_shape.shape.size.x / 2
 
 @export var texture: Texture
@@ -13,10 +14,14 @@ const LIFE_SCALE = 0.25
 var left_boundary: float
 var right_boundary: float
 
-func _ready() -> void:
+func update_boundaries() -> void:
+	paddle_half_width = collision_shape.shape.size.x / 2
 	var boundaries = Global.calculate_boundaries()
 	left_boundary = boundaries.left + paddle_half_width
 	right_boundary = boundaries.right - paddle_half_width
+
+func _ready() -> void:
+	update_boundaries()	
 	Global.move_mouse.connect(_set_position)
 	Global.die.connect(display_lives)
 
@@ -44,3 +49,11 @@ func display_lives() -> void:
 func _set_position(x: float) -> void:	
 	var total_width = right_boundary - left_boundary
 	position.x = x * total_width + left_boundary
+
+# make everything wider, from the texture to the collision shape
+var grow_factor = 1.5
+func growy_boi() -> void:
+	texture_rect.size.x *= 1.5
+	texture_rect.position.x = -texture_rect.size.x / 2
+	collision_shape.shape.size.x *= 1.5
+	update_boundaries()

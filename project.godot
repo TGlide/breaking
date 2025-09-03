@@ -33,6 +33,10 @@ window/stretch/aspect="ignore"
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
+[global_group]
+
+balls=""
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

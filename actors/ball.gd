@@ -8,6 +8,7 @@ class_name Ball
 
 const BASE_VEL = -300
 var consecutive_wall_hits = 0
+var started = false
 
 func _physics_process(delta: float) -> void:
 	if Global.freeze_ball: return
@@ -53,10 +54,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(_delta: float) -> void:
-	particle_trail.emitting = velocity.length() > 0
 	debug_angle.text = str(round(rad_to_deg(velocity.angle())))
 
-func start() -> void:
+func start(pos: Vector2 = Vector2.ZERO) -> void:
+		particle_trail.emitting = true
+		position = pos
 		velocity.y = BASE_VEL
 		# change velocity angle randomly
 		velocity = velocity.rotated(deg_to_rad(randf_range(-20, 20)))

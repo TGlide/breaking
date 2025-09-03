@@ -27,6 +27,7 @@ var death_vls = [
 
 const MAX_MULT = 9
 const MAX_WIDTH = 1800.0
+const POWERUPS = ["extra-ball", "bigger-paddle"]
 
 const LEVEL_SCENE = preload("res://screens/level.tscn")
 const TITLE_SCREEN = preload("res://screens/title_screen.tscn")

@@ -17,11 +17,12 @@ radius = 7.0
 [sub_resource type="LabelSettings" id="LabelSettings_w6ge7"]
 font = ExtResource("3_clqew")
 
-[node name="Ball" type="CharacterBody2D"]
+[node name="Ball" type="CharacterBody2D" groups=["balls"]]
 script = ExtResource("1_grhaf")
 
 [node name="ParticleTrail" type="CPUParticles2D" parent="."]
 rotation = -3.14159
+emitting = false
 amount = 12
 texture = ExtResource("2_grhaf")
 direction = Vector2(0, 0)
