@@ -2,6 +2,7 @@ extends Node
 class_name Level
 
 const brick_scene: PackedScene = preload("res://objects/brick.tscn")
+const ball_scene: PackedScene = preload("res://actors/ball.tscn")
 
 @onready var paddle: Paddle = $Paddle
 @onready var ball: Ball = $Ball
@@ -115,7 +116,7 @@ func _on_brick_hit() -> void:
 			Global.next_level()
 		)
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_death_area_entered(body: Node2D) -> void:
 	if body is Ball:
 		Global._on_die()
 		started = false
@@ -127,3 +128,5 @@ func _on_update_score(score: int) -> void:
 
 func _on_update_mult(mult: int) -> void:
 	mult_label.text = 'x' + str(mult)
+
+

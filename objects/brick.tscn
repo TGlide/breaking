@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://rkid5f6py4k5"]
+[gd_scene load_steps=17 format=3 uid="uid://rkid5f6py4k5"]
 
 [ext_resource type="Script" uid="uid://ds1an3t104igg" path="res://objects/brick.gd" id="1_hbwgr"]
 [ext_resource type="Texture2D" uid="uid://b1i3siifc6nun" path="res://assets/brick.aseprite" id="2_2u2la"]
 [ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="3_7nfhm"]
 [ext_resource type="Texture2D" uid="uid://c37oakn7s60k1" path="res://assets/brick-broken.aseprite" id="3_pm7ss"]
+[ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="5_pm7ss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbwgr"]
 size = Vector2(51, 19)
@@ -57,6 +58,10 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_pm7ss"]
 offsets = PackedFloat32Array(0, 0.629814, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.892034, 0.892034, 0.892034, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y3bws"]
+line_spacing = 0.0
+font = ExtResource("5_pm7ss")
 
 [node name="Brick" type="StaticBody2D"]
 script = ExtResource("1_hbwgr")
@@ -117,3 +122,14 @@ scale_amount_min = 2.0
 scale_amount_max = 3.0
 scale_amount_curve = SubResource("Curve_2u2la")
 color_ramp = SubResource("Gradient_pm7ss")
+
+[node name="PowerupLabel" type="Label" parent="."]
+visible = false
+offset_left = -25.0
+offset_top = -9.0
+offset_right = 26.0
+offset_bottom = 10.0
+text = "P"
+label_settings = SubResource("LabelSettings_y3bws")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -15,13 +15,8 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	var curr_angle := velocity.angle()
 
-	# if last_hit === "wall":
-	#
-	#
-	# 	velocity = velocity.from_angle(deg_to_rad(new_angle)) * velocity.length()
 	if consecutive_wall_hits >= 3:
-		velocity = velocity.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.1 * delta)) * velocity.length()
-
+		velocity = Vector2.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.1 * delta)) * velocity.length()
 
 	if collision:
 		var collider = collision.get_collider()

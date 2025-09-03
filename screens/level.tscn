@@ -93,11 +93,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="DeathArea" type="Area2D" parent="."]
 
-[node name="DeathZone" type="CollisionShape2D" parent="Area2D"]
+[node name="DeathZone" type="CollisionShape2D" parent="DeathArea"]
 position = Vector2(331, 594)
 shape = SubResource("RectangleShape2D_f2txt")
 debug_color = Color(0.953194, 0.122818, 0.452857, 0.42)
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="DeathArea" to="." method="_on_death_area_entered"]
