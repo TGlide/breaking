@@ -87,6 +87,7 @@ grow_vertical = 2
 texture = ExtResource("2_2u2la")
 
 [node name="ChunkParticles" type="GPUParticles2D" parent="."]
+visible = false
 modulate = Color(0.988235, 0.937255, 0.552941, 1)
 z_index = 10
 material = SubResource("CanvasItemMaterial_pm7ss")
@@ -97,6 +98,7 @@ lifetime = 2.5
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
+fract_delta = false
 trail_lifetime = 0.2
 trail_sections = 40
 trail_section_subdivisions = 80

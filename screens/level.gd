@@ -147,7 +147,7 @@ func _on_death_area_entered(body: Node2D) -> void:
 		started = false
 		paddle.rotation = 0
 		var new_ball = ball_scene.instantiate()
-		add_child(new_ball)
+		call_deferred("add_child", new_ball)
 		total_balls = 1
 
 func _on_update_score(score: int) -> void:

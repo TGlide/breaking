@@ -27,7 +27,10 @@ settings/vsync/vsync_mode=0
 [display]
 
 window/size/mode=3
+window/size/borderless=true
 window/stretch/aspect="ignore"
+window/stretch/scale_mode="integer"
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
@@ -40,3 +43,4 @@ balls=""
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"

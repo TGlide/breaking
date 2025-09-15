@@ -53,6 +53,7 @@ expand_mode = 1
 shape = SubResource("CircleShape2D_xkoe8")
 
 [node name="DebugAngle" type="Label" parent="."]
+visible = false
 offset_left = 7.0
 offset_top = -18.0
 offset_right = 16.0
