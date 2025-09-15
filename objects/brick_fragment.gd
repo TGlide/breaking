@@ -10,8 +10,9 @@ var fade_time: float = 1.0
 var initial_color: Color = Color.WHITE
 var death_y: float = 594.0
 
-var SCALE_UNIT = 3
+var SCALE_UNIT = 2
 var SCALE = Vector2(SCALE_UNIT, SCALE_UNIT)
+var shadow_offset = Vector2(2, 2)  # Fixed shadow offset (bottom-right)
 
 func _ready():
 	# Start lifetime timer
@@ -40,11 +41,10 @@ func setup(texture: Texture2D, color: Color, fragment_index: int, initial_pos: V
 	
 	# Set up shadow with same texture but darker
 	shadow.texture = texture
-	shadow.modulate = Color(0, 0, 0, 0.8)  # Black with 40% opacity
+	shadow.modulate = Color(0, 0, 0, 0.5)  
 	shadow.region_enabled = true
 	shadow.region_rect = Rect2(fragment_index * 5, 0, 5, 6)
 	shadow.scale = SCALE
-	shadow.position = Vector2(2, 2)  # Offset for shadow effect
 	
 	# Set up collision shape to match sprite
 	var rect_shape = RectangleShape2D.new()
@@ -55,6 +55,10 @@ func setup(texture: Texture2D, color: Color, fragment_index: int, initial_pos: V
 	rotation = randf() * PI * 2
 
 func _physics_process(_delta: float):
+	# Keep shadow at fixed offset (bottom-right) regardless of rotation
+	# Shadow should stay in world space, not rotate with the fragment
+	shadow.global_position = global_position + shadow_offset
+	
 	# Check if fragment fell below death area
 	if position.y > death_y:
 		queue_free()
