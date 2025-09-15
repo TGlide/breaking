@@ -83,12 +83,6 @@ func _create_shatter_fragments(collision_direction: Vector2):
 			angular_vel
 		)
 		
-		# Set boundaries for wall collision
-		var boundaries = Global.calculate_boundaries()
-		if boundaries.has("left") and boundaries.has("right"):
-			fragment.wall_left = boundaries.left
-			fragment.wall_right = boundaries.right
-		
 		# Set death area position (below the paddle area)
 		fragment.death_y = 594  # Match the DeathArea position from level.tscn
 

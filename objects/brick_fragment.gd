@@ -1,25 +1,16 @@
-extends Node2D
+extends RigidBody2D
 class_name BrickFragment
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
-var velocity: Vector2 = Vector2.ZERO
-var angular_velocity: float = 0.0
-var gravity: float = 800.0
-var bounce_dampening: float = 0.6
-var friction: float = 0.98
-var ground_y: float = 600.0
 var lifetime: float = 3.0
 var fade_time: float = 1.0
-
 var initial_color: Color = Color.WHITE
-var is_physics_enabled: bool = true
-var has_hit_ground: bool = false
-var wall_left: float = 0.0
-var wall_right: float = 640.0
 var death_y: float = 594.0
 
 func _ready():
+	# Start lifetime timer
 	var timer = Timer.new()
 	timer.wait_time = lifetime - fade_time
 	timer.one_shot = true
@@ -29,7 +20,7 @@ func _ready():
 
 func setup(texture: Texture2D, color: Color, fragment_index: int, initial_pos: Vector2, initial_velocity: Vector2, angular_vel: float):
 	position = initial_pos
-	velocity = initial_velocity
+	linear_velocity = initial_velocity
 	angular_velocity = angular_vel
 	initial_color = color
 	
@@ -43,46 +34,18 @@ func setup(texture: Texture2D, color: Color, fragment_index: int, initial_pos: V
 	# Scale up the sprite a bit for visibility
 	sprite.scale = Vector2(2, 2)
 	
+	# Set up collision shape to match sprite
+	var rect_shape = RectangleShape2D.new()
+	rect_shape.size = Vector2(10, 12)  # 5x6 * 2 scale
+	collision_shape.shape = rect_shape
+	
+	# Random initial rotation
 	rotation = randf() * PI * 2
 
-func _process(delta: float):
-	if not is_physics_enabled:
-		return
-	
+func _physics_process(_delta: float):
 	# Check if fragment fell below death area
 	if position.y > death_y:
 		queue_free()
-		return
-		
-	velocity.y += gravity * delta
-	
-	if has_hit_ground:
-		velocity *= friction
-	
-	position += velocity * delta
-	rotation += angular_velocity * delta
-	
-	# Wall collision detection
-	if position.x <= wall_left:
-		position.x = wall_left
-		velocity.x = abs(velocity.x) * bounce_dampening
-		angular_velocity *= 0.8
-	elif position.x >= wall_right:
-		position.x = wall_right
-		velocity.x = -abs(velocity.x) * bounce_dampening
-		angular_velocity *= 0.8
-	
-	# Ground collision
-	if position.y >= ground_y and not has_hit_ground:
-		position.y = ground_y
-		velocity.y *= -bounce_dampening
-		velocity.x *= 0.7
-		angular_velocity *= 0.6
-		has_hit_ground = true
-		
-		if abs(velocity.y) < 30:
-			velocity.y = 0
-			is_physics_enabled = false
 
 func _start_fade():
 	var tween = create_tween()
