@@ -87,7 +87,6 @@ func create_bricks() -> void:
 
 			# Apply color
 			texture_rect.modulate = config["color"]
-			brick.get_node("ChunkParticles").modulate = config["color"]
 
 			add_child(brick)
 
