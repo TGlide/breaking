@@ -117,6 +117,7 @@ func _on_brick_hit(brick: Brick) -> void:
 	if total_bricks == 0:
 		Global.freeze_ball = true
 		get_tree().create_timer(2).timeout.connect(func():
+			paddle.reset_growy_boi()
 			Global.next_level()
 		)
 

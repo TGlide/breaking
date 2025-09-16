@@ -21,6 +21,9 @@ func update_boundaries() -> void:
 	right_boundary = boundaries.right - paddle_half_width
 
 func _ready() -> void:
+	growy_boi()
+	growy_boi()
+	reset_growy_boi()
 	update_boundaries()	
 	Global.move_mouse.connect(_set_position)
 	Global.die.connect(display_lives)
@@ -51,9 +54,18 @@ func _set_position(x: float) -> void:
 	position.x = x * total_width + left_boundary
 
 # make everything wider, from the texture to the collision shape
-var grow_factor = 1.5
+const grow_factor = 1.5
+var curr_scale: float = 1.0
 func growy_boi() -> void:
+	curr_scale *= grow_factor
 	texture_rect.size.x *= 1.5
 	texture_rect.position.x = -texture_rect.size.x / 2
 	collision_shape.shape.size.x *= 1.5
+	update_boundaries()
+
+func reset_growy_boi() -> void:
+	texture_rect.size.x /= curr_scale
+	texture_rect.position.x = -texture_rect.size.x / 2
+	collision_shape.shape.size.x /= curr_scale
+	curr_scale = 1.0
 	update_boundaries()
