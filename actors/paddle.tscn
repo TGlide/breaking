@@ -29,7 +29,7 @@ pivot_offset = Vector2(109, -4)
 texture = ExtResource("2_pbo5y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_ut3sq")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]

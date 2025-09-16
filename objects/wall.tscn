@@ -9,6 +9,7 @@ size = Vector2(20, 1222)
 polygon = PackedVector2Array(-10, -611, 10, -611, 10, 611, -10, 611)
 
 [node name="Wall" type="StaticBody2D" groups=["walls"]]
+collision_layer = 3
 script = ExtResource("1_r71v4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
