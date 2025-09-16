@@ -5,6 +5,7 @@ class_name Main
 @onready var sub_viewport: SubViewport = $SVC/SubView
 @onready var BG: TextureRect = $Background
 @onready var border: TextureRect = $Border
+@onready var fps_counter: Label = $FpsCounter
 
 var current_scene: Node
 
@@ -22,6 +23,10 @@ func _ready() -> void:
 	sub_viewport.size_2d_override = sub_viewport.size
 	sub_viewport.size = sub_viewport.size * RES_MULT
 	current_scene = sub_viewport.get_child(0)
+	get_viewport().size_changed.connect(reprocess)
+	# wait for viewport to be ready
+	await get_tree().process_frame
+	reprocess()
 
 func _on_change_screen(scene: PackedScene) -> void:
 	current_scene.queue_free()
@@ -30,6 +35,9 @@ func _on_change_screen(scene: PackedScene) -> void:
 
 
 func _process(_delta: float) -> void:
+	fps_counter.text = str(Engine.get_frames_per_second())
+
+func reprocess() -> void:
 	var view_aspect_ratio = base_view_size.x / base_view_size.y
 	var win_size = get_viewport_rect().size
 	var available_size = win_size - margin * 2  # Account for margin on both sides
