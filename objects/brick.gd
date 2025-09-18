@@ -6,7 +6,6 @@ class_name Brick
 @onready var powerup_label: Label = $PowerupLabel
 
 const fragment_scene: PackedScene = preload("res://objects/brick_fragment.tscn")
-const broken_texture: Texture2D = preload("res://assets/brick-broken.aseprite")
 
 var powerup = null
 var collision_dir = null
@@ -39,52 +38,14 @@ func on_hit(dir: Vector2) -> void:
 	timer.start()
 
 func _create_shatter_fragments(collision_direction: Vector2):
-	var brick_size = texture.size
-	
 	# Create 5-8 fragments using different pieces from the broken texture
-	var fragment_count = randi_range(5, 8)
-	var used_indices = []
+	var fragment_count = randi_range(3, 8)
 	
 	for i in range(fragment_count):
 		var fragment = fragment_scene.instantiate()
-		
-		# Pick a random fragment piece (0-7)
-		var fragment_index = randi() % 8
-		while fragment_index in used_indices and used_indices.size() < 8:
-			fragment_index = randi() % 8
-		used_indices.append(fragment_index)
-		
-		# Position fragments randomly within the brick area
-		var fragment_pos = global_position + Vector2(
-			randf_range(-brick_size.x * 0.3, brick_size.x * 0.3),
-			randf_range(-brick_size.y * 0.3, brick_size.y * 0.3)
-		)
-		
-		# Calculate velocity based on collision direction
-		var base_speed = randf_range(150, 350)
-		var spread_angle = randf_range(-70, 70)
-		var velocity_angle = collision_direction.angle() + deg_to_rad(spread_angle)
-		
-		var initial_velocity = Vector2(
-			cos(velocity_angle) * base_speed,
-			sin(velocity_angle) * base_speed - randf_range(50, 150)
-		)
-		
-		var angular_vel = randf_range(-10, 10)
-		
 		get_parent().add_child(fragment)
+		fragment.setup(self, collision_direction)
 		
-		fragment.setup(
-			broken_texture,
-			brick_color,
-			fragment_index,
-			fragment_pos,
-			initial_velocity,
-			angular_vel
-		)
-		
-		# Set death area position (below the paddle area)
-		fragment.death_y = 594  # Match the DeathArea position from level.tscn
 
 func enable_powerup() -> void:
 	powerup_label.show()

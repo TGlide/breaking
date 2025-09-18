@@ -26,6 +26,8 @@ settings/vsync/vsync_mode=0
 
 [display]
 
+window/size/viewport_width=656
+window/size/viewport_height=550
 window/size/mode=3
 window/size/borderless=true
 window/stretch/aspect="ignore"

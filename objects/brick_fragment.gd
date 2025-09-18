@@ -8,7 +8,6 @@ class_name BrickFragment
 var lifetime: float = 6.0
 var fade_time: float = 1.0
 var initial_color: Color = Color.WHITE
-var death_y: float = 594.0
 
 var SCALE_UNIT = 2
 var SCALE = Vector2(SCALE_UNIT, SCALE_UNIT)
@@ -23,14 +22,28 @@ func _ready():
 	add_child(timer)
 	timer.start()
 
-func setup(texture: Texture2D, color: Color, fragment_index: int, initial_pos: Vector2, initial_velocity: Vector2, angular_vel: float):
-	position = initial_pos
-	linear_velocity = initial_velocity
-	angular_velocity = angular_vel
-	initial_color = color
+func setup(brick: Brick, collision_direction: Vector2) -> void:
+	var fragment_index = randi() % 8
+	var brick_size = brick.texture.size
+
+	position = brick.global_position + Vector2(
+		randf_range(-brick_size.x * 0.3, brick_size.x * 0.3),
+		randf_range(-brick_size.y * 0.3, brick_size.y * 0.3)
+	)
+
+	# Calculate velocity based on collision direction
+	var base_speed = randf_range(150, 350)
+	var spread_angle = randf_range(-70, 70)
+	var velocity_angle = collision_direction.angle() + deg_to_rad(spread_angle)
 	
-	sprite.texture = texture
-	sprite.modulate = color
+	linear_velocity = Vector2(
+		cos(velocity_angle) * base_speed,
+		sin(velocity_angle) * base_speed - randf_range(50, 150)
+	)
+	
+	angular_velocity = randf_range(-10, 10)
+
+	sprite.modulate = brick.brick_color
 	
 	# Set up sprite region for specific fragment piece (8 pieces, 5x6 each)
 	sprite.region_enabled = true
@@ -40,7 +53,6 @@ func setup(texture: Texture2D, color: Color, fragment_index: int, initial_pos: V
 	sprite.scale = SCALE
 	
 	# Set up shadow with same texture but darker
-	shadow.texture = texture
 	shadow.modulate = Color(0, 0, 0, 0.5)  
 	shadow.region_enabled = true
 	shadow.region_rect = Rect2(fragment_index * 5, 0, 5, 6)
@@ -58,10 +70,6 @@ func _physics_process(_delta: float):
 	# Keep shadow at fixed offset (bottom-right) regardless of rotation
 	# Shadow should stay in world space, not rotate with the fragment
 	shadow.global_position = global_position + shadow_offset
-	
-	# Check if fragment fell below death area
-	if position.y > death_y:
-		queue_free()
 
 func _start_fade():
 	var tween = create_tween()

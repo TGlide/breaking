@@ -48,11 +48,11 @@ position = Vector2(16, 611)
 scale = Vector2(1.6, 1.356)
 
 [node name="RightWall" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(640, 611)
+position = Vector2(632, 608)
 scale = Vector2(1.6, 1.6)
 
 [node name="Ceiling" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(339, 15)
+position = Vector2(335, 15.000002)
 rotation = 1.57079
 scale = Vector2(1.5, -0.541)
 
