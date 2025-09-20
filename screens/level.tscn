@@ -48,7 +48,7 @@ position = Vector2(16, 611)
 scale = Vector2(1.6, 1.356)
 
 [node name="RightWall" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(632, 608)
+position = Vector2(640, 608)
 scale = Vector2(1.6, 1.6)
 
 [node name="Ceiling" parent="." instance=ExtResource("2_vonw3")]
@@ -83,6 +83,9 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Multiplier" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = -0.048780486
+anchor_right = 0.048780486
 offset_left = 32.0
 offset_top = 73.0
 offset_right = 624.0
@@ -94,6 +97,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="DeathArea" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="DeathZone" type="CollisionShape2D" parent="DeathArea"]
 position = Vector2(331, 594)

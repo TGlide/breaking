@@ -21,7 +21,6 @@ Global="*res://global.tscn"
 
 [debug]
 
-settings/stdout/print_fps=true
 settings/vsync/vsync_mode=0
 
 [display]

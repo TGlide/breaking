@@ -5,9 +5,9 @@ class_name Ball
 @onready var particle_trail: CPUParticles2D = $ParticleTrail
 @onready var radius: float = collision_shape.shape.radius 
 @onready var debug_angle: Label = $DebugAngle
+@onready var fall_timer: Timer = $FallTimer
 
 const BASE_VEL = -300
-var consecutive_wall_hits = 0
 var started = false
 
 func _physics_process(delta: float) -> void:
@@ -16,12 +16,13 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	var curr_angle := velocity.angle()
 
-	if consecutive_wall_hits >= 3:
-		velocity = Vector2.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.1 * delta)) * velocity.length()
+	if fall_timer.is_stopped():
+		velocity = Vector2.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.2 * delta)) * velocity.length()
 
 	if collision:
 		var collider = collision.get_collider()
-		consecutive_wall_hits =  consecutive_wall_hits + 1 if collider is Wall else 0
+		fall_timer.stop()
+		fall_timer.start()
 		if collider is Paddle:
 			var normal = collision.get_normal()
 
@@ -57,11 +58,12 @@ func _process(_delta: float) -> void:
 	debug_angle.text = str(round(rad_to_deg(velocity.angle())))
 
 func start(pos: Vector2 = Vector2.ZERO) -> void:
-		particle_trail.emitting = true
-		position = pos
-		velocity.y = BASE_VEL
-		# change velocity angle randomly
-		velocity = velocity.rotated(deg_to_rad(randf_range(-20, 20)))
+	particle_trail.emitting = true
+	position = pos
+	velocity.y = BASE_VEL
+	# change velocity angle randomly
+	velocity = velocity.rotated(deg_to_rad(randf_range(-20, 20)))
+
 
 func stop() -> void:
 	velocity.x = 0
