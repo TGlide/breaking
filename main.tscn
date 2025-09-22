@@ -33,6 +33,7 @@ offset_left = 1024.0
 offset_top = 288.0
 offset_right = 1684.0
 offset_bottom = 936.0
+metadata/_edit_group_ = true
 
 [node name="SubView" type="SubViewport" parent="SVC"]
 handle_input_locally = false
@@ -51,3 +52,9 @@ offset_bottom = 259.0
 text = "0
 "
 label_settings = SubResource("LabelSettings_lquwl")
+
+[node name="ShakeTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="ShakeTimer" to="." method="_on_shake_timer_timeout"]

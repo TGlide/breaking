@@ -39,6 +39,7 @@ signal update_score(score: int)
 signal update_mult(mult: int)
 signal die
 signal change_screen(scene: PackedScene)
+signal hit_brick
 
 var lives = 3
 var score = 0
@@ -122,6 +123,7 @@ func _on_hit_brick() -> void:
 
 	update_score.emit(score)
 	update_mult.emit(mult)
+	hit_brick.emit()
 
 	if consecutive_hits == next_voice_trigger and !voice_player.playing:
 		var combo_vl = _get_rand_combo_vl()

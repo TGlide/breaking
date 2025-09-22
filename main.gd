@@ -6,6 +6,7 @@ class_name Main
 @onready var BG: TextureRect = $Background
 @onready var border: TextureRect = $Border
 @onready var fps_counter: Label = $FpsCounter
+@onready var shake_timer: Timer = $ShakeTimer
 
 var current_scene: Node
 
@@ -18,8 +19,13 @@ const RES_MULT = 6
 	sub_viewport.get_visible_rect().size.y * RES_MULT
 )
 
+var offset: Vector2 = Vector2(0, 0)
+var shaking = false;
+var since_shake = 0;
+
 func _ready() -> void:
 	Global.change_screen.connect(_on_change_screen)
+	Global.hit_brick.connect(shake_timer.start)
 	sub_viewport.size_2d_override = sub_viewport.size
 	sub_viewport.size = sub_viewport.size * RES_MULT
 	current_scene = sub_viewport.get_child(0)
@@ -34,8 +40,17 @@ func _on_change_screen(scene: PackedScene) -> void:
 	sub_viewport.add_child(current_scene)
 
 
-func _process(_delta: float) -> void:
+var shake_unit = 10.0
+func _process(delta: float) -> void:
 	fps_counter.text = str(Engine.get_frames_per_second())
+	since_shake += delta
+	if shake_timer.time_left > 0 and since_shake > 0.05:
+		since_shake = 0
+		offset = Vector2(
+			randf_range(-shake_unit, shake_unit),
+			randf_range(-shake_unit, shake_unit),
+		)
+		reprocess()	
 
 func reprocess() -> void:
 	var view_aspect_ratio = base_view_size.x / base_view_size.y
@@ -53,12 +68,16 @@ func reprocess() -> void:
 
 	# center the viewport
 	var view_rect = sub_viewport_container.get_rect()
-	sub_viewport_container.position.x = (win_size.x / 2) - (view_rect.size.x / 2)
-	sub_viewport_container.position.y = (win_size.y / 2) - (view_rect.size.y / 2)
+	sub_viewport_container.position.x = (win_size.x / 2) - (view_rect.size.x / 2) + offset.x
+	sub_viewport_container.position.y = (win_size.y / 2) - (view_rect.size.y / 2) + offset.y
 
 	border.size.x = view_rect.size.x + padding.x 
 	border.size.y = view_rect.size.y + padding.y 
-	border.position.x = (win_size.x / 2) - (border.size.x / 2)
-	border.position.y = (win_size.y / 2) - (border.size.y / 2)
+	border.position.x = (win_size.x / 2) - (border.size.x / 2) + offset.x
+	border.position.y = (win_size.y / 2) - (border.size.y / 2) + offset.y
 
 	BG.size = win_size
+
+
+func _on_shake_timer_timeout() -> void:
+	offset = Vector2(0, 0)
