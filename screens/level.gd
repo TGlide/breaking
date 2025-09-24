@@ -3,11 +3,11 @@ class_name Level
 
 const brick_scene: PackedScene = preload("res://objects/brick.tscn")
 const ball_scene: PackedScene = preload("res://actors/ball.tscn")
-const pause_scene: PackedScene = preload("res://ui/pause_menu.tscn")
 
 @onready var paddle: Paddle = $Paddle
 @onready var score_label: Label = $Score
 @onready var mult_label: Label = $Multiplier
+@onready var pause_menu: PauseMenu = $PauseMenu
 
 var COLORS = {
 	"salmon": Color(0.917647, 0.384314, 0.384314, 1),
@@ -40,13 +40,10 @@ func _ready() -> void:
 	create_bricks()
 
 func _input(event: InputEvent) -> void:
-	print(event.is_action_pressed("Pause"))
 	if event.is_action_pressed("Pause"):
-		get_tree().paused = true
-		var pause_menu = pause_scene.instantiate()
-		add_child(pause_menu)
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
+		pause_menu.show()
+		get_tree().paused = true
 
 func load_level() -> void:
 	var file = FileAccess.open("res://levels/%s.json" % Global.level, FileAccess.READ)
