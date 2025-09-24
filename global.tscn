@@ -23,3 +23,4 @@ volume_db = -4.0
 volume_db = 7.0
 
 [node name="BgmPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3

@@ -66,10 +66,12 @@ func setup(brick: Brick, collision_direction: Vector2) -> void:
 	# Random initial rotation
 	rotation = randf() * PI * 2
 
-func _physics_process(_delta: float):
+func _physics_process(delta: float):
 	# Keep shadow at fixed offset (bottom-right) regardless of rotation
 	# Shadow should stay in world space, not rotate with the fragment
 	shadow.global_position = global_position + shadow_offset
+
+	modulate.a = clamp(modulate.a - 0.75 * delta, 0.0, 1.0)
 
 func _start_fade():
 	var tween = create_tween()

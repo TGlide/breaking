@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbts3cao1euxs"]
+[gd_scene load_steps=14 format=3 uid="uid://dbts3cao1euxs"]
 
 [ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://screens/level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://sox0hoiq8hy" path="res://actors/paddle.tscn" id="1_u52ul"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://df4fg1swbwr84" path="res://actors/ball.tscn" id="3_oi3di"]
 [ext_resource type="Shader" uid="uid://cigva42xypfcd" path="res://shaders/drop-shadow.gdshader" id="5_f2txt"]
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="6_1ainy"]
+[ext_resource type="Texture2D" uid="uid://g6bosty6ln5d" path="res://assets/pause.aseprite" id="7_i4hy1"]
 
 [sub_resource type="Gradient" id="Gradient_1ainy"]
 offsets = PackedFloat32Array(1)
@@ -52,7 +53,7 @@ position = Vector2(640, 608)
 scale = Vector2(1.6, 1.6)
 
 [node name="Ceiling" parent="." instance=ExtResource("2_vonw3")]
-position = Vector2(335, 15.000002)
+position = Vector2(331.00003, 15.000002)
 rotation = 1.57079
 scale = Vector2(1.5, -0.541)
 
@@ -94,7 +95,6 @@ text = "x1"
 label_settings = SubResource("LabelSettings_1ainy")
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="DeathArea" type="Area2D" parent="."]
 collision_mask = 2
@@ -103,5 +103,13 @@ collision_mask = 2
 position = Vector2(331, 594)
 shape = SubResource("RectangleShape2D_f2txt")
 debug_color = Color(0.953194, 0.122818, 0.452857, 0.42)
+
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = 32.0
+offset_top = 31.0
+offset_right = 56.0
+offset_bottom = 55.0
+icon = ExtResource("7_i4hy1")
 
 [connection signal="body_entered" from="DeathArea" to="." method="_on_death_area_entered"]
