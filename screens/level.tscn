@@ -36,6 +36,7 @@ font_color = Color(1, 1, 1, 0.145098)
 size = Vector2(658, 61.5)
 
 [node name="Level" type="Node"]
+process_mode = 1
 script = ExtResource("1_0b4ue")
 
 [node name="TextureRect" type="TextureRect" parent="."]

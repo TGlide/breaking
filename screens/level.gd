@@ -39,11 +39,6 @@ func _ready() -> void:
 	load_level()
 	create_bricks()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Pause"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		pause_menu.show()
-		get_tree().paused = true
 
 func load_level() -> void:
 	var file = FileAccess.open("res://levels/%s.json" % Global.level, FileAccess.READ)
