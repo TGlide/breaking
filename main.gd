@@ -5,7 +5,6 @@ class_name Main
 @onready var sub_viewport: SubViewport = $SVC/SubView
 @onready var BG: TextureRect = $Background
 @onready var border: TextureRect = $Border
-@onready var fps_counter: Label = $FpsCounter
 @onready var shake_timer: Timer = $ShakeTimer
 
 var current_scene: Node
@@ -42,7 +41,6 @@ func _on_change_screen(scene: PackedScene) -> void:
 
 var shake_unit = 10.0
 func _process(delta: float) -> void:
-	fps_counter.text = str(Engine.get_frames_per_second())
 	since_shake += delta
 	if shake_timer.time_left > 0 and since_shake > 0.05:
 		since_shake = 0

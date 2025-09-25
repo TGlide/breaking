@@ -25,6 +25,7 @@ var death_vls = [
 	preload("res://assets/voice/oops.wav"),
 ]
 
+const CONFIG_PATH = "user://config.cfg"
 const MAX_MULT = 9
 const MAX_WIDTH = 1800.0
 const POWERUPS = ["extra-ball", "bigger-paddle"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw6ocflbl7kcv"]
+[gd_scene load_steps=11 format=3 uid="uid://dw6ocflbl7kcv"]
 
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="1_50142"]
 [ext_resource type="Script" uid="uid://v68bigesgrex" path="res://ui/pause_menu.gd" id="1_npydk"]
 [ext_resource type="StyleBox" uid="uid://dh6iqnwgljtal" path="res://styles/button_normal.tres" id="2_avurv"]
 [ext_resource type="StyleBox" uid="uid://38lwjsrkoskf" path="res://styles/button_pressed.tres" id="3_npydk"]
 [ext_resource type="StyleBox" uid="uid://c368qxx3ix67n" path="res://styles/button_hover.tres" id="4_6ap7o"]
+[ext_resource type="PackedScene" uid="uid://deedk7v554wur" path="res://ui/settings.tscn" id="6_6ap7o"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_50142"]
 
@@ -90,5 +91,12 @@ theme_override_styles/pressed = ExtResource("3_npydk")
 theme_override_styles/hover = ExtResource("4_6ap7o")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vovkw")
 text = "give up"
+
+[node name="Spacer3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Settings" parent="VBoxContainer" instance=ExtResource("6_6ap7o")]
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

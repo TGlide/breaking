@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cujtnv3h8gdlo"]
+
+[ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="1_5vtak"]
+[ext_resource type="Script" uid="uid://drm7isisfvj1j" path="res://ui/fps_counter.gd" id="2_fdtds"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fdtds"]
+font = ExtResource("1_5vtak")
+font_size = 128
+
+[node name="FpsCounter" type="Label"]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 104.0
+offset_bottom = 259.0
+text = "0
+"
+label_settings = SubResource("LabelSettings_fdtds")
+script = ExtResource("2_fdtds")

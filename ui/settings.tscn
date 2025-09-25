@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://deedk7v554wur"]
+
+[ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="1_neoxp"]
+[ext_resource type="Script" uid="uid://bvd662ktnrpso" path="res://ui/settings.gd" id="1_yl6pr"]
+[ext_resource type="StyleBox" uid="uid://dh6iqnwgljtal" path="res://styles/button_normal.tres" id="2_yl6pr"]
+[ext_resource type="StyleBox" uid="uid://38lwjsrkoskf" path="res://styles/button_pressed.tres" id="3_evr87"]
+[ext_resource type="StyleBox" uid="uid://c368qxx3ix67n" path="res://styles/button_hover.tres" id="4_045ga"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxi54"]
+
+[node name="Settings" type="HBoxContainer"]
+offset_right = 260.0
+offset_bottom = 28.0
+alignment = 1
+script = ExtResource("1_yl6pr")
+
+[node name="SoundBtn" type="Button" parent="."]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_neoxp")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_yl6pr")
+theme_override_styles/pressed = ExtResource("3_evr87")
+theme_override_styles/hover = ExtResource("4_045ga")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jxi54")
+text = "sound on"
+
+[node name="MusicBtn" type="Button" parent="."]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_neoxp")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_yl6pr")
+theme_override_styles/pressed = ExtResource("3_evr87")
+theme_override_styles/hover = ExtResource("4_045ga")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jxi54")
+text = "music on"
+
+[connection signal="pressed" from="SoundBtn" to="." method="_on_sound_btn_pressed"]
+[connection signal="pressed" from="MusicBtn" to="." method="_on_music_btn_pressed"]

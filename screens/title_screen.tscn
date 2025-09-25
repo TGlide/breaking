@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8kcr6tepp4od"]
+[gd_scene load_steps=11 format=3 uid="uid://b8kcr6tepp4od"]
 
 [ext_resource type="Script" uid="uid://cj5w8k2l3nan7" path="res://screens/title_screen.gd" id="1_title"]
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="2_font"]
 [ext_resource type="StyleBox" uid="uid://c368qxx3ix67n" path="res://styles/button_hover.tres" id="3_05l2w"]
 [ext_resource type="StyleBox" uid="uid://dh6iqnwgljtal" path="res://styles/button_normal.tres" id="3_ig5kc"]
 [ext_resource type="StyleBox" uid="uid://38lwjsrkoskf" path="res://styles/button_pressed.tres" id="4_hafda"]
+[ext_resource type="PackedScene" uid="uid://deedk7v554wur" path="res://ui/settings.tscn" id="6_txg6x"]
 
 [sub_resource type="Gradient" id="Gradient_1ainy"]
 offsets = PackedFloat32Array(1)
@@ -94,6 +95,13 @@ theme_override_styles/pressed = ExtResource("4_hafda")
 theme_override_styles/hover = ExtResource("3_05l2w")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hafda")
 text = "quit..."
+
+[node name="Spacer3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Settings" parent="VBoxContainer" instance=ExtResource("6_txg6x")]
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
