@@ -27,5 +27,6 @@ volume_db = 7.0
 bus = &"SFX"
 
 [node name="BgmPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 autoplay = true
 bus = &"BGM"

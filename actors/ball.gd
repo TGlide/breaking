@@ -9,6 +9,7 @@ class_name Ball
 
 const BASE_VEL = -300
 var started = false
+var paddle_was_last_hit = false
 
 func _physics_process(delta: float) -> void:
 	if Global.freeze_ball: return

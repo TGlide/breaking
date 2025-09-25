@@ -198,3 +198,9 @@ func _on_die() -> void:
 		change_screen.emit(GAME_OVER_SCREEN)
 		Global.lives = 3
 		Global.level = 1
+
+func game_over() -> void:
+	change_screen.emit(GAME_OVER_SCREEN)
+	Global.lives = 3
+	Global.level = 1
+	reset_mult()
