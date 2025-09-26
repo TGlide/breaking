@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 var config: ConfigFile = ConfigFile.new()
-var err := config.load(Global.CONFIG_PATH)
+var err := config.load(Constants.CONFIG_PATH)
 
 @onready var sound_btn: Button = $SoundBtn
 @onready var music_btn: Button = $MusicBtn
@@ -20,10 +20,10 @@ func _ready() -> void:
 
 func _on_sound_btn_pressed() -> void:
 	config.set_value("sound", "enabled", not config.get_value("sound", "enabled", true))
-	config.save(Global.CONFIG_PATH)
+	config.save(Constants.CONFIG_PATH)
 	_on_update()
 
 func _on_music_btn_pressed() -> void:
 	config.set_value("music", "enabled", not config.get_value("music", "enabled", true))
-	config.save(Global.CONFIG_PATH)
+	config.save(Constants.CONFIG_PATH)
 	_on_update()

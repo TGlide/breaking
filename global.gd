@@ -7,13 +7,34 @@ extends Node2D
 @onready var bgm_player: AudioStreamPlayer = $BgmPlayer
 
 var combo_vls = [ 
-	{ "src": preload("res://assets/voice/amazing.wav"), "label": "amazing!" },
-	{ "src": preload("res://assets/voice/incredible.wav"), "label": "*incredible*" },
-	{ "src": preload("res://assets/voice/combo.wav"), "label": "COMBO!" },
-	{ "src": preload("res://assets/voice/good-job.wav"), "label": "Good job!" },
-	{ "src": preload("res://assets/voice/nice.wav"), "label": "niiiice!" },
-	{ "src": preload("res://assets/voice/you-rock.wav"), "label": "you ROCK!!" },
-	{ "src": preload("res://assets/voice/unstoppable.wav"), "label": "UNSTOPPABLE!" },
+	{ 
+		"src": preload("res://assets/voice/amazing.wav"),
+		"id": Constants.ANNOUNCE.COMBO_AMAZING 
+	},
+	{
+		"src": preload("res://assets/voice/incredible.wav"),
+		"id": Constants.ANNOUNCE.COMBO_INCREDIBLE
+	},
+	{
+		"src": preload("res://assets/voice/combo.wav"),
+		"id": Constants.ANNOUNCE.COMBO_COMBO
+	},
+	{
+		"src": preload("res://assets/voice/good-job.wav"),
+		"id": Constants.ANNOUNCE.COMBO_GOOD_JOB
+	},
+	{
+		"src": preload("res://assets/voice/nice.wav"),
+		"id": Constants.ANNOUNCE.COMBO_NICE
+	},
+	{
+		"src": preload("res://assets/voice/you-rock.wav"),
+		"id": Constants.ANNOUNCE.COMBO_YOU_ROCK
+	},
+	{
+		"src": preload("res://assets/voice/unstoppable.wav"),
+		"id": Constants.ANNOUNCE.COMBO_UNSTOPPABLE
+	},
 ]
 
 var death_vls = [
@@ -25,7 +46,6 @@ var death_vls = [
 	preload("res://assets/voice/oops.wav"),
 ]
 
-const CONFIG_PATH = "user://config.cfg"
 const MAX_MULT = 9
 const MAX_WIDTH = 1800.0
 const POWERUPS = ["extra-ball", "bigger-paddle"]
@@ -34,15 +54,6 @@ const LEVEL_SCENE = preload("res://screens/level.tscn")
 const TITLE_SCREEN = preload("res://screens/title_screen.tscn")
 const GAME_OVER_SCREEN = preload("res://screens/game_over.tscn")
 
-var COLORS = {
-	"salmon": Color.html("#ea6262"),
-	"green": Color.html("#abdd64"),
-	"blue": Color.html("#aee2ff"),
-	"orange": Color.html("#ffb879"),
-	"cornflower": Color.html("#6d80fa"),
-	"yellow": Color.html("#fcef8d"),
-	"purple": Color.html("#8465ec"),
-}
 
 signal move_mouse(x: float)
 signal mouse_click
@@ -51,7 +62,7 @@ signal update_mult(mult: int)
 signal die
 signal change_screen(scene: PackedScene)
 signal hit_brick
-signal announce(text: String, color: Color)
+signal announce(id: Constants.ANNOUNCE)
 
 var lives = 3
 var score = 0
@@ -141,7 +152,7 @@ func _on_hit_brick() -> void:
 		var timer = get_tree().create_timer(0.1)
 		timer.connect("timeout", func(): voice_player.play())
 		next_voice_trigger += randi_range(vt_lb, vt_ub)
-		announce.emit(combo_vl["label"], COLORS["salmon"])
+		announce.emit(combo_vl["id"])
 		 
 
 	hit_brick_sound.pitch_scale = 0.9 + ((mult - 1) * 0.1)
@@ -213,4 +224,6 @@ func game_over() -> void:
 	change_screen.emit(GAME_OVER_SCREEN)
 	Global.lives = 3
 	Global.level = 1
+	
+
 	reset_mult()

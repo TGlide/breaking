@@ -48,7 +48,7 @@ func load_level() -> void:
 				for brick in row:
 					total_bricks += 1
 					var color_name = brick["color"]
-					var color = Global.COLORS.get(color_name, Color.WHITE)
+					var color = Constants.COLORS.get(color_name, Color.WHITE)
 					row_configs.append({"color": color, "power": brick.has("power")})
 				bricks.append(row_configs)
 
@@ -121,11 +121,11 @@ func _on_brick_hit(brick: Brick) -> void:
 			new_ball.start()
 			new_ball.position.x = 200
 			new_ball.position.y = paddle.position.y - 24
-			Global.announce.emit("extra ball", Global.COLORS['cornflower'])
+			Global.announce.emit(Constants.ANNOUNCE.POWERUP_EXTRA_BALL)
 
 		"bigger-paddle":
 			paddle.growy_boi()
-			Global.announce.emit("BIG PADDLE!", Global.COLORS['salmon'])
+			Global.announce.emit(Constants.ANNOUNCE.POWERUP_BIGGER_PADDLE)
 		null:
 			return
 
