@@ -7,13 +7,13 @@ extends Node2D
 @onready var bgm_player: AudioStreamPlayer = $BgmPlayer
 
 var combo_vls = [ 
-	preload("res://assets/voice/amazing.wav"),
-	preload("res://assets/voice/incredible.wav"),
-	preload("res://assets/voice/combo.wav"),
-	preload("res://assets/voice/good-job.wav"),
-	preload("res://assets/voice/nice.wav"),
-	preload("res://assets/voice/you-rock.wav"),
-	preload("res://assets/voice/unstoppable.wav"),
+	{ "src": preload("res://assets/voice/amazing.wav"), "label": "amazing!" },
+	{ "src": preload("res://assets/voice/incredible.wav"), "label": "*incredible*" },
+	{ "src": preload("res://assets/voice/combo.wav"), "label": "COMBO!" },
+	{ "src": preload("res://assets/voice/good-job.wav"), "label": "Good job!" },
+	{ "src": preload("res://assets/voice/nice.wav"), "label": "niiiice!" },
+	{ "src": preload("res://assets/voice/you-rock.wav"), "label": "you ROCK!!" },
+	{ "src": preload("res://assets/voice/unstoppable.wav"), "label": "UNSTOPPABLE!" },
 ]
 
 var death_vls = [
@@ -60,7 +60,9 @@ var level = 1
 var freeze_ball = false
 
 var consecutive_hits = 0
-var next_voice_trigger = randi_range(4, 6)
+var vt_lb = 4
+var vt_ub = 7
+var next_voice_trigger = randi_range(vt_lb, vt_ub)
 
 var music_path = "res://assets/music/"
 func get_random_music() -> String:
@@ -94,7 +96,7 @@ func _get_rand_combo_vl():
 func reset_mult() -> void:
 	mult = 1
 	consecutive_hits = 0
-	next_voice_trigger = randi_range(4, 6)
+	next_voice_trigger = randi_range(vt_lb, vt_ub)
 	update_mult.emit(mult)
 
 var levels_path = "res://levels/"
@@ -134,10 +136,12 @@ func _on_hit_brick() -> void:
 
 	if consecutive_hits == next_voice_trigger and !voice_player.playing:
 		var combo_vl = _get_rand_combo_vl()
-		voice_player.stream = combo_vl
+
+		voice_player.stream = combo_vl["src"]
 		var timer = get_tree().create_timer(0.1)
 		timer.connect("timeout", func(): voice_player.play())
-		next_voice_trigger += randi_range(5, 9)
+		next_voice_trigger += randi_range(vt_lb, vt_ub)
+		announce.emit(combo_vl["label"], COLORS["salmon"])
 		 
 
 	hit_brick_sound.pitch_scale = 0.9 + ((mult - 1) * 0.1)

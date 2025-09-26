@@ -11,7 +11,8 @@ func _ready() -> void:
 
 func _on_announce(text: String, color: Color) -> void:
 	if player.is_playing(): 
-		queue.append({"text": text,"color": color})
+		player.speed_scale = 2
+		queue.append({"text": text, "color": color})
 		return
 
 	label.text = text
@@ -24,10 +25,8 @@ func _on_announce(text: String, color: Color) -> void:
 
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
-	print(queue)
-	if player.is_playing():
-		player.stop()
-
 	var params = queue.pop_front()
 	if params:
 		_on_announce(params['text'], params['color'])
+	else: 
+		player.speed_scale = 1
