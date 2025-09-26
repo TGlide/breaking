@@ -34,6 +34,16 @@ const LEVEL_SCENE = preload("res://screens/level.tscn")
 const TITLE_SCREEN = preload("res://screens/title_screen.tscn")
 const GAME_OVER_SCREEN = preload("res://screens/game_over.tscn")
 
+var COLORS = {
+	"salmon": Color.html("#ea6262"),
+	"green": Color.html("#abdd64"),
+	"blue": Color.html("#aee2ff"),
+	"orange": Color.html("#ffb879"),
+	"cornflower": Color.html("#6d80fa"),
+	"yellow": Color.html("#fcef8d"),
+	"purple": Color.html("#8465ec"),
+}
+
 signal move_mouse(x: float)
 signal mouse_click
 signal update_score(score: int)
@@ -41,6 +51,7 @@ signal update_mult(mult: int)
 signal die
 signal change_screen(scene: PackedScene)
 signal hit_brick
+signal announce(text: String, color: Color)
 
 var lives = 3
 var score = 0
@@ -50,7 +61,6 @@ var freeze_ball = false
 
 var consecutive_hits = 0
 var next_voice_trigger = randi_range(4, 6)
-var paddle_was_last_hit = false
 
 var music_path = "res://assets/music/"
 func get_random_music() -> String:
@@ -105,19 +115,15 @@ func next_level() -> void:
 	change_screen.emit(LEVEL_SCENE)
 
 func _on_hit_wall() -> void:
-	paddle_was_last_hit = false
 	hit_sound.pitch_scale = 1.0 
 	hit_sound.play()
 
 func _on_hit_paddle() -> void:
 	reset_mult()
-	if !paddle_was_last_hit:
-		hit_sound.pitch_scale = 1.1
-		hit_sound.play()
-	paddle_was_last_hit = true
+	hit_sound.pitch_scale = 1.1
+	hit_sound.play()
 
 func _on_hit_brick() -> void:
-	paddle_was_last_hit = false
 	score += 10 * mult
 	consecutive_hits += 1
 	mult = mini(mult + 1, MAX_MULT)

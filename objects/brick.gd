@@ -16,8 +16,8 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if collision_dir == null: return
-	texture.position += collision_dir * delta *30
-	texture.modulate.a -= 5 * delta
+	texture.position += collision_dir * delta *20
+	texture.modulate.a -= 4.25 * delta
 
 signal hit
 func on_hit(dir: Vector2) -> void:
@@ -31,7 +31,7 @@ func on_hit(dir: Vector2) -> void:
 	_create_shatter_fragments(dir)
 	
 	var timer = Timer.new()
-	timer.wait_time = 0.1
+	timer.wait_time = 0.5
 	timer.one_shot = true
 	timer.timeout.connect(queue_free)
 	add_child(timer)

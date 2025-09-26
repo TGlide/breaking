@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbts3cao1euxs"]
+[gd_scene load_steps=16 format=3 uid="uid://dbts3cao1euxs"]
 
 [ext_resource type="Script" uid="uid://ddo2yah3ujd1l" path="res://screens/level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://sox0hoiq8hy" path="res://actors/paddle.tscn" id="1_u52ul"]
 [ext_resource type="PackedScene" uid="uid://b37njjhl571y5" path="res://objects/wall.tscn" id="2_vonw3"]
+[ext_resource type="PackedScene" uid="uid://3hlcds0gip4s" path="res://ui/announcer.tscn" id="3_0ohtp"]
 [ext_resource type="PackedScene" uid="uid://df4fg1swbwr84" path="res://actors/ball.tscn" id="3_oi3di"]
 [ext_resource type="Shader" uid="uid://cigva42xypfcd" path="res://shaders/drop-shadow.gdshader" id="5_f2txt"]
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="6_1ainy"]
@@ -115,5 +116,7 @@ offset_bottom = 55.0
 icon = ExtResource("7_i4hy1")
 
 [node name="PauseMenu" parent="." instance=ExtResource("8_e11ai")]
+
+[node name="Announcer" parent="." instance=ExtResource("3_0ohtp")]
 
 [connection signal="body_entered" from="DeathArea" to="." method="_on_death_area_entered"]

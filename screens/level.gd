@@ -9,15 +9,6 @@ const ball_scene: PackedScene = preload("res://actors/ball.tscn")
 @onready var mult_label: Label = $Multiplier
 @onready var pause_menu: PauseMenu = $PauseMenu
 
-var COLORS = {
-	"salmon": Color(0.917647, 0.384314, 0.384314, 1),
-	"green": Color(0.670588, 0.866667, 0.392157, 1),
-	"blue": Color(0.682353, 0.886275, 1, 1),
-	"orange": Color(1, 0.721569, 0.47451, 1),
-	"cornflower": Color.html("#6d80fa"),
-	"yellow": Color.html("#fcef8d"),
-	"purple": Color.html("#8465ec"),
-}
 
 const MARGIN_HOR = 72
 const MARGIN_TOP = 116
@@ -39,7 +30,6 @@ func _ready() -> void:
 	load_level()
 	create_bricks()
 
-
 func load_level() -> void:
 	var file = FileAccess.open("res://levels/%s.json" % Global.level, FileAccess.READ)
 	if file:
@@ -58,7 +48,7 @@ func load_level() -> void:
 				for brick in row:
 					total_bricks += 1
 					var color_name = brick["color"]
-					var color = COLORS.get(color_name, Color.WHITE)
+					var color = Global.COLORS.get(color_name, Color.WHITE)
 					row_configs.append({"color": color, "power": brick.has("power")})
 				bricks.append(row_configs)
 
@@ -131,13 +121,13 @@ func _on_brick_hit(brick: Brick) -> void:
 			new_ball.start()
 			new_ball.position.x = 200
 			new_ball.position.y = paddle.position.y - 24
+			Global.announce.emit("extra ball", Global.COLORS['cornflower'])
+
 		"bigger-paddle":
 			paddle.growy_boi()
+			Global.announce.emit("BIG PADDLE!", Global.COLORS['salmon'])
 		null:
 			return
-
-					
-
 
 func _on_death_area_entered(body: Node2D) -> void:
 	if body is Ball:

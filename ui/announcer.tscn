@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://3hlcds0gip4s"]
+
+[ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="1_oc4en"]
+[ext_resource type="Script" uid="uid://crcsqj54v6cwi" path="res://ui/announcer.gd" id="1_yfwhh"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qgqxs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yfwhh"]
+font = ExtResource("1_oc4en")
+font_size = 32
+font_color = Color(0.91764706, 0.38431373, 0.38431373, 1)
+
+[sub_resource type="Animation" id="Animation_oc4en"]
+resource_name = "announce"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33343333, 2.3333333, 3),
+"transitions": PackedFloat32Array(0.43527657, 1, 0.435, 0.435),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.8, 2.2666664, 2.8666666),
+"transitions": PackedFloat32Array(0.29711375, 1, 0.57376623, 0.435),
+"update": 0,
+"values": [Vector2(-500, 255), Vector2(0, 255), Vector2(0, 255), Vector2(500, 255)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ymbcc"]
+_data = {
+&"announce": SubResource("Animation_oc4en")
+}
+
+[node name="Announcer" type="CanvasLayer"]
+script = ExtResource("1_yfwhh")
+
+[node name="BG" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.5721545, 0.543373, 1)
+custom_minimum_size = Vector2(0, 40)
+offset_top = 255.0
+offset_right = 656.0
+offset_bottom = 295.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1e-05)
+pivot_offset = Vector2(0, 20)
+texture = SubResource("CanvasTexture_qgqxs")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_top = 0.46363637
+anchor_right = 1.0
+anchor_bottom = 0.53636366
+offset_left = -500.0
+offset_right = -500.0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "NICE!"
+label_settings = SubResource("LabelSettings_yfwhh")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_ymbcc")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

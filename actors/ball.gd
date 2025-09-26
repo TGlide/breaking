@@ -64,6 +64,7 @@ func start(pos: Vector2 = Vector2.ZERO) -> void:
 	velocity.y = BASE_VEL
 	# change velocity angle randomly
 	velocity = velocity.rotated(deg_to_rad(randf_range(-20, 20)))
+	fall_timer.start()
 
 
 func stop() -> void:
