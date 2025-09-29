@@ -16,4 +16,4 @@ Breakout clone built with Godot 4.5.
   - [ ] Homing
 - [x] Announcer UI
 - [ ] More voice lines
-- [ ] Shadow shaders
+- [x] Shadow shaders

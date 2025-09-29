@@ -114,7 +114,6 @@ func _on_brick_hit(brick: Brick) -> void:
 
 	match brick.powerup:
 		"extra-ball":
-			print("extra-ball")
 			total_balls += 1
 			var new_ball = ball_scene.instantiate()
 			add_child(new_ball)
@@ -126,6 +125,10 @@ func _on_brick_hit(brick: Brick) -> void:
 		"bigger-paddle":
 			paddle.growy_boi()
 			Global.announce.emit(Constants.ANNOUNCE.POWERUP_BIGGER_PADDLE)
+				
+		"slowdown":
+			get_tree().call_group("balls", "slowdown")
+			Global.announce.emit(Constants.ANNOUNCE.POWERUP_SLOWDOWN)
 		null:
 			return
 

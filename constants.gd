@@ -22,7 +22,14 @@ enum ANNOUNCE {
 	COMBO_UNSTOPPABLE,
 	# Powerups
 	POWERUP_EXTRA_BALL,
-	POWERUP_BIGGER_PADDLE
+	POWERUP_BIGGER_PADDLE,
+	POWERUP_SLOWDOWN
 }
 
 const CONFIG_PATH = "user://config.cfg"
+
+const POWERUPS = [
+	"extra-ball",
+	"bigger-paddle",
+	"slowdown",
+]

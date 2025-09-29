@@ -70,3 +70,15 @@ func start(pos: Vector2 = Vector2.ZERO) -> void:
 func stop() -> void:
 	velocity.x = 0
 	velocity.y = 0
+
+
+const SLOW_FACTOR = 0.5
+func slowdown() -> void:
+	var before_slowdown = velocity.length()
+	velocity = velocity.normalized() * before_slowdown * SLOW_FACTOR
+	fall_timer.wait_time /= SLOW_FACTOR
+	get_tree().create_timer(5.0).timeout.connect(func(): 
+		velocity = velocity.normalized() * before_slowdown
+		fall_timer.wait_time *= SLOW_FACTOR
+	)
+

@@ -6,7 +6,6 @@ class_name BrickFragment
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 var lifetime: float = 6.0
-var fade_time: float = 1.0
 var initial_color: Color = Color.WHITE
 
 var SCALE_UNIT = 2
@@ -16,9 +15,9 @@ var shadow_offset = Vector2(2, 2)  # Fixed shadow offset (bottom-right)
 func _ready():
 	# Start lifetime timer
 	var timer = Timer.new()
-	timer.wait_time = lifetime - fade_time
+	timer.wait_time = lifetime 
 	timer.one_shot = true
-	timer.timeout.connect(_start_fade)
+	timer.timeout.connect(queue_free)
 	add_child(timer)
 	timer.start()
 
@@ -73,11 +72,4 @@ func _physics_process(delta: float):
 	# Shadow should stay in world space, not rotate with the fragment
 	shadow.global_position = global_position + shadow_offset
 
-	modulate.a = clamp(modulate.a - 0.75 * delta, 0.0, 1.0)
-
-func _start_fade():
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(sprite, "modulate:a", 0.0, fade_time)
-	tween.tween_property(shadow, "modulate:a", 0.0, fade_time)
-	tween.chain().tween_callback(queue_free)
+	modulate.a = clamp(modulate.a - 0.25 * delta, 0.0, 1.0)

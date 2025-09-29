@@ -41,6 +41,10 @@ var params_map: Dictionary = {
 		"text": "BIG BOI PADDLE",
 		"color": Constants.COLORS["salmon"]
 	},
+	Constants.ANNOUNCE.POWERUP_SLOWDOWN: {
+		"text": "slowdown!",
+		"color": Constants.COLORS["purple"]
+	},
 }
 
 var queue: Array = []
