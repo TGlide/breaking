@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://rkid5f6py4k5"]
+[gd_scene load_steps=7 format=3 uid="uid://rkid5f6py4k5"]
 
 [ext_resource type="Script" uid="uid://ds1an3t104igg" path="res://objects/brick.gd" id="1_hbwgr"]
 [ext_resource type="Texture2D" uid="uid://b1i3siifc6nun" path="res://assets/brick.aseprite" id="2_2u2la"]
+[ext_resource type="Material" uid="uid://xw1pf01bw3g" path="res://shaders/yay-shadow-material.tres" id="2_pm7ss"]
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="5_pm7ss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbwgr"]
@@ -21,6 +22,7 @@ shape = SubResource("RectangleShape2D_hbwgr")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.988235, 0.937255, 0.552941, 1)
+material = ExtResource("2_pm7ss")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

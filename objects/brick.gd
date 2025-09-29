@@ -13,6 +13,12 @@ var brick_color: Color = Color.WHITE
 
 func _ready():
 	brick_color = texture.modulate
+	var s: ShaderMaterial = texture.material.duplicate()
+	var shadow = brick_color
+	shadow.a = 0.5
+	shadow = shadow.darkened(0.5)
+	s.set_shader_parameter("color", shadow)
+	texture.material = s
 
 func _process(delta: float) -> void:
 	if collision_dir == null: return

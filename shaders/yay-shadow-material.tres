@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://xw1pf01bw3g"]
+
+[ext_resource type="Shader" uid="uid://bg1v60rhm2f7j" path="res://shaders/yay-shadow.gdshader" id="1_x5xmo"]
+
+[resource]
+shader = ExtResource("1_x5xmo")
+shader_parameter/debug = false
+shader_parameter/shadow_offset = Vector2(-1, -1)
+shader_parameter/color = Color(0.72, 0.72, 0.72, 0.09803922)
+shader_parameter/blur_amount = 0.0
+shader_parameter/disable_rotating = false
