@@ -53,7 +53,9 @@ func setup(brick: Brick, collision_direction: Vector2) -> void:
 	sprite.scale = SCALE
 	
 	# Set up shadow with same texture but darker
-	shadow.modulate = Color(0, 0, 0, 0.5)  
+	var shadow_color = brick.brick_color.darkened(0.5)
+	shadow_color.a = 0.5
+	shadow.modulate = shadow_color
 	shadow.region_enabled = true
 	shadow.region_rect = Rect2(fragment_index * 5, 0, 5, 6)
 	shadow.scale = SCALE
