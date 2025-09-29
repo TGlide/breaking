@@ -129,6 +129,9 @@ func _on_brick_hit(brick: Brick) -> void:
 		"slowdown":
 			get_tree().call_group("balls", "slowdown")
 			Global.announce.emit(Constants.ANNOUNCE.POWERUP_SLOWDOWN)
+		"piercing":
+			get_tree().call_group("balls", "enable_piercing")
+			Global.announce.emit(Constants.ANNOUNCE.POWERUP_PIERCING)
 		null:
 			return
 

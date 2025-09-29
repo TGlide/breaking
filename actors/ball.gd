@@ -1,18 +1,29 @@
 extends CharacterBody2D
 class_name Ball
 
+var ball_texture = preload("res://assets/ball.aseprite")
+var piercing_texture = preload("res://assets/ball-piercing.aseprite")
+
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var texture_rect: TextureRect = $TextureRect
 @onready var particle_trail: CPUParticles2D = $ParticleTrail
 @onready var radius: float = collision_shape.shape.radius 
 @onready var debug_angle: Label = $DebugAngle
 @onready var fall_timer: Timer = $FallTimer
 
 const BASE_VEL = -300
+
 var started = false
 var paddle_was_last_hit = false
+var piercing = false
 
 func _physics_process(delta: float) -> void:
 	if Global.freeze_ball: return
+
+	if piercing:
+		rotation = velocity.angle() + deg_to_rad(90)
+	else:
+		rotation = deg_to_rad(0)
 
 	var collision = move_and_collide(velocity * delta)
 	var curr_angle := velocity.angle()
@@ -48,7 +59,8 @@ func _physics_process(delta: float) -> void:
 		elif collider is Brick:
 			Global._on_hit_brick()
 			collider.on_hit(velocity.normalized())
-			velocity = velocity.bounce(collision.get_normal())
+			if not piercing:
+				velocity = velocity.bounce(collision.get_normal())
 			velocity = velocity.normalized() * (velocity.length() + 5)
 		else:
 			velocity = velocity.bounce(collision.get_normal())
@@ -82,3 +94,11 @@ func slowdown() -> void:
 		fall_timer.wait_time *= SLOW_FACTOR
 	)
 
+
+func enable_piercing() -> void:
+	piercing = true
+	texture_rect.texture = piercing_texture
+	get_tree().create_timer(2.5).timeout.connect(func():
+		piercing = false
+		texture_rect.texture = ball_texture
+	)

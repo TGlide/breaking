@@ -45,6 +45,11 @@ var params_map: Dictionary = {
 		"text": "slowdown!",
 		"color": Constants.COLORS["purple"]
 	},
+	Constants.ANNOUNCE.POWERUP_PIERCING: {
+		"text": "pierce through!",
+		"color": Constants.COLORS["orange"].darkened(0.2),
+		"bg": Constants.COLORS["orange"].lightened(0.5)
+	},
 }
 
 var queue: Array = []
@@ -85,7 +90,9 @@ func _on_announce(id: Constants.ANNOUNCE) -> void:
 	else:
 		label.text = params.text
 		label.label_settings.font_color = params.color
-		if params.color.get_luminance() > 0.6:
+		if params.get("bg"):
+			bg.modulate = params.bg
+		elif params.color.get_luminance() > 0.6:
 			bg.modulate = params.color.darkened(0.25)
 		else:
 			bg.modulate = params.color.lightened(0.85)

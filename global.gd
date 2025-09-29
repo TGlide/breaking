@@ -48,11 +48,6 @@ var death_vls = [
 
 const MAX_MULT = 9
 const MAX_WIDTH = 1800.0
-const POWERUPS = [
-	"extra-ball",
-	"bigger-paddle",
-	"slowdown",
-]
 
 const LEVEL_SCENE = preload("res://screens/level.tscn")
 const TITLE_SCREEN = preload("res://screens/title_screen.tscn")
@@ -75,8 +70,8 @@ var level = 1
 var freeze_ball = false
 
 var consecutive_hits = 0
-var vt_lb = 4
-var vt_ub = 7
+var vt_lb = 6
+var vt_ub = 9
 var next_voice_trigger = randi_range(vt_lb, vt_ub)
 
 var music_path = "res://assets/music/"

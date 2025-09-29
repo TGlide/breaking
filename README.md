@@ -8,10 +8,12 @@ Breakout clone built with Godot 4.5.
   - Extra life
   - Change to explode on contact
   - Permanent powerups
+  - Cursed
+    - remove powerup while doubling likeliness of another powerup
 - [ ] More levels
 - [ ] More powerups
-  - [ ] Slowdown
-  - [ ] Pierce-through
+  - [x] Slowdown
+  - [x] Pierce-through
   - [ ] Exploding (Reze time)
   - [ ] Homing
 - [x] Announcer UI
