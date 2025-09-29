@@ -7,7 +7,7 @@ class_name Brick
 
 const fragment_scene: PackedScene = preload("res://objects/brick_fragment.tscn")
 
-var powerup = null
+var has_powerup = false
 var collision_dir = null
 var brick_color: Color = Color.WHITE
 
@@ -55,4 +55,4 @@ func _create_shatter_fragments(collision_direction: Vector2):
 
 func enable_powerup() -> void:
 	powerup_label.show()
-	powerup = Constants.POWERUPS[randi() % Constants.POWERUPS.size()]
+	has_powerup = true

@@ -18,6 +18,7 @@ var bricks = []
 var total_bricks = 0
 var total_balls = 1
 var started = false
+var last_powerup: String
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -111,8 +112,15 @@ func _on_brick_hit(brick: Brick) -> void:
 			paddle.reset_growy_boi()
 			Global.next_level()
 		)
+	if not brick.has_powerup: return
 
-	match brick.powerup:
+	var powerup = null
+	while powerup == last_powerup or powerup == null:
+		powerup = Constants.POWERUPS[randi() % Constants.POWERUPS.size()]
+			
+	last_powerup = powerup
+
+	match powerup:
 		"extra-ball":
 			total_balls += 1
 			var new_ball = ball_scene.instantiate()
@@ -127,6 +135,7 @@ func _on_brick_hit(brick: Brick) -> void:
 			Global.announce.emit(Constants.ANNOUNCE.POWERUP_BIGGER_PADDLE)
 				
 		"slowdown":
+			Global.on_slowdown()
 			get_tree().call_group("balls", "slowdown")
 			Global.announce.emit(Constants.ANNOUNCE.POWERUP_SLOWDOWN)
 		"piercing":

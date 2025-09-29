@@ -56,7 +56,9 @@ func _set_position(x: float) -> void:
 # make everything wider, from the texture to the collision shape
 const grow_factor = 1.5
 var curr_scale: float = 1.0
+var max_scale: float = 3
 func growy_boi() -> void:
+	if curr_scale >= max_scale: return
 	curr_scale *= grow_factor
 	texture_rect.size.x *= 1.5
 	texture_rect.position.x = -texture_rect.size.x / 2

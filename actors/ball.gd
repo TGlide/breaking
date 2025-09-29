@@ -10,12 +10,18 @@ var piercing_texture = preload("res://assets/ball-piercing.aseprite")
 @onready var radius: float = collision_shape.shape.radius 
 @onready var debug_angle: Label = $DebugAngle
 @onready var fall_timer: Timer = $FallTimer
+@onready var pierce_timer: Timer = $PierceTimer
 
 const BASE_VEL = -300
+const SLOW_FACTOR = 0.5
 
 var started = false
 var paddle_was_last_hit = false
 var piercing = false
+var slowdown = false
+
+func _ready() -> void:
+	Global.slowdown.connect(_on_slowdown)
 
 func _physics_process(delta: float) -> void:
 	if Global.freeze_ball: return
@@ -24,8 +30,8 @@ func _physics_process(delta: float) -> void:
 		rotation = velocity.angle() + deg_to_rad(90)
 	else:
 		rotation = deg_to_rad(0)
-
-	var collision = move_and_collide(velocity * delta)
+	var mult = 0.5 if Global.is_slowed_down else 1;
+	var collision = move_and_collide(velocity * delta * mult)
 	var curr_angle := velocity.angle()
 
 	if fall_timer.is_stopped():
@@ -84,21 +90,21 @@ func stop() -> void:
 	velocity.y = 0
 
 
-const SLOW_FACTOR = 0.5
-func slowdown() -> void:
-	var before_slowdown = velocity.length()
-	velocity = velocity.normalized() * before_slowdown * SLOW_FACTOR
-	fall_timer.wait_time /= SLOW_FACTOR
-	get_tree().create_timer(5.0).timeout.connect(func(): 
-		velocity = velocity.normalized() * before_slowdown
+func _on_slowdown(value: bool) -> void:
+	if value and not slowdown:
+		fall_timer.wait_time /= SLOW_FACTOR
+		pierce_timer.wait_time /= SLOW_FACTOR
+	elif not value and slowdown:
 		fall_timer.wait_time *= SLOW_FACTOR
-	)
-
+		pierce_timer.wait_time *= SLOW_FACTOR
+	slowdown = value
 
 func enable_piercing() -> void:
 	piercing = true
 	texture_rect.texture = piercing_texture
-	get_tree().create_timer(2.5).timeout.connect(func():
-		piercing = false
-		texture_rect.texture = ball_texture
-	)
+	pierce_timer.start()
+
+
+func _on_pierce_timer_timeout() -> void:
+	piercing = false
+	texture_rect.texture = ball_texture

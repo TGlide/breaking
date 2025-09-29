@@ -5,6 +5,7 @@ extends Node2D
 @onready var hit_brick_sound: AudioStreamPlayer = $HitBrickSoundPlayer
 @onready var voice_player: AudioStreamPlayer = $VoicePlayer
 @onready var bgm_player: AudioStreamPlayer = $BgmPlayer
+@onready var slow_timer: Timer = $SlowTimer
 
 var combo_vls = [ 
 	{ 
@@ -62,17 +63,18 @@ signal die
 signal change_screen(scene: PackedScene)
 signal hit_brick
 signal announce(id: Constants.ANNOUNCE)
+signal slowdown(value: bool)
 
 var lives = 3
 var score = 0
 var mult = 1
 var level = 1
 var freeze_ball = false
-
 var consecutive_hits = 0
 var vt_lb = 6
 var vt_ub = 9
 var next_voice_trigger = randi_range(vt_lb, vt_ub)
+var is_slowed_down = false
 
 var music_path = "res://assets/music/"
 func get_random_music() -> String:
@@ -223,6 +225,14 @@ func game_over() -> void:
 	change_screen.emit(GAME_OVER_SCREEN)
 	Global.lives = 3
 	Global.level = 1
-	
 
 	reset_mult()
+
+func on_slowdown() -> void:
+	is_slowed_down = true
+	slow_timer.start()
+	slowdown.emit(true)
+
+func _on_slow_timer_timeout() -> void:
+	is_slowed_down = false
+	slowdown.emit(false)

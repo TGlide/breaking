@@ -30,3 +30,8 @@ bus = &"SFX"
 process_mode = 3
 autoplay = true
 bus = &"BGM"
+
+[node name="SlowTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="SlowTimer" to="." method="_on_slow_timer_timeout"]
