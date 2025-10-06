@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://rkid5f6py4k5"]
+[gd_scene load_steps=8 format=3 uid="uid://rkid5f6py4k5"]
 
 [ext_resource type="Script" uid="uid://ds1an3t104igg" path="res://objects/brick.gd" id="1_hbwgr"]
 [ext_resource type="Texture2D" uid="uid://b1i3siifc6nun" path="res://assets/brick.aseprite" id="2_2u2la"]
 [ext_resource type="Material" uid="uid://xw1pf01bw3g" path="res://shaders/yay-shadow-material.tres" id="2_pm7ss"]
 [ext_resource type="FontFile" uid="uid://ch7hhv32y1i2y" path="res://assets/BoldPixels.otf" id="5_pm7ss"]
+[ext_resource type="PackedScene" uid="uid://dngf0qv6y5fq4" path="res://objects/explosion.tscn" id="5_y3bws"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbwgr"]
 size = Vector2(51, 19)
@@ -46,3 +47,6 @@ text = "P"
 label_settings = SubResource("LabelSettings_y3bws")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Explosion" parent="." instance=ExtResource("5_y3bws")]
+visible = false

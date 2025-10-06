@@ -56,6 +56,40 @@ var queue: Array = []
 
 func _ready() -> void:
 	Global.announce.connect(_on_announce)
+	print("fuck")
+
+var shades: Array[TextureRect] = []
+
+func _process(_delta: float) -> void:
+	var balls: Array = get_tree().get_nodes_in_group("balls")
+	var ball_count := balls.size()
+
+	# Add missing shades
+	while shades.size() < ball_count:
+		var new_shade := TextureRect.new()
+		bg.add_child(new_shade)
+		shades.append(new_shade)
+
+	# Remove extra shades
+	while shades.size() > ball_count:
+		print("bye bye")
+		var shade = shades.pop_back()
+		shade.queue_free()
+
+
+	# Update positions and properties
+	for i in range(shades.size()):
+		var ball: Ball = balls[i]
+		var shade: TextureRect = shades[i]
+		shade.texture = ball.texture_rect.texture
+		shade.modulate = label.label_settings.font_color
+		shade.modulate.a = 0.75
+		shade.size = ball.texture_rect.size
+
+		shade.global_position = ball.global_position - Vector2(shade.size.x/2, shade.size.y/2)				
+
+
+
 
 var tween: Tween
 func _on_announce(id: Constants.ANNOUNCE) -> void:

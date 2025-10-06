@@ -20,6 +20,7 @@ font_size = 48
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 process_priority = 10
+layer = 2
 visible = false
 script = ExtResource("1_npydk")
 

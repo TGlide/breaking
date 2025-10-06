@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://dngf0qv6y5fq4"]
+
+[ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="1_15jot"]
+[ext_resource type="Script" uid="uid://inulh8bscy7o" path="res://objects/explosion.gd" id="1_dgoop"]
+
+[sub_resource type="Curve" id="Curve_dgoop"]
+_data = [Vector2(0, 0.17199594), 0.0, 0.0, 0, 0, Vector2(0.10822511, 0.9698298), 0.0, 0.0, 0, 0, Vector2(0.56277055, 0.5373905), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_m0kxi"]
+colors = PackedColorArray(0, 0, 0, 1, 0.26, 0.26, 0.26, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 11
+
+[sub_resource type="Curve" id="Curve_15jot"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_m0kxi"]
+_data = [Vector2(0, 0.17199594), 0.0, 0.0, 0, 0, Vector2(0.10822511, 0.9698298), 0.0, 0.0, 0, 0, Vector2(0.78571427, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_6wl5f"]
+offsets = PackedFloat32Array(0, 0.27272728, 0.45454547, 0.6363636, 0.8181818, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.91764706, 0, 1, 1, 0.4, 0, 1, 0.7607843, 0, 0, 1, 0.15247649, 0.15247649, 0.15247646, 1, 0.15247649, 0.15247649, 0.15247646, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 11
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_dgoop")
+
+[node name="ParticlesBack" type="CPUParticles2D" parent="."]
+z_index = 10
+emitting = false
+amount = 1200
+texture = ExtResource("1_15jot")
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 13.32
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 100.0
+linear_accel_min = -75.0
+linear_accel_max = -75.0
+damping_max = 83.871
+angle_max = 360.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_dgoop")
+color_ramp = SubResource("Gradient_m0kxi")
+hue_variation_curve = SubResource("Curve_15jot")
+
+[node name="ParticlesFront" type="CPUParticles2D" parent="."]
+z_index = 10
+emitting = false
+amount = 200
+texture = ExtResource("1_15jot")
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 13.32
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+linear_accel_min = -75.0
+linear_accel_max = -75.0
+damping_max = 83.871
+angle_max = 360.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_m0kxi")
+color_ramp = SubResource("Gradient_6wl5f")
+hue_variation_curve = SubResource("Curve_15jot")

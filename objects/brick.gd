@@ -4,6 +4,7 @@ class_name Brick
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var texture: TextureRect = $TextureRect
 @onready var powerup_label: Label = $PowerupLabel
+@onready var explosion: Explosion = $Explosion
 
 const fragment_scene: PackedScene = preload("res://objects/brick_fragment.tscn")
 
@@ -27,6 +28,7 @@ func _process(delta: float) -> void:
 
 signal hit
 func on_hit(dir: Vector2) -> void:
+	explosion.explode()
 	hit.emit()
 	collision_dir = dir
 
@@ -37,7 +39,7 @@ func on_hit(dir: Vector2) -> void:
 	_create_shatter_fragments(dir)
 	
 	var timer = Timer.new()
-	timer.wait_time = 0.5
+	timer.wait_time = 5.0
 	timer.one_shot = true
 	timer.timeout.connect(queue_free)
 	add_child(timer)
