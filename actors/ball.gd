@@ -35,11 +35,10 @@ func _physics_process(delta: float) -> void:
 	var curr_angle := velocity.angle()
 
 	if fall_timer.is_stopped():
-		velocity = Vector2.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.2 * delta)) * velocity.length()
+		velocity = Vector2.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.5 * delta)) * velocity.length()
 
 	if collision:
 		var collider = collision.get_collider()
-		fall_timer.stop()
 		fall_timer.start()
 		if collider is Paddle:
 			var normal = collision.get_normal()

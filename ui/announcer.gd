@@ -85,6 +85,7 @@ func _process(_delta: float) -> void:
 		shade.modulate = label.label_settings.font_color
 		shade.modulate.a = 0.75
 		shade.size = ball.texture_rect.size
+		shade.rotation = ball.rotation
 
 		shade.global_position = ball.global_position - Vector2(shade.size.x/2, shade.size.y/2)				
 

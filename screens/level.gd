@@ -84,7 +84,7 @@ func create_bricks() -> void:
 			add_child(brick)
 
 			# Randomly give powerup
-			if ("power" in config and config.power) or randf() < 0.1:
+			if ("power" in config and config.power) or randf() < 0.5:
 				brick.enable_powerup()
 
 func _on_mouse_click() -> void:
@@ -109,7 +109,6 @@ func _on_brick_hit(brick: Brick) -> void:
 	if total_bricks == 0:
 		Global.freeze_ball = true
 		get_tree().create_timer(2).timeout.connect(func():
-			paddle.reset_growy_boi()
 			Global.next_level()
 		)
 	if not brick.has_powerup: return

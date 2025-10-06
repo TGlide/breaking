@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Paddle
 
 var life_texture = preload("res://assets/heart.aseprite")
+var shape = preload("res://assets/paddle_shape.tres")
 const LIFE_GAP = 4
 const LIFE_SCALE = 0.25
 
@@ -21,8 +22,6 @@ func update_boundaries() -> void:
 	right_boundary = boundaries.right - paddle_half_width
 
 func _ready() -> void:
-	growy_boi()
-	growy_boi()
 	reset_growy_boi()
 	update_boundaries()	
 	Global.move_mouse.connect(_set_position)
@@ -68,6 +67,6 @@ func growy_boi() -> void:
 func reset_growy_boi() -> void:
 	texture_rect.size.x /= curr_scale
 	texture_rect.position.x = -texture_rect.size.x / 2
-	collision_shape.shape.size.x /= curr_scale
+	collision_shape.shape = shape.duplicate_deep()
 	curr_scale = 1.0
 	update_boundaries()

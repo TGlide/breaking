@@ -3,9 +3,7 @@
 [ext_resource type="Script" uid="uid://c72qgiftje3kr" path="res://actors/paddle.gd" id="1_0sbc1"]
 [ext_resource type="Texture2D" uid="uid://cu41i4n7pnjts" path="res://assets/paddle.aseprite" id="2_pbo5y"]
 [ext_resource type="Material" uid="uid://xw1pf01bw3g" path="res://shaders/yay-shadow-material.tres" id="2_thrtg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ut3sq"]
-size = Vector2(74, 9)
+[ext_resource type="Shape2D" uid="uid://bdk70kjs1pjuv" path="res://assets/paddle_shape.tres" id="4_u11vi"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pbo5y"]
 polygon = PackedVector2Array(-37, -2, -37, 3, 37, 3, 37, -2)
@@ -32,7 +30,7 @@ texture = ExtResource("2_pbo5y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_ut3sq")
+shape = ExtResource("4_u11vi")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false
