@@ -4,6 +4,8 @@ extends CanvasLayer
 @onready var label: Label = %Label
 @onready var player: AnimationPlayer = %AnimationPlayer
 
+var ball_shade: PackedScene = preload("res://actors/ball_shade.tscn")
+
 var params_map: Dictionary = {
 	Constants.ANNOUNCE.COMBO_AMAZING: {
 		"text": "amazing!",
@@ -56,9 +58,8 @@ var queue: Array = []
 
 func _ready() -> void:
 	Global.announce.connect(_on_announce)
-	print("fuck")
 
-var shades: Array[TextureRect] = []
+var shades: Array[BallShade] = []
 
 func _process(_delta: float) -> void:
 	var balls: Array = get_tree().get_nodes_in_group("balls")
@@ -66,31 +67,24 @@ func _process(_delta: float) -> void:
 
 	# Add missing shades
 	while shades.size() < ball_count:
-		var new_shade := TextureRect.new()
+		var new_shade := ball_shade.instantiate()
 		bg.add_child(new_shade)
 		shades.append(new_shade)
 
 	# Remove extra shades
 	while shades.size() > ball_count:
-		print("bye bye")
 		var shade = shades.pop_back()
 		shade.queue_free()
 
-
 	# Update positions and properties
 	for i in range(shades.size()):
-		var ball: Ball = balls[i]
-		var shade: TextureRect = shades[i]
-		shade.texture = ball.texture_rect.texture
-		shade.modulate = label.label_settings.font_color
-		shade.modulate.a = 0.75
-		shade.size = ball.texture_rect.size
+		var ball = balls[i]
+		var shade := shades[i]
+		shade.texture_rect.texture = ball.texture_rect.texture
+		shade.texture_rect.modulate = label.label_settings.font_color
+		shade.texture_rect.modulate.a = 0.75
 		shade.rotation = ball.rotation
-
-		shade.global_position = ball.global_position - Vector2(shade.size.x/2, shade.size.y/2)				
-
-
-
+		shade.global_position = ball.global_position 
 
 var tween: Tween
 func _on_announce(id: Constants.ANNOUNCE) -> void:
@@ -143,3 +137,4 @@ func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 		_on_announce(id)
 	else: 
 		player.speed_scale = 1
+		pass

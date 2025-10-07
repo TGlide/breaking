@@ -30,12 +30,12 @@ func _physics_process(delta: float) -> void:
 		rotation = velocity.angle() + deg_to_rad(90)
 	else:
 		rotation = deg_to_rad(0)
-	var mult = 0.5 if Global.is_slowed_down else 1;
+	var mult = 0.5 if Global.is_slowed_down else 1.0;
 	var collision = move_and_collide(velocity * delta * mult)
 	var curr_angle := velocity.angle()
 
 	if fall_timer.is_stopped():
-		velocity = Vector2.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.5 * delta)) * velocity.length()
+		velocity = Vector2.from_angle(lerp_angle(curr_angle, deg_to_rad(90), 0.3 * delta)) * velocity.length()
 
 	if collision:
 		var collider = collision.get_collider()

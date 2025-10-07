@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://btjy3rnmvso6f"]
+
+[ext_resource type="Script" uid="uid://cyiax0850syvq" path="res://actors/ball_shade.gd" id="1_1uuqr"]
+[ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="2_wade7"]
+
+[node name="BallShade" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_1uuqr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wade7")
+expand_mode = 1
