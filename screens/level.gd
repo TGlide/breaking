@@ -84,7 +84,7 @@ func create_bricks() -> void:
 			add_child(brick)
 
 			# Randomly give powerup
-			if ("power" in config and config.power) or randf() < 0.5:
+			if ("power" in config and config.power) or randf() < 0.1:
 				brick.enable_powerup()
 
 func _on_mouse_click() -> void:

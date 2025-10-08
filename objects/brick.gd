@@ -57,4 +57,5 @@ func _create_shatter_fragments(collision_direction: Vector2):
 
 func enable_powerup() -> void:
 	powerup_label.show()
+	powerup_label.modulate = brick_color.darkened(0.5)
 	has_powerup = true
