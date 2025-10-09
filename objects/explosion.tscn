@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dngf0qv6y5fq4"]
+[gd_scene load_steps=10 format=3 uid="uid://dngf0qv6y5fq4"]
 
 [ext_resource type="Texture2D" uid="uid://dlviqn5bal4q" path="res://assets/ball.aseprite" id="1_15jot"]
 [ext_resource type="Script" uid="uid://inulh8bscy7o" path="res://objects/explosion.gd" id="1_dgoop"]
+[ext_resource type="AudioStream" uid="uid://bw11yadc7ry4r" path="res://assets/explosion.wav" id="3_m0kxi"]
 
 [sub_resource type="Curve" id="Curve_dgoop"]
 _data = [Vector2(0, 0.17199594), 0.0, 0.0, 0, 0, Vector2(0.10822511, 0.9698298), 0.0, 0.0, 0, 0, Vector2(0.56277055, 0.5373905), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -27,7 +28,10 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 0.91764706, 0, 1, 1, 0.4, 0, 1, 0.76078
 metadata/_snap_enabled = true
 metadata/_snap_count = 11
 
-[node name="Explosion" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgoop"]
+radius = 43.046486
+
+[node name="Explosion" type="Area2D"]
 script = ExtResource("1_dgoop")
 
 [node name="ParticlesBack" type="CPUParticles2D" parent="."]
@@ -35,7 +39,7 @@ z_index = 10
 emitting = false
 amount = 1200
 texture = ExtResource("1_15jot")
-lifetime = 2.0
+lifetime = 3.0
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
@@ -79,3 +83,10 @@ scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_m0kxi")
 color_ramp = SubResource("Gradient_6wl5f")
 hue_variation_curve = SubResource("Curve_15jot")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dgoop")
+debug_color = Color(0.7877355, 0.42759225, 0.15678626, 0.41960785)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_m0kxi")

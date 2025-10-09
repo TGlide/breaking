@@ -8,7 +8,7 @@ class_name BrickFragment
 var lifetime: float = 6.0
 var initial_color: Color = Color.WHITE
 
-var SCALE_UNIT = 2
+var SCALE_UNIT = 1
 var SCALE = Vector2(SCALE_UNIT, SCALE_UNIT)
 var shadow_offset = Vector2(2, 2)  # Fixed shadow offset (bottom-right)
 

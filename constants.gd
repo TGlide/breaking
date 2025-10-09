@@ -10,7 +10,6 @@ var COLORS = {
 	"purple": Color.html("#8465ec"),
 }
 
-
 enum ANNOUNCE {
 	# Combos
 	COMBO_AMAZING,

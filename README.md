@@ -19,3 +19,5 @@ Breakout clone built with Godot 4.5.
 - [x] Announcer UI
 - [ ] More voice lines
 - [x] Shadow shaders
+- [ ] Explode bricks when nearing end of level
+- [ ] Random level order

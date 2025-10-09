@@ -5,10 +5,12 @@ class_name Brick
 @onready var texture: TextureRect = $TextureRect
 @onready var powerup_label: Label = $PowerupLabel
 @onready var explosion: Explosion = $Explosion
+@onready var explosion_label: Label = $ExplosionLabel
 
 const fragment_scene: PackedScene = preload("res://objects/brick_fragment.tscn")
 
 var has_powerup = false
+var has_explosion = false
 var collision_dir = null
 var brick_color: Color = Color.WHITE
 
@@ -28,12 +30,17 @@ func _process(delta: float) -> void:
 
 signal hit
 func on_hit(dir: Vector2) -> void:
-	explosion.explode()
-	hit.emit()
+	if collision_dir != null: return
+	Global._on_hit_brick()
 	collision_dir = dir
+	hit.emit()
+
+	if has_explosion: 
+		explosion.explode()
 
 	texture.modulate = Color.WHITE
 	powerup_label.hide()
+	explosion_label.hide()
 	collision_shape.disabled = true
 	
 	_create_shatter_fragments(dir)
@@ -56,6 +63,12 @@ func _create_shatter_fragments(collision_direction: Vector2):
 		
 
 func enable_powerup() -> void:
+	powerup_label.modulate = brick_color.darkened(0.35)
 	powerup_label.show()
-	powerup_label.modulate = brick_color.darkened(0.5)
 	has_powerup = true
+
+func enable_explosion() -> void:
+	explosion_label.modulate = brick_color.darkened(0.35)
+	explosion_label.show()
+	explosion.show()
+	has_explosion = true

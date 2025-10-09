@@ -62,7 +62,6 @@ func _physics_process(delta: float) -> void:
 			
 			Global._on_hit_paddle()
 		elif collider is Brick:
-			Global._on_hit_brick()
 			collider.on_hit(velocity.normalized())
 			if not piercing:
 				velocity = velocity.bounce(collision.get_normal())

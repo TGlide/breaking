@@ -50,3 +50,21 @@ vertical_alignment = 1
 
 [node name="Explosion" parent="." instance=ExtResource("5_y3bws")]
 visible = false
+
+[node name="ExplosionLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -9.5
+offset_right = 26.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "TNT"
+label_settings = SubResource("LabelSettings_y3bws")
+horizontal_alignment = 1
+vertical_alignment = 1
