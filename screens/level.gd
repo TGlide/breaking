@@ -53,11 +53,35 @@ func load_level() -> void:
 					row_configs.append({"color": color, "power": brick.has("power")})
 				bricks.append(row_configs)
 
+
+func get_pos_key(row: int, col: int) -> int:
+	return row * 1000 + col
+
 func create_bricks() -> void:
 	var boundaries = Global.calculate_boundaries()
 	var available_width = boundaries.right - boundaries.left
 
 	var total_cols = 0
+	var total_powerups = randi_range(3, 8)
+	var total_explosions = randi_range(1, 4)
+
+	var powerup_positions = []
+	while powerup_positions.size() < total_powerups:
+		var row = randi() % bricks.size()
+		var col = randi() % bricks[row].size()
+		var key = get_pos_key(row, col)
+		if powerup_positions.has(key): continue
+		powerup_positions.append(key)
+
+	var explosion_positions = []
+	while explosion_positions.size() < total_explosions:
+		var row = randi() % bricks.size()
+		var col = randi() % bricks[row].size()
+		var key = get_pos_key(row, col)
+		if explosion_positions.has(key): continue
+		explosion_positions.append(key)
+
+
 	for row in bricks:
 		total_cols = max(total_cols, row.size())
 
@@ -83,11 +107,11 @@ func create_bricks() -> void:
 
 			add_child(brick)
 
-			# Randomly give powerup
-			if ("power" in config and config.power) or randf() < 0.05:
+			var key = get_pos_key(row, col)
+
+			if powerup_positions.has(key):
 				brick.enable_powerup()
-			# Randomly give explosion
-			elif ("explosion" in config and config.explosion) or randf() < 0.05:
+			elif explosion_positions.has(key):
 				brick.enable_explosion()
 
 
