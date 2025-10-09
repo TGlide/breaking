@@ -87,7 +87,7 @@ func create_bricks() -> void:
 			if ("power" in config and config.power) or randf() < 0.05:
 				brick.enable_powerup()
 			# Randomly give explosion
-			elif ("explosion" in config and config.explosion) or randf() < 0.1:
+			elif ("explosion" in config and config.explosion) or randf() < 0.05:
 				brick.enable_explosion()
 
 

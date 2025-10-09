@@ -14,7 +14,7 @@ Breakout clone built with Godot 4.5.
 - [ ] More powerups
   - [x] Slowdown
   - [x] Pierce-through
-  - [ ] Exploding (Reze time)
+  - [x] Exploding (Reze time)
   - [ ] Homing
 - [x] Announcer UI
 - [ ] More voice lines

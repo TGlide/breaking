@@ -49,11 +49,11 @@ func _physics_process(delta: float) -> void:
 			elif normal.y > 0:
 				velocity = velocity.bounce(normal)
 			else:
-				velocity = (Vector2.UP * velocity.length()).rotated(clampf(
-					deg_to_rad((position.x - collider.position.x) / 0.5),
-					deg_to_rad(-45),
-					deg_to_rad(45)
-				))
+				var dist_from_center = global_position.x - collider.global_position.x
+				var half_width = collider.get_node("CollisionShape2D").shape.size.x / 2
+				var percent_from_center = dist_from_center / half_width
+
+				velocity = (Vector2.UP * velocity.length()).rotated(deg_to_rad(percent_from_center * 45))
 
 			var counter = 0
 			while collision and counter < 30:
