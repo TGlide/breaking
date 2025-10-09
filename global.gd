@@ -59,11 +59,11 @@ signal move_mouse(x: float)
 signal mouse_click
 signal update_score(score: int)
 signal update_mult(mult: int)
-signal die
 signal change_screen(scene: PackedScene)
 signal hit_brick
 signal announce(id: Constants.ANNOUNCE)
 signal slowdown(value: bool)
+signal lives_changed(lives: int)
 
 var lives = 3
 var score = 0
@@ -206,9 +206,10 @@ func _input(event: InputEvent) -> void:
 	var x_percent = x / mouse_area
 	move_mouse.emit(x_percent)
 
+
 func _on_die() -> void:
-	lives = max(lives - 1, 0)
-	die.emit()
+	Global.lives = max(lives - 1, 0)
+	lives_changed.emit(Global.lives)
 	reset_mult()
 
 	var random_index = randi() % death_vls.size()

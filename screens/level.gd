@@ -169,6 +169,10 @@ func _on_brick_hit(brick: Brick) -> void:
 		"piercing":
 			get_tree().call_group("balls", "enable_piercing")
 			Global.announce.emit(Constants.ANNOUNCE.POWERUP_PIERCING)
+		"extra-life":
+			Global.announce.emit(Constants.ANNOUNCE.POWERUP_EXTRA_LIFE)
+			Global.lives += 1
+			Global.lives_changed.emit(Global.lives)
 		null:
 			return
 

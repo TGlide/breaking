@@ -52,6 +52,10 @@ var params_map: Dictionary = {
 		"color": Constants.COLORS["orange"].darkened(0.2),
 		"bg": Constants.COLORS["orange"].lightened(0.5)
 	},
+	Constants.ANNOUNCE.POWERUP_EXTRA_LIFE: {
+		"text": "extra life!",
+		"color": Color.HOT_PINK
+	},
 }
 
 var queue: Array = []

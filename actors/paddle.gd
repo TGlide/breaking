@@ -25,16 +25,16 @@ func _ready() -> void:
 	reset_growy_boi()
 	update_boundaries()	
 	Global.move_mouse.connect(_set_position)
-	Global.die.connect(display_lives)
+	Global.lives_changed.connect(display_lives)
 
-	display_lives()
+	display_lives(Global.lives)
 
-func display_lives() -> void:
+func display_lives(lives: int) -> void:
 	get_tree().call_group("lives", "queue_free")
-	if Global.lives <= 0: return
+	if lives <= 0: return
 	var texture_width = life_texture.get_width() * LIFE_SCALE
 	var total_width = texture_width * (Global.lives) + LIFE_GAP * (Global.lives - 1)
-	for i in range(Global.lives):
+	for i in range(lives):
 		var life = TextureRect.new()
 		life.stretch_mode = TextureRect.STRETCH_SCALE
 		life.add_to_group("lives")

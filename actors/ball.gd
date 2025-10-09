@@ -39,8 +39,8 @@ func _physics_process(delta: float) -> void:
 
 	if collision:
 		var collider = collision.get_collider()
-		fall_timer.start()
 		if collider is Paddle:
+			fall_timer.start()
 			var normal = collision.get_normal()
 
 			# Hit the bottom
@@ -62,6 +62,7 @@ func _physics_process(delta: float) -> void:
 			
 			Global._on_hit_paddle()
 		elif collider is Brick:
+			fall_timer.start()
 			collider.on_hit(velocity.normalized())
 			if not piercing:
 				velocity = velocity.bounce(collision.get_normal())

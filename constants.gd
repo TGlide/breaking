@@ -24,6 +24,7 @@ enum ANNOUNCE {
 	POWERUP_BIGGER_PADDLE,
 	POWERUP_SLOWDOWN,
 	POWERUP_PIERCING,
+	POWERUP_EXTRA_LIFE,
 }
 
 const CONFIG_PATH = "user://config.cfg"
@@ -33,4 +34,5 @@ const POWERUPS = [
 	"bigger-paddle",
 	"slowdown",
 	"piercing",
+	"extra-life",
 ]
