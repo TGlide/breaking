@@ -13,6 +13,7 @@ config_version=5
 config/name="Breaking"
 run/main_scene="uid://qqmh3dfl5vwd"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/image="uid://b2vjeue7r4kme"
 config/icon="res://icon.svg"
 
 [autoload]
