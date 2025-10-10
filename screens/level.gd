@@ -32,7 +32,7 @@ func _ready() -> void:
 	create_bricks()
 
 func load_level() -> void:
-	var file = FileAccess.open("res://levels/%s.json" % Global.level, FileAccess.READ)
+	var file = FileAccess.open("res://levels/%s" % Global.level, FileAccess.READ)
 	if file:
 		var json_text = file.get_as_text()
 		file.close()
@@ -138,7 +138,7 @@ func _on_brick_hit(brick: Brick) -> void:
 	if total_bricks == 0:
 		Global.freeze_ball = true
 		get_tree().create_timer(2).timeout.connect(func():
-			Global.next_level()
+			Global.load_next_level()
 		)
 	if not brick.has_powerup: return
 

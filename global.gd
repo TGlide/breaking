@@ -10,7 +10,7 @@ extends Node2D
 var combo_vls = [ 
 	{ 
 		"src": preload("res://assets/voice/amazing.wav"),
-		"id": Constants.ANNOUNCE.COMBO_AMAZING 
+		"id": Constants.ANNOUNCE.COMBO_AMAZING
 	},
 	{
 		"src": preload("res://assets/voice/incredible.wav"),
@@ -68,13 +68,14 @@ signal lives_changed(lives: int)
 var lives = 3
 var score = 0
 var mult = 1
-var level = 1
 var freeze_ball = false
 var consecutive_hits = 0
 var vt_lb = 6
 var vt_ub = 9
 var next_voice_trigger = randi_range(vt_lb, vt_ub)
 var is_slowed_down = false
+var level = null
+var levels = []
 
 var music_path = "res://assets/music/"
 func get_random_music() -> String:
@@ -95,6 +96,16 @@ func _ready() -> void:
 	play_random_music()
 	bgm_player.finished.connect(play_random_music)
 
+	# get all levels
+	var dir := DirAccess.open(levels_path)
+	dir.list_dir_begin()
+	for file: String in dir.get_files():
+		if !file.ends_with(".json"): continue
+		levels.append(file)
+
+	load_next_level()
+
+
 
 var last_combo_i = -1
 func _get_rand_combo_vl():
@@ -112,20 +123,14 @@ func reset_mult() -> void:
 	update_mult.emit(mult)
 
 var levels_path = "res://levels/"
-func next_level() -> void:
+func load_next_level() -> void:
 	Global.reset_mult()
 	Global.freeze_ball = false
-	var total_levels = 0
+	var prev_level = level
+	while level == prev_level:
+		level = levels[randi() % levels.size()]
+	print(level)
 
-	var dir := DirAccess.open(levels_path)
-	dir.list_dir_begin()
-	for file: String in dir.get_files():
-		if !file.ends_with(".json"): continue
-		total_levels += 1
-
-	if total_levels == 0: return
-	level += 1
-	if level > total_levels: level = 1
 	change_screen.emit(LEVEL_SCENE)
 
 func _on_hit_wall() -> void:
@@ -220,12 +225,12 @@ func _on_die() -> void:
 	if lives == 0:
 		change_screen.emit(GAME_OVER_SCREEN)
 		Global.lives = 3
-		Global.level = 1
+		load_next_level()
 
 func game_over() -> void:
 	change_screen.emit(GAME_OVER_SCREEN)
 	Global.lives = 3
-	Global.level = 1
+	load_next_level()
 
 	reset_mult()
 
