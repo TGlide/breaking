@@ -76,24 +76,23 @@ color = Color(0, 0, 0, 0)
 metadata/_edit_lock_ = true
 
 [node name="Score" type="Label" parent="."]
-offset_left = 32.0
-offset_top = 31.0
+offset_left = 31.999998
+offset_top = 44.0
 offset_right = 624.0
-offset_bottom = 552.0
+offset_bottom = 565.0
 text = "0"
 label_settings = SubResource("LabelSettings_n6hdu")
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Multiplier" type="Label" parent="."]
 anchors_preset = -1
 anchor_left = -0.048780486
 anchor_right = 0.048780486
 offset_left = 32.0
-offset_top = 73.0
+offset_top = 86.0
 offset_right = 624.0
-offset_bottom = 594.0
+offset_bottom = 607.0
 text = "x1"
 label_settings = SubResource("LabelSettings_1ainy")
 horizontal_alignment = 1

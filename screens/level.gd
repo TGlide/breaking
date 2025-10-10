@@ -11,7 +11,8 @@ const ball_scene: PackedScene = preload("res://actors/ball.tscn")
 
 
 const MARGIN_HOR = 72
-const MARGIN_TOP = 116
+const MARGIN_TOP = 108
+const GAP_X = 5
 const GAP_Y = 4
 
 var bricks = []
@@ -61,9 +62,12 @@ func create_bricks() -> void:
 	var boundaries = Global.calculate_boundaries()
 	var available_width = boundaries.right - boundaries.left
 
-	var total_cols = 0
-	var total_powerups = randi_range(3, 8)
-	var total_explosions = randi_range(1, 4)
+	var total_cols := 0
+	for row in bricks:
+		total_cols = max(total_cols, row.size())
+
+	var total_powerups = randi_range(total_bricks / 15.0, total_bricks / 10.0)
+	var total_explosions = randi_range(total_bricks / 20.0, total_bricks / 15.0)
 
 	var powerup_positions = []
 	while powerup_positions.size() < total_powerups:
@@ -91,21 +95,21 @@ func create_bricks() -> void:
 			var config = configs[col]
 			var brick = brick_scene.instantiate()
 			brick.hit.connect(func(): _on_brick_hit(brick))
-			var texture_rect = brick.get_node("TextureRect") as TextureRect
-			var size = texture_rect.size
+			add_child(brick)
 			
-			# Calculate total space available for gaps
-			var total_gap_space = available_width - (MARGIN_HOR * 2) - (total_cols * size.x)
-			var gap_x = total_gap_space / (total_cols - 1)
+			# Calculate total space available for bricks
+			var total_brick_space = available_width - (MARGIN_HOR * 2) - ((total_cols-1) * GAP_X)
+			var brick_width = total_brick_space / total_cols
+
+			brick.change_width(brick_width)
+			var size = brick.texture.size * brick.scale
 			
 			# Position: left margin + half brick width + column * (brick width + gap)
-			brick.position.x = boundaries.left + MARGIN_HOR + size.x/2 + col * (size.x + gap_x)
+			brick.position.x = boundaries.left + MARGIN_HOR + size.x/2 + col * (size.x + GAP_X)
 			brick.position.y = MARGIN_TOP + row * (GAP_Y + size.y)
 
 			# Apply color
-			texture_rect.modulate = config["color"]
-
-			add_child(brick)
+			brick.set_color(config["color"])
 
 			var key = get_pos_key(row, col)
 
@@ -139,6 +143,7 @@ func _on_brick_hit(brick: Brick) -> void:
 		Global.freeze_ball = true
 		get_tree().create_timer(2).timeout.connect(func():
 			Global.load_next_level()
+			Global.change_screen.emit(Global.LEVEL_SCENE)
 		)
 	if not brick.has_powerup: return
 

@@ -14,7 +14,9 @@ var has_explosion = false
 var collision_dir = null
 var brick_color: Color = Color.WHITE
 
-func _ready():
+
+func set_color(color: Color) -> void:
+	texture.modulate = color
 	brick_color = texture.modulate
 	var s: ShaderMaterial = texture.material.duplicate()
 	var shadow = brick_color
@@ -27,6 +29,11 @@ func _process(delta: float) -> void:
 	if collision_dir == null: return
 	texture.position += collision_dir * delta *20
 	texture.modulate.a -= 4.25 * delta
+
+func change_width(width: float) -> void:
+	var ratio: float = width / collision_shape.shape.size.x
+	scale = Vector2.ONE * ratio
+
 
 signal hit
 func on_hit(dir: Vector2) -> void:

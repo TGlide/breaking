@@ -17,7 +17,6 @@ font = ExtResource("5_pm7ss")
 script = ExtResource("1_hbwgr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_hbwgr")
 

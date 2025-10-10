@@ -1,74 +1,74 @@
 {
-	"bricks": [
-		[
-			{ "color": "salmon", "power": true },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" },
-			{ "color": "salmon" }
-		],
-		[
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange" },
-			{ "color": "orange", "power": true  },
-			{ "color": "orange" },
-			{ "color": "orange" }
-		],
-		[
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" },
-			{ "color": "yellow" }
-		],
-		[
-			{ "color": "green" },
-			{ "color": "green", "power": true  },
-			{ "color": "green" },
-			{ "color": "green" },
-			{ "color": "green" },
-			{ "color": "green" },
-			{ "color": "green" },
-			{ "color": "green" }
-		],
-		[
-			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" },
-			{ "color": "blue" }
-		],
-		[
-			{ "color": "cornflower" },
-			{ "color": "cornflower" },
-			{ "color": "cornflower" },
-			{ "color": "cornflower" },
-			{ "color": "cornflower" },
-			{ "color": "cornflower" },
-			{ "color": "cornflower" },
-			{ "color": "cornflower" }
-		],
-		[
-			{ "color": "purple"},
-			{ "color": "purple"},
-			{ "color": "purple"},
-			{ "color": "purple", "power": true },
-			{ "color": "purple"},
-			{ "color": "purple"},
-			{ "color": "purple"},
-			{ "color": "purple"}
-		]
-	]
+  "bricks": [
+    [
+      { "color": "salmon" },
+      { "color": "salmon" },
+      { "color": "salmon" },
+      { "color": "salmon" },
+      { "color": "salmon" },
+      { "color": "salmon" },
+      { "color": "salmon" },
+      { "color": "salmon" }
+    ],
+    [
+      { "color": "orange" },
+      { "color": "orange" },
+      { "color": "orange" },
+      { "color": "orange" },
+      { "color": "orange" },
+      { "color": "orange" },
+      { "color": "orange" },
+      { "color": "orange" }
+    ],
+    [
+      { "color": "yellow" },
+      { "color": "yellow" },
+      { "color": "yellow" },
+      { "color": "yellow" },
+      { "color": "yellow" },
+      { "color": "yellow" },
+      { "color": "yellow" },
+      { "color": "yellow" }
+    ],
+    [
+      { "color": "green" },
+      { "color": "green" },
+      { "color": "green" },
+      { "color": "green" },
+      { "color": "green" },
+      { "color": "green" },
+      { "color": "green" },
+      { "color": "green" }
+    ],
+    [
+      { "color": "blue" },
+      { "color": "blue" },
+      { "color": "blue" },
+      { "color": "blue" },
+      { "color": "blue" },
+      { "color": "blue" },
+      { "color": "blue" },
+      { "color": "blue" }
+    ],
+    [
+      { "color": "cornflower" },
+      { "color": "cornflower" },
+      { "color": "cornflower" },
+      { "color": "cornflower" },
+      { "color": "cornflower" },
+      { "color": "cornflower" },
+      { "color": "cornflower" },
+      { "color": "cornflower" }
+    ],
+    [
+      { "color": "purple" },
+      { "color": "purple" },
+      { "color": "purple" },
+      { "color": "purple" },
+      { "color": "purple" },
+      { "color": "purple" },
+      { "color": "purple" },
+      { "color": "purple" }
+    ]
+  ]
 }

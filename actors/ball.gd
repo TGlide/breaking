@@ -13,6 +13,7 @@ var piercing_texture = preload("res://assets/ball-piercing.aseprite")
 @onready var pierce_timer: Timer = $PierceTimer
 
 const BASE_VEL = -300
+const MAX_VEL = 500
 const SLOW_FACTOR = 0.5
 
 var started = false
@@ -26,10 +27,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Global.freeze_ball: return
 
-	if piercing:
-		rotation = velocity.angle() + deg_to_rad(90)
-	else:
-		rotation = deg_to_rad(0)
+	rotation = velocity.angle() + deg_to_rad(90)
 	var mult = 0.5 if Global.is_slowed_down else 1.0;
 	var collision = move_and_collide(velocity * delta * mult)
 	var curr_angle := velocity.angle()
@@ -66,7 +64,7 @@ func _physics_process(delta: float) -> void:
 			collider.on_hit(velocity.normalized())
 			if not piercing:
 				velocity = velocity.bounce(collision.get_normal())
-			velocity = velocity.normalized() * (velocity.length() + 5)
+			velocity = velocity.normalized() * (minf(velocity.length() + 10, MAX_VEL))
 		else:
 			velocity = velocity.bounce(collision.get_normal())
 			Global._on_hit_wall()

@@ -74,7 +74,7 @@ var vt_lb = 6
 var vt_ub = 9
 var next_voice_trigger = randi_range(vt_lb, vt_ub)
 var is_slowed_down = false
-var level = null
+var level = "stacked.json"
 var levels = []
 
 var music_path = "res://assets/music/"
@@ -103,10 +103,6 @@ func _ready() -> void:
 		if !file.ends_with(".json"): continue
 		levels.append(file)
 
-	load_next_level()
-
-
-
 var last_combo_i = -1
 func _get_rand_combo_vl():
 	var i = randi() % combo_vls.size()
@@ -129,9 +125,6 @@ func load_next_level() -> void:
 	var prev_level = level
 	while level == prev_level:
 		level = levels[randi() % levels.size()]
-	print(level)
-
-	change_screen.emit(LEVEL_SCENE)
 
 func _on_hit_wall() -> void:
 	hit_sound.pitch_scale = 1.0 
@@ -223,9 +216,7 @@ func _on_die() -> void:
 	voice_player.play()
 
 	if lives == 0:
-		change_screen.emit(GAME_OVER_SCREEN)
-		Global.lives = 3
-		load_next_level()
+		game_over()
 
 func game_over() -> void:
 	change_screen.emit(GAME_OVER_SCREEN)
