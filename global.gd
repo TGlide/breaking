@@ -77,19 +77,15 @@ var is_slowed_down = false
 var level = "stacked.json"
 var levels = []
 
-var music_path = "res://assets/music/"
-func get_random_music() -> String:
-	var music_files: Array[String] = []
-	var dir := DirAccess.open(music_path)
-	dir.list_dir_begin()
-	for file: String in dir.get_files():
-		if !file.ends_with(".wav"): continue
-		music_files.append(file)
-	
-	return music_files[randi() % music_files.size()]
+var music_files = [
+	preload("res://assets/music/backup_plan.wav"),
+	preload("res://assets/music/electronic_outlaw.wav"),
+	preload("res://assets/music/pixel_sprinter.wav"),
+	preload("res://assets/music/the_world_is_ours_0.wav"),
+]
 
 func play_random_music() -> void:
-	bgm_player.stream = load(music_path + get_random_music())
+	bgm_player.stream = music_files[randi() % music_files.size()]
 	bgm_player.play()
 
 func _ready() -> void:
